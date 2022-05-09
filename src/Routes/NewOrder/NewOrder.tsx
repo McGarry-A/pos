@@ -8,7 +8,7 @@ const NewOrder = () => {
       <NewOrderForm />
       <ProductGrid />
       <Basket />
-      <button className="block w-full bg-green-600 text-white uppercase tracking-widest py-2 rounded hover:bg-green-500">
+      <button className="w-full uppercase tracking-widest">
         Submit
       </button>
     </div>
