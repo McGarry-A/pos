@@ -1,4 +1,4 @@
-import { NavLink, Routes, Route } from "react-router-dom";
+import { NavLink, Routes, Route, Outlet } from "react-router-dom";
 
 import NewOrder from "./Routes/NewOrder/NewOrder";
 import Delivery from "./Routes/Delivery/Delivery";
@@ -30,6 +30,7 @@ function App() {
         </NavLink>
       </nav>
 
+      <Outlet />
       <Routes>
         <Route path="/new-order" element={<NewOrder />} />
         <Route path="/cleaning" element={<Cleaning />} />

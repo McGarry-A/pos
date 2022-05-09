@@ -1,1 +1,1 @@
-POS workflor using TS, Tailwind, Sanity 
+POS workflow using TS, Tailwind, Sanity 

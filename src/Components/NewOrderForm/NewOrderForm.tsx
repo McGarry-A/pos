@@ -10,11 +10,11 @@ const NewOrderForm = () => {
           name=""
           id=""
           autoComplete=""
-          className="border-2 block w-11/12 rounded-md h-8"
+          className="border-2 block w-full rounded-md h-8"
         />
       </div>
 
-      <div className="">
+      {/* <div className="">
         <label htmlFor="last-name" className="">
           Phone Number
         </label>
@@ -23,7 +23,7 @@ const NewOrderForm = () => {
           name=""
           id=""
           autoComplete=""
-          className="border-2 block w-11/12 rounded-md h-8"
+          className="border-2 block w-full rounded-md h-8"
         />
       </div>
 
@@ -36,9 +36,9 @@ const NewOrderForm = () => {
           name=""
           id=""
           autoComplete=""
-          className="border-2 block w-11/12 rounded-md h-8"
+          className="border-2 block w-full rounded-md h-8"
         />
-      </div>
+      </div> */}
     </div>
   );
 };
