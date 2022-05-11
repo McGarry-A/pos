@@ -1,58 +1,87 @@
 import { useState } from "react";
-
-interface ItemInterface {
-  item: string,
-  quanity: number,
-  price: string
-}
+import { BasketInterface, ItemInterface } from ".";
 
 const Basket = () => {
-  const [basket, setBasket] = useState(null);
+  const [basket, setBasket] = useState<BasketInterface>({
+    items: [
+      {
+        id: "01",
+        title: "Pants",
+        quantity: 2,
+        price: 4.99,
+      },
+    ],
+    orderNotes: "Here are a few notes for this order",
+    totalPrice: 9.98,
+    totalQuantity: 2,
+  });
 
-  const renderOrderRow = ({item, quanity, price}: ItemInterface) => {
+  const renderOrderRow = ({ title, quantity, price }: ItemInterface) => {
     return (
       <tr>
-        <td>{item}</td>
-        <td>{quanity}</td>
-        <td>{price}</td>
+        <td>{title}</td>
+        <td>{quantity}</td>
+        <td>£{price}</td>
       </tr>
-    )
-  }
+    );
+  };
 
-  const renderTotalForOrder = () => {
+  const renderTotalForOrder = ({
+    totalPrice,
+    totalQuantity,
+  }: BasketInterface) => {
     return (
       <tr className="">
-        <td>total</td>
-        <td>$99.99</td>
+        <td>You have {totalQuantity}(s) items</td>
+        <td>£{totalPrice}</td>
       </tr>
-    )
-  }
+    );
+  };
+
+  const renderTableHeader = () => (
+    <thead>
+      <tr className="text-left">
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+  );
+
+  const renderTable = () => {
+    const { items } = basket;
+
+    if (items !== null && items.length > 0) {
+      return (
+        <table className="table-auto w-full">
+          {renderTableHeader()}
+          <tbody>
+            {items!.map(renderOrderRow)}
+            {renderTotalForOrder(basket)}
+          </tbody>
+        </table>
+      );
+    }
+
+    return <div>0 Items in your basket!</div>;
+  };
+
+  const renderNote = () => {
+    return (
+      <input
+        type="text"
+        placeholder="Order Notes..."
+        className="my-1 border-2 block w-full rounded-md h-8"
+      />
+    );
+  };
 
   return (
     <div className="m-2 border p-2 rounded">
       <h3>Order Summary</h3>
       <div className="my-1">
-        {basket ? (
-          <div>0 Items in your basket!</div>
-        ) : (
-          <table className="table-auto w-full">
-            <thead>
-              <tr className="text-left">
-                <th>Item</th>
-                <th>Quantity</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>T-shirt</td>
-                <td>2</td>
-                <td>£9.99</td>
-              </tr>
-              {renderTotalForOrder()}
-            </tbody>
-          </table>
-        )}
+        {renderTable()}
+        {renderNote()}
       </div>
     </div>
   );
