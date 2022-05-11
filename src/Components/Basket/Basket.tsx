@@ -1,20 +1,9 @@
-import { useState } from "react";
 import { BasketInterface, ItemInterface } from ".";
+import useBasket from "../../Context/BasketProvider";
 
 const Basket = () => {
-  const [basket, setBasket] = useState<BasketInterface>({
-    items: [
-      {
-        id: "01",
-        title: "Pants",
-        quantity: 2,
-        price: 4.99,
-      },
-    ],
-    orderNotes: "Here are a few notes for this order",
-    totalPrice: 9.98,
-    totalQuantity: 2,
-  });
+
+  const basket = useBasket();
 
   const renderOrderRow = ({ title, quantity, price }: ItemInterface) => {
     return (
@@ -49,7 +38,9 @@ const Basket = () => {
   );
 
   const renderTable = () => {
-    const { items } = basket;
+    
+    const { basketContext } = basket;
+    const { items } = basketContext
 
     if (items !== null && items.length > 0) {
       return (
@@ -57,7 +48,7 @@ const Basket = () => {
           {renderTableHeader()}
           <tbody>
             {items!.map(renderOrderRow)}
-            {renderTotalForOrder(basket)}
+            {renderTotalForOrder(basketContext)}
           </tbody>
         </table>
       );
