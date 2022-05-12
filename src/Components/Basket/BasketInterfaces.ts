@@ -7,8 +7,6 @@ export interface ItemInterface {
   }
   
 export interface BasketInterface {
-    items: [ItemInterface];
-    totalPrice: number | null;
-    totalQuantity: number | null;
-    orderNotes: string | null;
+    items: ItemInterface[];
+    orderNotes: string;
   }

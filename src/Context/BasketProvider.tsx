@@ -1,54 +1,98 @@
 import React, { createContext, useContext, useState } from "react";
-import { BasketInterface } from "../Components/Basket";
+import {
+  BasketInterface,
+  ItemInterface,
+} from "../Components/Basket/BasketInterfaces";
 
-type AddItemParams = { id: string; quantity?: number; };
-type RemoveItemParams = { id: string; quantity?: number };
+type AddItemParams = { item: ItemInterface };
+type RemoveItemParams = { id: string };
 type ClearItemParams = { id: string };
 
-type BasketContextType = {
-  basketContext: BasketInterface;
+interface BasketContextInterface {
+  basket: BasketInterface;
   addItem: (params: AddItemParams) => void;
   removeItem: (params: RemoveItemParams) => void;
   clearItem: (params: ClearItemParams) => void;
   clearBasket: () => void;
-};
-
-const BasketContext = createContext<BasketContextType>(
-  {} as BasketContextType
-);
-
-export const useBasket = () => useContext(BasketContext);
+  returnTotalQuantity: () => number;
+  returnTotalPrice: () => number;
+}
 
 interface Props {
   children: React.ReactNode;
   className: string;
 }
 
-export const BasketProvider = (props: Props) => {
-  const [basketContext, setBasketContext] = useState<BasketInterface>({
-    items: [
-      {
-        id: "01",
-        title: "Pants",
-        quantity: 2,
-        price: 4.99,
-      },
-    ],
-    orderNotes: "Here are a few notes for this order",
-    totalPrice: 9.98,
-    totalQuantity: 2,
+const BasketContext = createContext<BasketContextInterface>(
+  {} as BasketContextInterface
+);
+export const useBasket = () => useContext(BasketContext);
+
+export const BasketProvider = ({ children }: Props) => {
+  const [basket, setBasket] = useState<BasketInterface>({
+    items: [{} as ItemInterface],
+    orderNotes: "",
   });
-  
+
   const addItem = (addItemParams: AddItemParams) => {};
-  const removeItem = (removeItem: RemoveItemParams) => {};
-  const clearItem = (clearItem: ClearItemParams) => {};
-  const clearBasket = () => {};
+
+  const removeItem = (removeItem: RemoveItemParams) => {
+    const newBasketItems: ItemInterface[] = basket.items.filter(
+      (el) => el.id !== removeItem.id
+    );
+    const newBasketContext: BasketInterface = { ...basket };
+    newBasketContext.items = newBasketItems;
+    setBasket(newBasketContext);
+    return;
+  };
+
+  const clearItem = (clearItem: ClearItemParams) => {
+    const newBasketItems: ItemInterface[] = basket.items.filter(
+      // Might need to switch this operator
+      (el) => el.id !== clearItem.id
+    );
+    const newBasketContext: BasketInterface = { ...basket };
+    newBasketContext.items = newBasketItems;
+    setBasket(newBasketContext);
+    return;
+  };
+
+  const clearBasket = () => {
+    setBasket({
+      items: [{} as ItemInterface],
+      orderNotes: "",
+    });
+
+    return;
+  };
+
+  const returnTotalQuantity = () => {
+    const totalQuantityArray: Array<number> = basket.items.map(
+      ({ quantity }) => quantity
+    );
+    return totalQuantityArray.reduce((prev, cur) => prev + cur);
+  };
+
+  const returnTotalPrice = () => {
+    const totalPriceArray: Array<number> = basket.items.map(
+      ({ price, quantity }) => price * quantity
+    );
+    return totalPriceArray.reduce((prev, cur) => prev + cur);
+  };
 
   return (
     <BasketContext.Provider
-      value={{ basketContext, addItem, removeItem, clearBasket, clearItem }}
+      value={{
+        basket,
+        addItem,
+        removeItem,
+        clearBasket,
+        clearItem,
+        returnTotalPrice,
+        returnTotalQuantity,
+      }}
     >
-      {props.children}
+      {children}
     </BasketContext.Provider>
   );
 };

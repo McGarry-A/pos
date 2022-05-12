@@ -1,31 +1,8 @@
-import { BasketInterface, ItemInterface } from ".";
+import { ItemInterface } from "./BasketInterfaces";
 import useBasket from "../../Context/BasketProvider";
 
 const Basket = () => {
-
-  const basket = useBasket();
-
-  const renderOrderRow = ({ title, quantity, price }: ItemInterface) => {
-    return (
-      <tr>
-        <td>{title}</td>
-        <td>{quantity}</td>
-        <td>£{price}</td>
-      </tr>
-    );
-  };
-
-  const renderTotalForOrder = ({
-    totalPrice,
-    totalQuantity,
-  }: BasketInterface) => {
-    return (
-      <tr className="">
-        <td>You have {totalQuantity}(s) items</td>
-        <td>£{totalPrice}</td>
-      </tr>
-    );
-  };
+  const basketContext = useBasket();
 
   const renderTableHeader = () => (
     <thead>
@@ -37,24 +14,43 @@ const Basket = () => {
     </thead>
   );
 
-  const renderTable = () => {
-    
-    const { basketContext } = basket;
-    const { items } = basketContext
+  const renderOrderRow = ({ title, quantity, price }: ItemInterface) => (
+    <tr>
+      <td>{title}</td>
+      <td>{quantity}</td>
+      <td>£{quantity * price}</td>
+    </tr>
+  );
 
-    if (items !== null && items.length > 0) {
-      return (
-        <table className="table-auto w-full">
-          {renderTableHeader()}
-          <tbody>
-            {items!.map(renderOrderRow)}
-            {renderTotalForOrder(basketContext)}
-          </tbody>
-        </table>
-      );
+  const renderTotalForOrder = () => {
+    const { returnTotalPrice, returnTotalQuantity } = basketContext;
+
+    return (
+      <tr className="">
+        <td>You have {returnTotalQuantity()}(s) items</td>
+        <td>£{returnTotalPrice()}</td>
+      </tr>
+    );
+  };
+
+  const renderTable = () => {
+    const {
+      basket: { items },
+    } = basketContext;
+
+    if (!items) {
+      return <div>0 Items in your basket!</div>;
     }
 
-    return <div>0 Items in your basket!</div>;
+    return (
+      <table className="table-auto w-full">
+        {renderTableHeader()}
+        <tbody>
+          {items.map(renderOrderRow)}
+          {renderTotalForOrder()}
+        </tbody>
+      </table>
+    );
   };
 
   const renderNote = () => {

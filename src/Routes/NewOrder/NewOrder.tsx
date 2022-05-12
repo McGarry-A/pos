@@ -9,9 +9,7 @@ const NewOrder = () => {
       <NewOrderForm />
       <ProductGrid />
       <Basket />
-      <button className="w-full uppercase tracking-widest">
-        Submit
-      </button>
+      <button className="w-full uppercase tracking-widest">Submit</button>
     </BasketProvider>
   );
 };

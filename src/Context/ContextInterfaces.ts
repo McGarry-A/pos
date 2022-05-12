@@ -1,11 +1,6 @@
-export interface ProductInterface {
-  id: string;
-  title: string;
-  price: number;
-  quantity: number;
-}
+import { ItemInterface } from "../Components/Basket/BasketInterfaces";
 
-export const products: Array<ProductInterface> = [
+export const products: Array<ItemInterface> = [
   {
     id: "01",
     title: "Pants",
