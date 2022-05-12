@@ -14,8 +14,8 @@ const Basket = () => {
     </thead>
   );
 
-  const renderOrderRow = ({ title, quantity, price }: ItemInterface) => (
-    <tr>
+  const renderOrderRow = ({ title, quantity, price, id }: ItemInterface) => (
+    <tr key={id}>
       <td>{title}</td>
       <td>{quantity}</td>
       <td>£{quantity * price}</td>
@@ -23,14 +23,12 @@ const Basket = () => {
   );
 
   const renderTotalForOrder = () => {
-    const {
-      actions: { returnTotalPrice, returnTotalQuantity },
-    } = basketContext;
+    const { totalPrice, totalQuantity } = basketContext;
 
     return (
       <tr className="">
-        <td>You have {returnTotalQuantity()}(s) items</td>
-        <td>£{returnTotalPrice()}</td>
+        <td>You have {totalQuantity}(s) items</td>
+        <td>£{totalPrice}</td>
       </tr>
     );
   };
@@ -40,7 +38,7 @@ const Basket = () => {
       basket: { items },
     } = basketContext;
 
-    if (!items) {
+    if (!items.length) {
       return <div>0 Items in your basket!</div>;
     }
 
@@ -66,7 +64,7 @@ const Basket = () => {
   };
 
   return (
-    <div className="m-2 border p-2 rounded">
+    <div className="border rounded">
       <h3>Order Summary</h3>
       <div className="my-1">
         {renderTable()}

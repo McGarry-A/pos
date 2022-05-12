@@ -10,19 +10,22 @@ export interface BasketContextInterface {
       removeItem: (params: RemoveItemParams) => void;
       clearItem: (params: ClearItemParams) => void;
       clearBasket: () => void;
-      returnTotalQuantity: () => number;
-      returnTotalPrice: () => number;
-    }
+    },
+    totalPrice: number;
+    totalQuantity: number;
 }
 
 export interface ItemInterface {
     id: productID;
     title: string;
-    quantity: number;
     price: number;
+}
+
+export interface BasketItemInterface extends ItemInterface {
+    quantity: number
 }
   
 export interface BasketInterface {
-    items: ItemInterface[];
+    items: BasketItemInterface[];
     orderNotes: string;
 }

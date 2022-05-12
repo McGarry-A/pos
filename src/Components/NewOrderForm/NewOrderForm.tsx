@@ -1,6 +1,6 @@
 const NewOrderForm = () => {
   return (
-    <div className="p-2 space-y-2">
+    <div className="space-y-2">
       <div className="">
         <label htmlFor="first-name" className="">
           Customer

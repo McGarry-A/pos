@@ -8,7 +8,6 @@
   }
 
   button {
-    @apply block py-2 px-4 text-white bg-green-600 hover:bg-green-500 rounded-md font-semibold
   }
 
   input {

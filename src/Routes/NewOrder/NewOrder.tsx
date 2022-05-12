@@ -5,7 +5,7 @@ import { BasketProvider } from "../../Context/BasketProvider";
 
 const NewOrder = () => {
   return (
-    <BasketProvider className="py-2 px-4">
+    <BasketProvider className="">
       <NewOrderForm />
       <ProductGrid />
       <Basket />

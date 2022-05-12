@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import {
   BasketContextInterface,
   BasketInterface,
@@ -20,9 +20,43 @@ export const useBasket = () => useContext(BasketContext);
 
 export const BasketProvider = ({ children }: Props) => {
   const [basket, setBasket] = useState<BasketInterface>({
-    items: [{} as ItemInterface],
+    items: [
+      {
+        title: "T-shirt",
+        price: 5,
+        quantity: 2,
+        id: "test"
+      }
+    ],
     orderNotes: "",
   });
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalQuantity, setTotalQuantity] = useState<number>(0);
+
+  useEffect(() => {
+    const {items} = basket;
+
+    if (items.length) {
+      const returnTotalQuantity = () => {
+        const totalQuantityArray: Array<number> = items.map(
+          ({ quantity }) => quantity
+        );
+        const total = totalQuantityArray.reduce((prev, cur) => prev + cur);
+        setTotalQuantity(total);
+      };
+
+      const returnTotalPrice = () => {
+        const totalPriceArray: Array<number> = items.map(
+          ({ price, quantity }) => price * quantity
+        );
+        const total = totalPriceArray.reduce((prev, cur) => prev + cur);
+        setTotalPrice(total);
+      };
+
+      returnTotalPrice();
+      returnTotalQuantity();
+    }
+  }, [basket]);
 
   const addItem = (addItemParams: AddItemParams) => {};
 
@@ -55,27 +89,11 @@ export const BasketProvider = ({ children }: Props) => {
     return;
   };
 
-  const returnTotalQuantity = () => {
-    const totalQuantityArray: Array<number> = basket.items.map(
-      ({ quantity }) => quantity
-    );
-    return totalQuantityArray.reduce((prev, cur) => prev + cur);
-  };
-
-  const returnTotalPrice = () => {
-    const totalPriceArray: Array<number> = basket.items.map(
-      ({ price, quantity }) => price * quantity
-    );
-    return totalPriceArray.reduce((prev, cur) => prev + cur);
-  };
-
   const actions = {
     addItem,
     removeItem,
     clearBasket,
     clearItem,
-    returnTotalPrice,
-    returnTotalQuantity,
   };
 
   return (
@@ -83,6 +101,8 @@ export const BasketProvider = ({ children }: Props) => {
       value={{
         basket,
         actions,
+        totalPrice,
+        totalQuantity,
       }}
     >
       {children}
