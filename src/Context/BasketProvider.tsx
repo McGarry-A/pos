@@ -1,22 +1,12 @@
 import React, { createContext, useContext, useState } from "react";
 import {
+  BasketContextInterface,
   BasketInterface,
   ItemInterface,
-} from "../Components/Basket/BasketInterfaces";
-
-type AddItemParams = { item: ItemInterface };
-type RemoveItemParams = { id: string };
-type ClearItemParams = { id: string };
-
-interface BasketContextInterface {
-  basket: BasketInterface;
-  addItem: (params: AddItemParams) => void;
-  removeItem: (params: RemoveItemParams) => void;
-  clearItem: (params: ClearItemParams) => void;
-  clearBasket: () => void;
-  returnTotalQuantity: () => number;
-  returnTotalPrice: () => number;
-}
+  AddItemParams,
+  ClearItemParams,
+  RemoveItemParams,
+} from ".";
 
 interface Props {
   children: React.ReactNode;
@@ -48,7 +38,6 @@ export const BasketProvider = ({ children }: Props) => {
 
   const clearItem = (clearItem: ClearItemParams) => {
     const newBasketItems: ItemInterface[] = basket.items.filter(
-      // Might need to switch this operator
       (el) => el.id !== clearItem.id
     );
     const newBasketContext: BasketInterface = { ...basket };
@@ -80,16 +69,20 @@ export const BasketProvider = ({ children }: Props) => {
     return totalPriceArray.reduce((prev, cur) => prev + cur);
   };
 
+  const actions = {
+    addItem,
+    removeItem,
+    clearBasket,
+    clearItem,
+    returnTotalPrice,
+    returnTotalQuantity,
+  };
+
   return (
     <BasketContext.Provider
       value={{
         basket,
-        addItem,
-        removeItem,
-        clearBasket,
-        clearItem,
-        returnTotalPrice,
-        returnTotalQuantity,
+        actions,
       }}
     >
       {children}

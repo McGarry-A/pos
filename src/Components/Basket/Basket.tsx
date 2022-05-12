@@ -1,4 +1,4 @@
-import { ItemInterface } from "./BasketInterfaces";
+import { ItemInterface } from "../../Context";
 import useBasket from "../../Context/BasketProvider";
 
 const Basket = () => {
@@ -23,7 +23,9 @@ const Basket = () => {
   );
 
   const renderTotalForOrder = () => {
-    const { returnTotalPrice, returnTotalQuantity } = basketContext;
+    const {
+      actions: { returnTotalPrice, returnTotalQuantity },
+    } = basketContext;
 
     return (
       <tr className="">
