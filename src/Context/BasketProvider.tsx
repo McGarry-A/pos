@@ -2,10 +2,11 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import {
   BasketContextInterface,
   BasketInterface,
-  ItemInterface,
+  BasketItemInterface,
   AddItemParams,
   ClearItemParams,
   RemoveItemParams,
+  ItemInterface,
 } from ".";
 
 interface Props {
@@ -19,24 +20,24 @@ const BasketContext = createContext<BasketContextInterface>(
 export const useBasket = () => useContext(BasketContext);
 
 export const BasketProvider = ({ children }: Props) => {
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalQuantity, setTotalQuantity] = useState<number>(0);
   const [basket, setBasket] = useState<BasketInterface>({
     items: [
       {
         title: "T-shirt",
         price: 5,
         quantity: 2,
-        id: "test"
-      }
+        id: "sku-00",
+      },
     ],
     orderNotes: "",
   });
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [totalQuantity, setTotalQuantity] = useState<number>(0);
 
   useEffect(() => {
-    const {items} = basket;
+    const { items } = basket;
 
-    if (items.length) {
+    if (items.length < 1) {
       const returnTotalQuantity = () => {
         const totalQuantityArray: Array<number> = items.map(
           ({ quantity }) => quantity
@@ -58,31 +59,53 @@ export const BasketProvider = ({ children }: Props) => {
     }
   }, [basket]);
 
-  const addItem = (addItemParams: AddItemParams) => {};
+  const addItem = ({ item }: AddItemParams) => {
+    const { items } = basket;
+    const newBasket = { ...basket };
+
+    const isInItems = Object.keys(newBasket.items).includes(item.id);
+
+    if (!isInItems) {
+      const newItem: <Array>BasketItemInterface = { ...item, quantity: 1 };
+      const newItems: BasketItemInterface[] = [
+        ...items, ...newItem ],
+      };
+      newBasket.items = newItems;
+      setBasket(newBasket);
+      return;
+    }
+
+    const newItems = { ...items };
+    const indexOfItem = Object.keys(items).indexOf(item.id);
+
+    // Some monkey business going on here
+    // newItems[indexOfItem].quantity = newItemQuantity;
+    // newBasket.items = newItems;
+
+    setBasket(newBasket);
+  };
 
   const removeItem = (removeItem: RemoveItemParams) => {
-    const newBasketItems: ItemInterface[] = basket.items.filter(
+    const newBasketContext: BasketInterface = { ...basket };
+    newBasketContext.items = basket.items.filter(
       (el) => el.id !== removeItem.id
     );
-    const newBasketContext: BasketInterface = { ...basket };
-    newBasketContext.items = newBasketItems;
     setBasket(newBasketContext);
     return;
   };
 
   const clearItem = (clearItem: ClearItemParams) => {
-    const newBasketItems: ItemInterface[] = basket.items.filter(
+    const newBasketContext: BasketInterface = { ...basket };
+    newBasketContext.items = basket.items.filter(
       (el) => el.id !== clearItem.id
     );
-    const newBasketContext: BasketInterface = { ...basket };
-    newBasketContext.items = newBasketItems;
     setBasket(newBasketContext);
     return;
   };
 
   const clearBasket = () => {
     setBasket({
-      items: [{} as ItemInterface],
+      items: [{} as BasketItemInterface],
       orderNotes: "",
     });
 

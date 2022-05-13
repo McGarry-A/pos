@@ -1,4 +1,4 @@
-import { ItemInterface } from "../../Context";
+import { BasketItemInterface } from "../../Context";
 import useBasket from "../../Context/BasketProvider";
 
 const Basket = () => {
@@ -14,7 +14,12 @@ const Basket = () => {
     </thead>
   );
 
-  const renderOrderRow = ({ title, quantity, price, id }: ItemInterface) => (
+  const renderOrderRow = ({
+    title,
+    quantity,
+    price,
+    id,
+  }: BasketItemInterface) => (
     <tr key={id}>
       <td>{title}</td>
       <td>{quantity}</td>
