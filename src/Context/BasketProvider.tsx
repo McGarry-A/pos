@@ -66,9 +66,10 @@ export const BasketProvider = ({ children }: Props) => {
     const isInItems = Object.keys(newBasket.items).includes(item.id);
 
     if (!isInItems) {
-      const newItem: <Array>BasketItemInterface = { ...item, quantity: 1 };
-      const newItems: BasketItemInterface[] = [
-        ...items, ...newItem ],
+      const newItem: BasketItemInterface = { ...item, quantity: 1 };
+      const newItems: BasketItemInterface[] = {
+        ...items,
+        [newItem.id]: { ...newItem },
       };
       newBasket.items = newItems;
       setBasket(newBasket);
