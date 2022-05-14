@@ -1,8 +1,20 @@
-import { BasketItemInterface } from "../../Context";
 import useBasket from "../../Context/BasketProvider";
+
+interface itemInterface {
+  id: string;
+  title: string;
+  quantity: number;
+  price: number
+}
 
 const Basket = () => {
   const basketContext = useBasket();
+  const {
+    basket: { items },
+  } = basketContext;
+
+  const itemsArray = Object.values(items);
+  console.log(itemsArray)
 
   const renderTableHeader = () => (
     <thead>
@@ -14,18 +26,17 @@ const Basket = () => {
     </thead>
   );
 
-  const renderOrderRow = ({
-    title,
-    quantity,
-    price,
-    id,
-  }: BasketItemInterface) => (
-    <tr key={id}>
-      <td>{title}</td>
-      <td>{quantity}</td>
-      <td>£{quantity * price}</td>
-    </tr>
-  );
+  const renderOrderRow = (props: itemInterface) => {
+    const {id, title, quantity, price} = props;
+    
+    return (
+      <tr key={id}>
+        <td>{title}</td>
+        <td>{quantity}</td>
+        <td>£{price * quantity}</td>
+      </tr>
+    );
+  };
 
   const renderTotalForOrder = () => {
     const { totalPrice, totalQuantity } = basketContext;
@@ -39,11 +50,7 @@ const Basket = () => {
   };
 
   const renderTable = () => {
-    const {
-      basket: { items },
-    } = basketContext;
-
-    if (!items.length) {
+    if (!itemsArray.length) {
       return <div>0 Items in your basket!</div>;
     }
 
@@ -51,7 +58,7 @@ const Basket = () => {
       <table className="table-auto w-full">
         {renderTableHeader()}
         <tbody>
-          {items.map(renderOrderRow)}
+          {itemsArray.map(renderOrderRow)}
           {renderTotalForOrder()}
         </tbody>
       </table>

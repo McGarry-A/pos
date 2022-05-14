@@ -1,4 +1,4 @@
-import { productID } from "../../Context";
+import { AddItemParams, productID } from "../../Context";
 import { useBasket } from "../../Context/BasketProvider";
 
 interface Props {
@@ -11,7 +11,17 @@ const ProductCard = ({ id, title, price }: Props) => {
   const basket = useBasket();
 
   const handleClick = (props: Props) => {
-    basket.actions.addItem({ item: { ...props } });
+    const {
+      actions: { addItem },
+    } = basket;
+    
+    const myObj: AddItemParams = {
+      item: {
+        [id]: { id, title, price },
+      },
+    };
+
+    addItem(myObj);
   };
 
   return (

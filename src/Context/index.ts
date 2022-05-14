@@ -16,16 +16,23 @@ export interface BasketContextInterface {
 }
 
 export interface ItemInterface {
-    id: productID;
-    title: string;
-    price: number;
+    [key: string]: {
+        id: productID;
+        title: string;
+        price: number;
+    }
 }
 
 export interface BasketItemInterface extends ItemInterface {
-    quantity: number
+    [key:string]: {
+        id: productID;
+        title: string;
+        price: number;
+        quantity: number;
+    }
 }
   
 export interface BasketInterface {
-    items: BasketItemInterface[];
+    items: BasketItemInterface;
     orderNotes: string;
 }
