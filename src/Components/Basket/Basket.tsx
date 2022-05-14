@@ -1,10 +1,11 @@
 import useBasket from "../../Context/BasketProvider";
+import { BsTrash } from "react-icons/bs";
 
 interface itemInterface {
   id: string;
   title: string;
   quantity: number;
-  price: number
+  price: number;
 }
 
 const Basket = () => {
@@ -12,9 +13,9 @@ const Basket = () => {
   const {
     basket: { items },
   } = basketContext;
-
+  
   const itemsArray = Object.values(items);
-  console.log(itemsArray)
+  const { totalQuantity } = basketContext;
 
   const renderTableHeader = () => (
     <thead>
@@ -27,31 +28,44 @@ const Basket = () => {
   );
 
   const renderOrderRow = (props: itemInterface) => {
-    const {id, title, quantity, price} = props;
-    
+    const { id, title, quantity, price } = props;
+    const {
+      actions: { clearItem },
+    } = basketContext;
+
     return (
       <tr key={id}>
         <td>{title}</td>
         <td>{quantity}</td>
         <td>£{price * quantity}</td>
+        <td className="">
+          <button onClick={() => clearItem({ id })}>
+            <BsTrash />
+          </button>
+        </td>
       </tr>
     );
   };
 
   const renderTotalForOrder = () => {
-    const { totalPrice, totalQuantity } = basketContext;
+    const { totalPrice } = basketContext;
 
     return (
-      <tr className="">
-        <td>You have {totalQuantity}(s) items</td>
-        <td>£{totalPrice}</td>
+      <tr className="font-semibold">
+        <td className="">Total Price</td>
+        <td className=""></td>
+        <td className="">£{totalPrice}</td>
       </tr>
     );
   };
 
   const renderTable = () => {
     if (!itemsArray.length) {
-      return <div>0 Items in your basket!</div>;
+      return (
+        <div className="text-center p-2 font-sm opacity-40">
+          0 Items in your basket!
+        </div>
+      );
     }
 
     return (
@@ -76,12 +90,20 @@ const Basket = () => {
   };
 
   return (
-    <div className="border rounded">
-      <h3>Order Summary</h3>
+    <div className="max-w-xl">
+      <h3>
+        Order Summary{" "}
+        {totalQuantity > 1 && (
+          <span className="block text-xs opacity-60 my-1 transition-all">
+            You have {totalQuantity} item(s) in your basket
+          </span>
+        )}
+      </h3>
       <div className="my-1">
         {renderTable()}
         {renderNote()}
       </div>
+    
     </div>
   );
 };

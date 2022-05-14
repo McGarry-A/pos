@@ -22,24 +22,16 @@ export const BasketProvider = ({ children }: Props) => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalQuantity, setTotalQuantity] = useState<number>(0);
   const [basket, setBasket] = useState<BasketInterface>({
-    items: {
-      "sku-00": {
-        title: "T-shirt",
-        price: 5,
-        quantity: 2,
-        id: "sku-00",
-      },
-    },
+    items: {},
     orderNotes: "",
   });
 
   useEffect(() => {
     const { items } = basket;
-    const objectKeyArray = Object.keys(items)
+    const objectKeyArray = Object.keys(items);
+    const objectValuesArray = Object.values(items);
 
-    if (objectKeyArray.length === 0) return
-    
-    const objectValuesArray = Object.values(items)
+    if (objectKeyArray.length === 0) return;
 
     const returnTotalQuantity = () => {
       const totalQuantityArray: Array<number> = objectValuesArray.map(
@@ -47,25 +39,30 @@ export const BasketProvider = ({ children }: Props) => {
       );
       const total = totalQuantityArray.reduce((prev, cur) => prev + cur);
       setTotalQuantity(total);
-      };
+    };
 
     const returnTotalPrice = () => {
       const totalPriceArray: Array<number> = objectValuesArray.map(
         ({ price, quantity }) => price * quantity
       );
-      const total = totalPriceArray.reduce((prev, cur) => prev + cur);
+      const total = Number(
+        totalPriceArray.reduce((prev, cur) => prev + cur).toFixed(2)
+      );
       setTotalPrice(total);
     };
 
-      returnTotalPrice();
-      returnTotalQuantity();
+    returnTotalPrice();
+    returnTotalQuantity();
   }, [basket]);
 
   const addItem = ({ item }: AddItemParams) => {
+    console.log("added");
     const { items } = basket;
     const newBasket = { ...basket };
     const addToBasketId = Object.keys(item)[0];
-    const alreadyInBasket = Object.keys(items).map((el) => el === addToBasketId);
+    const alreadyInBasket = Object.keys(items).map(
+      (el) => el === addToBasketId
+    );
 
     if (alreadyInBasket.includes(true)) {
       const newItems = {
@@ -88,11 +85,44 @@ export const BasketProvider = ({ children }: Props) => {
     setBasket(newBasket);
   };
 
-  const removeItem = (removeItem: RemoveItemParams) => {};
+  const removeItem = (removeItem: RemoveItemParams) => {
+    console.log("remove me");
+    const { items } = basket;
+    const newBasket = { ...basket };
 
-  const clearItem = (clearItem: ClearItemParams) => {};
+    const newItems = {
+      ...items,
+      [removeItem.id]: {
+        ...items[removeItem.id],
+        quantity: (items[removeItem.id].quantity -= 1),
+      },
+    };
 
-  const clearBasket = () => {};
+    newBasket.items = newItems;
+    setBasket(newBasket);
+  };
+
+  const clearItem = (clearItem: ClearItemParams) => {
+    const { items } = basket;
+    const newBasket = { ...basket };
+
+    const newItems = { ...items };
+    delete newItems[clearItem.id];
+
+    newBasket.items = newItems;
+    setBasket(newBasket);
+  };
+
+  const clearBasket = () => {
+    const newBasket = {
+      items: {},
+      orderNotes: "",
+      totalPrice: 0,
+      totalQuantity: 0,
+    };
+
+    setBasket(newBasket);
+  };
 
   const actions = {
     addItem,
