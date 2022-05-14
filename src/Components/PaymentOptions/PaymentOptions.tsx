@@ -32,7 +32,7 @@ const PaymentOptions = () => {
       ...basket,
       ...addAsOrder,
     };
-
+    console.log(newOrder)
     actions.clearBasket()
   };
 

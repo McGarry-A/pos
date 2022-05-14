@@ -13,7 +13,7 @@ const Basket = () => {
   const {
     basket: { items },
   } = basketContext;
-  
+
   const itemsArray = Object.values(items);
   const { totalQuantity } = basketContext;
 
@@ -80,11 +80,18 @@ const Basket = () => {
   };
 
   const renderNote = () => {
+    const {
+      actions: { setOrderNote },
+    } = basketContext;
+
     return (
       <input
         type="text"
         placeholder="Order Notes..."
         className="my-1 border-2 block w-full rounded-md h-8"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setOrderNote(e.target.value)
+        }
       />
     );
   };
@@ -103,7 +110,6 @@ const Basket = () => {
         {renderTable()}
         {renderNote()}
       </div>
-    
     </div>
   );
 };

@@ -124,11 +124,18 @@ export const BasketProvider = ({ children }: Props) => {
     setBasket(newBasket);
   };
 
+  const setOrderNote = (note: string) => {
+    const newBasket = { ...basket };
+    newBasket.orderNotes = note;
+
+    setBasket(newBasket)
+  };
   const actions = {
     addItem,
     removeItem,
     clearBasket,
     clearItem,
+    setOrderNote
   };
 
   return (

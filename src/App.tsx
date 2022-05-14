@@ -8,7 +8,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App relative">
       <nav className="flex justify-center space-x-6 p-6">
         <NavLink
           className={({ isActive }) => (isActive ? "font-bold" : "")}
@@ -29,13 +29,14 @@ function App() {
           Delivery
         </NavLink>
       </nav>
-
-      <Outlet />
-      <Routes>
-        <Route path="/new-order" element={<NewOrder />} />
-        <Route path="/cleaning" element={<Cleaning />} />
-        <Route path="/delivery" element={<Delivery />} />
-      </Routes>
+      <div className="w-fit mx-auto">
+        <Outlet />
+        <Routes>
+          <Route path="/new-order" element={<NewOrder />} />
+          <Route path="/cleaning" element={<Cleaning />} />
+          <Route path="/delivery" element={<Delivery />} />
+        </Routes>
+      </div>
     </div>
   );
 }

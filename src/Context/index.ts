@@ -10,6 +10,7 @@ export interface BasketContextInterface {
     removeItem: (params: RemoveItemParams) => void;
     clearItem: (params: ClearItemParams) => void;
     clearBasket: () => void;
+    setOrderNote: (params: string) => void;
   };
   totalPrice: number;
   totalQuantity: number;
