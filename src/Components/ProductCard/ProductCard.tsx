@@ -30,7 +30,7 @@ const ProductCard = ({ id, title, price }: Props) => {
 
   return (
     <button
-      className="flex justify-center flex-col items-center w-32 h-32 rounded-md border border-gray-200 cursor-pointer relative"
+      className="flex justify-center flex-col items-center w-32 h-32 rounded-md border border-gray-200 cursor-pointer bg-white relative"
       key={id}
       onClick={() => handleClick()}
       onMouseEnter={() => setShowDecrement(true)}

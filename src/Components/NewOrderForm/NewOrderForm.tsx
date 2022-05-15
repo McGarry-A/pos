@@ -1,11 +1,11 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import CreateCustomerForm from "../CreateCustomerForm/CreateCustomerForm";
 import React, { useState } from "react";
-import Modal from "../Modal/Modal";
+import Portal from "../Portal/Portal";
 
 const NewOrderForm = () => {
-  const [modalIsHidden, setModalIsHidden] = useState<boolean>(true);
-
+  const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
+  const target = document.getElementById("root");
   return (
     <div className="space-y-2 max-w-xl">
       <div className="">
@@ -22,17 +22,15 @@ const NewOrderForm = () => {
           />
           <button
             className="p-1 border rounded bg-green-600"
-            onClick={() => setModalIsHidden(!modalIsHidden)}
+            onClick={() => setPortalIsHidden(!portalIsHidden)}
           >
             <AiOutlinePlus color="white" size={"1.2rem"} />
           </button>
         </div>
       </div>
-      <Modal isHidden={modalIsHidden}>
-        <div className="flex justify-center">
-          <CreateCustomerForm />
-        </div>
-      </Modal>
+      <Portal target={target!} isHidden={portalIsHidden}>
+        <CreateCustomerForm />
+      </Portal>
     </div>
   );
 };
