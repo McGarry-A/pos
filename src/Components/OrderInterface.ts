@@ -1,7 +1,8 @@
 import { BasketInterface } from "../Context";
 import { CustomerInterface } from "./CustomerInterfaces";
 
-export interface OrderInterface extends BasketInterface {
+interface OrderBody extends BasketInterface {
+  orderId: string,
   customer: CustomerInterface;
   paymentInfo: {
     payment: string;
@@ -9,4 +10,8 @@ export interface OrderInterface extends BasketInterface {
     date: string;
     time: string;
   };
+}
+
+export interface OrderInterface {
+  [key: string]: OrderBody
 }

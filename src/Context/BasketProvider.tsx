@@ -31,7 +31,11 @@ export const BasketProvider = ({ children }: Props) => {
     const objectKeyArray = Object.keys(items);
     const objectValuesArray = Object.values(items);
 
-    if (objectKeyArray.length === 0) return;
+    if (objectKeyArray.length === 0) {
+      setTotalPrice(0);
+      setTotalQuantity(0);
+      return;
+    }
 
     const returnTotalQuantity = () => {
       const totalQuantityArray: Array<number> = objectValuesArray.map(
@@ -56,7 +60,6 @@ export const BasketProvider = ({ children }: Props) => {
   }, [basket]);
 
   const addItem = ({ item }: AddItemParams) => {
-    console.log("added");
     const { items } = basket;
     const newBasket = { ...basket };
     const addToBasketId = Object.keys(item)[0];
@@ -128,14 +131,14 @@ export const BasketProvider = ({ children }: Props) => {
     const newBasket = { ...basket };
     newBasket.orderNotes = note;
 
-    setBasket(newBasket)
+    setBasket(newBasket);
   };
   const actions = {
     addItem,
     removeItem,
     clearBasket,
     clearItem,
-    setOrderNote
+    setOrderNote,
   };
 
   return (
