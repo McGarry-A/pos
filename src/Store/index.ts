@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 const store = configureStore({
     reducer: {}
-})
+});
 
 // Whats this for?
 // export type RootState = ReturnType<typeof store.getState>

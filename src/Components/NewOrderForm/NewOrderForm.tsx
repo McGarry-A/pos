@@ -3,7 +3,7 @@ import CreateCustomerForm from "../CreateCustomerForm/CreateCustomerForm";
 import React, { useState } from "react";
 import Portal from "../Portal/Portal";
 
-const NewOrderForm = () => {
+const NewOrderForm: React.FC = () => {
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
   const target = document.getElementById("root");
   return (
@@ -29,7 +29,7 @@ const NewOrderForm = () => {
         </div>
       </div>
       <Portal target={target!} isHidden={portalIsHidden}>
-        <CreateCustomerForm />
+        <CreateCustomerForm setPortalIsHidden={setPortalIsHidden} />
       </Portal>
     </div>
   );

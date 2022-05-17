@@ -1,22 +1,31 @@
-const CreateCustomerForm = () => {
-  // need to pass set modal to be able to close it
-
+import { MdOutlineCancel } from "react-icons/md";
+interface Props {
+  setPortalIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
-  const handleSave = () => {};
-  const handleExit = () => {};
+  const handleSave = () => {
+    setPortalIsHidden(false);
+  };
+
+  const handleExit = () => {
+    setPortalIsHidden(false);
+  };
 
   return (
-    <div className="bg-white max-w-lg m-auto left-0 right-0 shadow-md rounded mt-[25%]">
+    <div className="bg-white max-w-lg m-auto left-0 right-0 shadow-md rounded mt-[25%] relative">
       <form
         className="p-4 space-y-4"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
       >
         <div>
-          <h3 className="text-2xl font-semibold">Create a New Customer</h3>
-          <p className="opacity-40 text-sm mb-2 italic">
+          <h3 className="text-xl font-semibold uppercase">
+            Create a New Customer
+          </h3>
+          <p className="opacity-40 text-xs mb-2 italic">
             Please enter some personal information about this customer.
           </p>
         </div>
@@ -47,18 +56,21 @@ const CreateCustomerForm = () => {
         <div className="flex w-full justify-end space-x-4">
           <button
             className="border px-6 py-2 rounded font-semibold"
-            onClick={() => handleExit()}
+            onClick={handleExit}
           >
             Exit
           </button>
           <button
             className="border px-6 py-2 rounded font-semibold bg-green-600 text-white"
-            onClick={() => handleSave()}
+            onClick={handleSave}
           >
             Save
           </button>
         </div>
       </form>
+      <div className="bg-white absolute -top-3 -left-4 rounded-full cursor-pointer">
+        <MdOutlineCancel size={"2rem"} onClick={handleExit} />
+      </div>
     </div>
   );
 };
