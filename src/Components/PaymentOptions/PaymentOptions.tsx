@@ -1,10 +1,12 @@
 import { useState } from "react";
 import useBasket from "../../Context/BasketProvider";
+import getDateAndTime from "../../utils/getDateAndTime";
+
+import { OrderInterface } from "../OrderInterface";
+
+import { PaymentType, DeliveryType, orderIdType } from "../OrderInterface";
 
 const PaymentOptions = () => {
-  type PaymentType = "cash" | "card" | "credit";
-  type DeliveryType = "standard" | "premium";
-
   const [payment, setPayment] = useState<PaymentType>("cash");
   const [delivery, setDelivery] = useState<DeliveryType>("standard");
 
@@ -14,26 +16,30 @@ const PaymentOptions = () => {
   } = basketContext;
 
   const handleSubmit = () => {
-    const { basket } = basketContext;
-    const { actions } = basketContext
+    const { date, time } = getDateAndTime();
+    const { basket, actions } = basketContext;
+    const { items, orderNotes } = basket;
 
-    const today = new Date();
-    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    const orderId: orderIdType = "amg-001";
 
-    const addAsOrder = {
-      payment,
-      delivery,
-      date,
-      time
+    const order: OrderInterface = {
+      orderId: {
+        orderId,
+        items,
+        orderNotes,
+        paymentInfo: { payment, delivery, date, time },
+        customer: {
+          firstName: "Ahmed",
+          lastName: "McGarry",
+          country: "UK",
+          postcode: "PR55AY",
+        },
+      },
     };
-    
-    const newOrder = {
-      ...basket,
-      ...addAsOrder,
-    };
-    console.log(newOrder)
-    actions.clearBasket()
+
+    // Send to redux orders slice OR send to redux
+
+    actions.clearBasket();
   };
 
   return (

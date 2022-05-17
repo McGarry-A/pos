@@ -1,14 +1,21 @@
 import { BasketInterface } from "../Context";
 import { CustomerInterface } from "./CustomerInterfaces";
 
+export type dateType = string;
+export type timeType = string;
+export type orderIdType = string;
+
+export type PaymentType = "cash" | "card" | "credit";
+export type DeliveryType = "standard" | "premium";
+
 interface OrderBody extends BasketInterface {
-  orderId: string,
+  orderId: orderIdType,
   customer: CustomerInterface;
   paymentInfo: {
-    payment: string;
-    delivery: string;
-    date: string;
-    time: string;
+    payment: PaymentType;
+    delivery: DeliveryType;
+    date: dateType;
+    time: timeType;
   };
 }
 
