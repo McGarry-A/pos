@@ -1,5 +1,6 @@
-import { useRef } from "react";
+import { useId, useRef } from "react";
 import { MdOutlineCancel } from "react-icons/md";
+import { CustomerInterface } from "../CustomerInterface";
 interface Props {
   setPortalIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -17,13 +18,8 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
       (el) => el.current?.value
     );
 
-    const customerObj = {
-      // firstName: firstName.current?.value,
-      // lastName: lastName.current?.value,
-      // email: email.current.value,
-      // phone: phone.current.value,
-      // address: address.current.value,
-    };
+    //useID to generate a ID for the customer?
+    const customer: CustomerInterface | null = null;
   };
 
   const handleExit = () => {
