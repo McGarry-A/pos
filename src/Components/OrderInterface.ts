@@ -1,5 +1,5 @@
 import { BasketInterface } from "../Context";
-import { CustomerInterface } from "./CustomerInterfaces";
+import { CustomerInterface } from "./CustomerInterface";
 
 export type dateType = string;
 export type timeType = string;
@@ -17,8 +17,8 @@ interface OrderBody extends BasketInterface {
     date: dateType;
     time: timeType;
   };
-}
+};
 
 export interface OrderInterface {
   [key: string]: OrderBody
-}
+};

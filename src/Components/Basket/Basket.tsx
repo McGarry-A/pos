@@ -17,6 +17,17 @@ const Basket = () => {
   const itemsArray = Object.values(items);
   const { totalQuantity } = basketContext;
 
+  const renderOrderSummary = () => (
+    <h3>
+      Order Summary{" "}
+      {totalQuantity > 1 && (
+        <span className="block text-xs opacity-60 my-1 transition-all">
+          You have {totalQuantity} item(s) in your basket
+        </span>
+      )}
+    </h3>
+  );
+
   const renderTableHeader = () => (
     <thead>
       <tr className="text-left">
@@ -98,14 +109,7 @@ const Basket = () => {
 
   return (
     <div className="max-w-xl">
-      <h3>
-        Order Summary{" "}
-        {totalQuantity > 1 && (
-          <span className="block text-xs opacity-60 my-1 transition-all">
-            You have {totalQuantity} item(s) in your basket
-          </span>
-        )}
-      </h3>
+      {renderOrderSummary()}
       <div className="my-1">
         {renderTable()}
         {renderNote()}
