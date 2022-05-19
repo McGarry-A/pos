@@ -1,25 +1,34 @@
-import { useId, useRef } from "react";
 import { MdOutlineCancel } from "react-icons/md";
+import useBasket from "../../Context/BasketProvider";
+import useFormField from "../../Hooks/useFormField";
 import { CustomerInterface } from "../CustomerInterface";
+
 interface Props {
   setPortalIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
-  const firstName = useRef<HTMLInputElement>(null);
-  const lastName = useRef(null);
-  const email = useRef(null);
-  const phone = useRef(null);
-  const address = useRef(null);
+  const firstNameField = useFormField();
+  const lastNameField = useFormField();
+  const emailField = useFormField();
+  const phoneNumberField = useFormField();
+  const addressField = useFormField();
+
+  const basket = useBasket();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { setCurrentCustomer } = basket;
 
-    const customerArray = [firstName, lastName, email, phone, address].map(
-      (el) => el.current?.value
-    );
+    const customer: CustomerInterface = {
+      firstName: firstNameField.value,
+      lastName: lastNameField.value,
+      phone: phoneNumberField.value,
+      email: emailField.value,
+      address: addressField.value,
+    };
 
-    //useID to generate a ID for the customer?
-    const customer: CustomerInterface | null = null;
+    setCurrentCustomer(customer);
+    setPortalIsHidden(false);
   };
 
   const handleExit = () => {
@@ -43,11 +52,11 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
         <div className="grid grid-cols-2 gap-x-2">
           <div className="">
             <label>First Name</label>
-            <input placeholder="Ahmed" type="text" ref={firstName} />
+            <input placeholder="Ahmed" type="text" {...firstNameField} />
           </div>
           <div className="grid g">
             <label>Last Name</label>
-            <input placeholder="McGarry" type="text" ref={lastName} />
+            <input placeholder="McGarry" type="text" {...lastNameField} />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-x-2">
@@ -56,17 +65,21 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
             <input
               placeholder="atomcgarry@hotmail.com"
               type="email"
-              ref={email}
+              {...emailField}
             />
           </div>
           <div className="">
             <label>Phone Number</label>
-            <input placeholder="07907733824" type="email" ref={phone} />
+            <input
+              placeholder="07907733824"
+              type="text"
+              {...phoneNumberField}
+            />
           </div>
         </div>
         <div>
           <label>Street Address</label>
-          <input placeholder="357 Leyland Road" type="text" ref={address} />
+          <input placeholder="357 Leyland Road" type="text" {...addressField} />
         </div>
         <div className="flex w-full justify-end space-x-4">
           <button

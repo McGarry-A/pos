@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useBasket from "../../Context/BasketProvider";
 import getDateAndTime from "../../utils/getDateAndTime";
 
@@ -9,16 +9,34 @@ import { PaymentType, DeliveryType, orderIdType } from "../OrderInterface";
 const PaymentOptions = () => {
   const [payment, setPayment] = useState<PaymentType>("cash");
   const [delivery, setDelivery] = useState<DeliveryType>("standard");
+  const [error, setError] = useState<string>();
 
   const basketContext = useBasket();
   const {
     actions: { clearBasket },
+    basket: { items },
+    currentCustomer,
   } = basketContext;
+
+  useEffect(() => {
+    setError("");
+  }, [currentCustomer, items]);
 
   const handleSubmit = () => {
     const { date, time } = getDateAndTime();
-    const { basket, actions } = basketContext;
+    const { basket, actions, currentCustomer, setCurrentCustomer } =
+      basketContext;
     const { items, orderNotes } = basket;
+
+    if (!currentCustomer) {
+      setError("Please select a customer");
+      return;
+    }
+
+    if (Object.keys(items).length === 0) {
+      setError("Please add an item to your basket!");
+      return;
+    }
 
     const orderId: orderIdType = "amg-001";
 
@@ -29,17 +47,15 @@ const PaymentOptions = () => {
         orderNotes,
         paymentInfo: { payment, delivery, date, time },
         customer: {
-          firstName: "Ahmed",
-          lastName: "McGarry",
-          country: "UK",
-          postcode: "PR55AY",
+          ...currentCustomer,
         },
       },
     };
 
-    // Send to redux orders slice OR send to redux
+    console.log(order);
 
     actions.clearBasket();
+    setCurrentCustomer(null);
   };
 
   return (
@@ -71,6 +87,13 @@ const PaymentOptions = () => {
           <option value="credit">Credit</option>
         </select>
       </div>
+      <p
+        className={`${
+          error ? "block" : "hidden"
+        } text-xs text-red-500 font-bold text-center my-2`}
+      >
+        *{error}
+      </p>
       <button
         className="w-full uppercase tracking-widest bg-gray-400 p-2 text-white rounded font-bold mt-2"
         onClick={() => clearBasket()}

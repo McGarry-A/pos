@@ -7,6 +7,7 @@ import {
   RemoveItemParams,
   BasketItemInterface,
 } from ".";
+import { CustomerInterface } from "../Components/CustomerInterface";
 
 interface Props {
   children: React.ReactNode;
@@ -21,6 +22,8 @@ export const useBasket = () => useContext(BasketContext);
 export const BasketProvider = ({ children }: Props) => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalQuantity, setTotalQuantity] = useState<number>(0);
+  const [currentCustomer, setCurrentCustomer] =
+    useState<CustomerInterface | null>(null);
   const [basket, setBasket] = useState<BasketInterface>({
     items: {},
     orderNotes: "",
@@ -148,6 +151,8 @@ export const BasketProvider = ({ children }: Props) => {
         actions,
         totalPrice,
         totalQuantity,
+        currentCustomer,
+        setCurrentCustomer,
       }}
     >
       {children}

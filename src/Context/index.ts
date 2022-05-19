@@ -1,3 +1,5 @@
+import { CustomerInterface } from "../Components/CustomerInterface";
+
 export type productID = string;
 export type AddItemParams = { item: ItemInterface };
 export type RemoveItemParams = { id: string };
@@ -14,6 +16,8 @@ export interface BasketContextInterface {
   };
   totalPrice: number;
   totalQuantity: number;
+  currentCustomer: CustomerInterface | null,
+  setCurrentCustomer: React.Dispatch<React.SetStateAction<CustomerInterface | null>>
 }
 
 export interface ItemInterface {
