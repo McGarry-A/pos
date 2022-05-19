@@ -20,8 +20,8 @@ const customerSlice = createSlice({
                 ...state, 
                 action.payload
             ]
-        },
-        deleteCustomer: (state: CustomerInterface[], action: PayloadAction<CustomerInterface>) => {
+        }, // REMOVE A CUSTOMER USING ID IDEALLY BUT NOW I GUESS JUST FILTER THE RESULTS BASED ON THE WHOLE ELEMENT
+        deleteCustomer: (state: CustomerInterface[], action: PayloadAction<number>) => {
             console.log("delete customer");
         }
     },
