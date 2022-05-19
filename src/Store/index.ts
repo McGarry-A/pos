@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import customerSlice from "./customerSlice";
+import orderSlice from "./orderSlice";
 
 const store = configureStore({
     reducer: {
-        customers: customerSlice.reducer
+        customers: customerSlice.reducer,
+        orders: orderSlice.reducer
     }
 });
 

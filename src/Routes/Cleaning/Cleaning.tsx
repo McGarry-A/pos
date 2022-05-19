@@ -1,19 +1,14 @@
 import { useAppDispatch, useAppSelector } from "../../Store";
-import customerSlice from "../../Store/customerSlice";
+import orderSlice from "../../Store/orderSlice";
 
 const Cleaning = () => {
-  const selector = useAppSelector((state) => state.customers[0]);
+  const cleaningOrders = useAppSelector((state) => state.orders.cleaning);
+  const dispatch = useAppDispatch();
+  const { process } = orderSlice.actions;
 
   const handleClick = () => {};
 
-  return (
-    <div>
-      <div>{selector.firstName}</div>
-      <div>
-        <button onClick={() => handleClick()}>click to console log</button>
-      </div>
-    </div>
-  );
+  return <div>{JSON.stringify(cleaningOrders)}</div>;
 };
 
 export default Cleaning;

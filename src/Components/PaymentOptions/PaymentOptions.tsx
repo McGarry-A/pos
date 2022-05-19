@@ -1,5 +1,8 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
+import useId from "../../Hooks/useId";
+import { useDispatch } from "react-redux";
 import useBasket from "../../Context/BasketProvider";
+import orderSlice from "../../Store/orderSlice";
 import getDateAndTime from "../../utils/getDateAndTime";
 
 import { OrderInterface } from "../OrderInterface";
@@ -11,7 +14,12 @@ const PaymentOptions = () => {
   const [delivery, setDelivery] = useState<DeliveryType>("standard");
   const [error, setError] = useState<string>();
 
-  const orderId = useId();
+  const dispatch = useDispatch();
+  const {
+    actions: { create },
+  } = orderSlice;
+
+  const orderId = useId("order-");
   const basketContext = useBasket();
   const {
     actions: { clearBasket },
@@ -51,7 +59,7 @@ const PaymentOptions = () => {
       },
     };
 
-    console.log(order);
+    dispatch(create(order))
 
     actions.clearBasket();
     setCurrentCustomer(null);
