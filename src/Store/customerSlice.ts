@@ -1,5 +1,5 @@
 import { CustomerInterface } from "../Components/CustomerInterface"
-import { AnyAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialCustomerState: CustomerInterface[] = [
     {
@@ -15,19 +15,13 @@ const customerSlice = createSlice({
     name: 'customer',
     initialState: initialCustomerState,
     reducers: {
-        addCustomer: (state: CustomerInterface[], action: AnyAction) => {
-            switch (action.type) {
-                case "ADD_CUSTOMER":
-                    state.push(action.payload)
-                    break;
-                default:
-                    console.log("default")
-                    break;
-            }
-
-            return state
+        addCustomer: (state: CustomerInterface[], action: PayloadAction<CustomerInterface>) => {
+            return [
+                ...state, 
+                action.payload
+            ]
         },
-        deleteCustomer: (state: CustomerInterface[], action: AnyAction) => {
+        deleteCustomer: (state: CustomerInterface[], action: PayloadAction<CustomerInterface>) => {
             console.log("delete customer");
         }
     },

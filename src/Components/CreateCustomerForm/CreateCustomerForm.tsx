@@ -16,12 +16,14 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
   const addressField = useFormField();
 
   const basket = useBasket();
-
   const dispatch = useDispatch();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { setCurrentCustomer } = basket;
+    const {
+      actions: { addCustomer },
+    } = customerSlice;
 
     const customer: CustomerInterface = {
       firstName: firstNameField.value,
@@ -31,14 +33,9 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
       address: addressField.value,
     };
 
-    dispatch(
-      customerSlice.actions.addCustomer({
-        payload: customer,
-        type: "ADD_CUSTOMER",
-      })
-    );
+    dispatch(addCustomer(customer)); // ADD TO CUSTOMER DB
+    setCurrentCustomer(customer); // ACTIVE CUSTOMER WHEN USING THE BASKET
 
-    setCurrentCustomer(customer);
     setPortalIsHidden(false);
   };
 

@@ -6,11 +6,10 @@ const Cleaning = () => {
   const {
     actions: { addCustomer },
   } = customerSlice;
+
   const selector = useAppSelector((state) => state.customers[0]);
 
-  const handleClick = () => {
-    dispatch(addCustomer());
-  };
+  const handleClick = () => {};
 
   return (
     <div>
