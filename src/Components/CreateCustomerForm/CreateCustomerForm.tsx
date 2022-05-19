@@ -1,6 +1,8 @@
 import { MdOutlineCancel } from "react-icons/md";
+import { useDispatch } from "react-redux";
 import useBasket from "../../Context/BasketProvider";
 import useFormField from "../../Hooks/useFormField";
+import customerSlice from "../../Store/customerSlice";
 import { CustomerInterface } from "../CustomerInterface";
 
 interface Props {
@@ -15,6 +17,8 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
 
   const basket = useBasket();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { setCurrentCustomer } = basket;
@@ -26,6 +30,13 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
       email: emailField.value,
       address: addressField.value,
     };
+
+    dispatch(
+      customerSlice.actions.addCustomer({
+        payload: customer,
+        type: "ADD_CUSTOMER",
+      })
+    );
 
     setCurrentCustomer(customer);
     setPortalIsHidden(false);

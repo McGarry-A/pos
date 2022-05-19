@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import useBasket from "../../Context/BasketProvider";
 import getDateAndTime from "../../utils/getDateAndTime";
 
 import { OrderInterface } from "../OrderInterface";
 
-import { PaymentType, DeliveryType, orderIdType } from "../OrderInterface";
+import { PaymentType, DeliveryType } from "../OrderInterface";
 
 const PaymentOptions = () => {
   const [payment, setPayment] = useState<PaymentType>("cash");
   const [delivery, setDelivery] = useState<DeliveryType>("standard");
   const [error, setError] = useState<string>();
 
+  const orderId = useId();
   const basketContext = useBasket();
   const {
     actions: { clearBasket },
@@ -38,10 +39,8 @@ const PaymentOptions = () => {
       return;
     }
 
-    const orderId: orderIdType = "amg-001";
-
     const order: OrderInterface = {
-      orderId: {
+      [orderId]: {
         orderId,
         items,
         orderNotes,
