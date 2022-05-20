@@ -1,3 +1,4 @@
+import OrderTable from "../../Components/OrderTable/OrderTable";
 import { useAppDispatch, useAppSelector } from "../../Store";
 import orderSlice from "../../Store/orderSlice";
 
@@ -8,7 +9,7 @@ const Cleaning = () => {
 
   const handleClick = () => {};
 
-  return <div>{JSON.stringify(cleaningOrders)}</div>;
+  return <div><OrderTable data={cleaningOrders}/></div>;
 };
 
 export default Cleaning;
