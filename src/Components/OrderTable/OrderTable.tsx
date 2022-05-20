@@ -22,8 +22,8 @@ const OrderTable: React.FC<Props> = ({ data }) => {
   };
 
   return (
-    <table>
-      <thead>
+    <table className="w-screen text-sm text-left text-gray-500 table-auto">
+      <thead className="text-xs uppercase text-gray-700 bg-slate-50 ">
         <tr>
           <td>date</td>
           <td>time</td>

@@ -1,7 +1,12 @@
 // import OrderTable from "../../Components/OrderTable/OrderTable";
 
+import OrderTable from "../../Components/OrderTable/OrderTable";
+import { useAppSelector } from "../../Store";
+
 const Delivery = () => {
-  return <div>{/* <OrderTable data={} /> */}</div>;
+  const deliverOrders = useAppSelector((state) => state.orders.deliver);
+  
+  return <OrderTable data={deliverOrders}/>
 };
 
 export default Delivery;

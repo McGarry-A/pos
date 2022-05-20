@@ -41,16 +41,17 @@ const orderSlice = createSlice({
       const {
         payload: { orderId, current },
       } = action;
-      const newState = { ...state };
-      const currentOrder = newState.cleaning[orderId];
+
+      console.log(orderId, current)
+      const currentOrder = state.cleaning[orderId];
+
       if (current === "cleaning") {
-        newState.deliver = { ...newState.deliver, currentOrder };
-        delete newState.cleaning[orderId];
-        console.log("cleaning")
+        state.deliver = { ...state.deliver, currentOrder };
+        delete state.cleaning[orderId];
       }
       if (current === "delivery") {
-        newState.done = { ...newState.done, currentOrder };
-        delete newState.deliver[orderId];
+        state.done = { ...state.done, currentOrder };
+        delete state.deliver[orderId];
       }
     },
   },
