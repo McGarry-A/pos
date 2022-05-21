@@ -44,7 +44,7 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
   };
 
   return (
-    <div className="bg-white max-w-md m-auto left-0 right-0 shadow-md rounded mt-[25%] relative">
+    <div className="bg-white max-w-md shadow-md rounded flex relative">
       <form
         className="p-4 space-y-4"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}

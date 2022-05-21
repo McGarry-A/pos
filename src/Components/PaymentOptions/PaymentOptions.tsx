@@ -59,18 +59,35 @@ const PaymentOptions = () => {
       },
     };
 
-    dispatch(create(order))
+    dispatch(create(order));
 
     actions.clearBasket();
     setCurrentCustomer(null);
   };
 
+  const renderNote = () => {
+    const {
+      actions: { setOrderNote },
+    } = basketContext;
+
+    return (
+      <input
+        type="text"
+        placeholder="Order Notes..."
+        className="my-1 border-2 block w-full rounded-md h-8"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setOrderNote(e.target.value)
+        }
+      />
+    );
+  };
+
   return (
     <div className="mt-2 max-w-xl">
       <div className="flex justify-between my-1">
-        <label className="block font-medium text-gray-700">
+        <p className="block text-gray-700">
           Delivery Options
-        </label>
+        </p>
         <select
           className="text-sm border shadow-sm py-1 px-2 rounded"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
@@ -82,7 +99,7 @@ const PaymentOptions = () => {
         </select>
       </div>
       <div className="flex justify-between my-1">
-        <label className="block font-medium text-gray-700">Payment type</label>
+        <p className="block text-gray-700">Payment type</p>
         <select
           className="text-sm border shadow-sm py-1 px-2 rounded"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
@@ -101,8 +118,9 @@ const PaymentOptions = () => {
       >
         *{error}
       </p>
+      {renderNote()}
       <button
-        className="w-full uppercase tracking-widest bg-gray-400 p-2 text-white rounded font-bold mt-2"
+        className="w-full uppercase tracking-widest p-2 rounded font-bold mt-2 border-2 text-gray-600"
         onClick={() => clearBasket()}
       >
         Clear Basket

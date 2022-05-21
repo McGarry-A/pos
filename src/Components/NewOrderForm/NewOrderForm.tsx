@@ -56,22 +56,22 @@ const NewOrderForm: React.FC = () => {
 
     return (
       <div className="">
-        <label htmlFor="first-name" className="text-lg">
+        <p className="text-gray-700">
           Customer
-        </label>
-        <div className="flex space-x-1 items-center">
+        </p>
+        <div className="flex space-x-2 my-1">
           <input
             type="text"
             name=""
             id=""
             autoComplete=""
-            className="border-2 block w-full rounded-md h-8"
+            className="h-8 border-2 shadow-sm"
           />
           <button
-            className="p-1 border rounded bg-green-600"
+            className="border rounded bg-green-600 p-2 hover:bg-green-800"
             onClick={() => setPortalIsHidden(!portalIsHidden)}
           >
-            <AiOutlinePlus color="white" size={"1.2rem"} />
+            <AiOutlinePlus color="white"  />
           </button>
         </div>
       </div>

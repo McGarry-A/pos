@@ -18,22 +18,20 @@ const Basket = () => {
   const { totalQuantity } = basketContext;
 
   const renderOrderSummary = () => (
-    <h3>
+    <h3 className="flex items-center justify-between text-gray-700">
       Order Summary{" "}
-      {totalQuantity > 1 && (
-        <span className="block text-xs opacity-60 my-1 transition-all">
+        <span className="block text-xs opacity-60">
           You have {totalQuantity} item(s) in your basket
         </span>
-      )}
     </h3>
   );
 
   const renderTableHeader = () => (
     <thead>
       <tr className="text-left">
-        <th>Item</th>
-        <th>Quantity</th>
-        <th>Price</th>
+        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">Item</th>
+        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">Quantity</th>
+        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">Price</th>
       </tr>
     </thead>
   );
@@ -45,11 +43,11 @@ const Basket = () => {
     } = basketContext;
 
     return (
-      <tr key={id}>
-        <td>{title}</td>
-        <td>{quantity}</td>
-        <td>£{price * quantity}</td>
-        <td className="">
+      <tr key={id} className="">
+        <td className="text-sm text-gray-500">{title}</td>
+        <td className="text-sm text-gray-500">x{quantity}</td>
+        <td className="text-sm text-gray-500">£{price * quantity}</td>
+        <td className="text-sm text-gray-500">
           <button onClick={() => clearItem({ id })}>
             <BsTrash />
           </button>
@@ -63,26 +61,22 @@ const Basket = () => {
 
     return (
       <tr className="font-semibold">
-        <td className="">Total Price</td>
+        <td className="text-gray-700">Total Price</td>
         <td className=""></td>
-        <td className="">£{totalPrice}</td>
+        <td className="text-gray-700">£{totalPrice}</td>
       </tr>
     );
   };
 
   const renderTable = () => {
     if (!itemsArray.length) {
-      return (
-        <div className="text-center p-2 font-sm opacity-40">
-          0 Items in your basket!
-        </div>
-      );
+      return
     }
 
     return (
       <table className="table-auto w-full">
         {renderTableHeader()}
-        <tbody>
+        <tbody className="">
           {itemsArray.map(renderOrderRow)}
           {renderTotalForOrder()}
         </tbody>
@@ -90,29 +84,11 @@ const Basket = () => {
     );
   };
 
-  const renderNote = () => {
-    const {
-      actions: { setOrderNote },
-    } = basketContext;
-
-    return (
-      <input
-        type="text"
-        placeholder="Order Notes..."
-        className="my-1 border-2 block w-full rounded-md h-8"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setOrderNote(e.target.value)
-        }
-      />
-    );
-  };
-
   return (
     <div className="max-w-xl">
       {renderOrderSummary()}
-      <div className="my-1">
+      <div className="my-4">
         {renderTable()}
-        {renderNote()}
       </div>
     </div>
   );

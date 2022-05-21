@@ -1,17 +1,14 @@
+import { BasketItemInterface } from "../../Context";
 import { useAppDispatch } from "../../Store";
 import orderSlice from "../../Store/orderSlice";
 import { OrderInterface } from "../OrderInterface";
 
 interface Props {
   data: OrderInterface;
+  current: 'cleaning' | 'delivery'
 }
 
-interface ProcessInterface {
-  orderId: string;
-  current: "cleaning" | "delivery";
-}
-
-const OrderTable: React.FC<Props> = ({ data }) => {
+const OrderTable: React.FC<Props> = ({ data, current }) => {
   const dispatch = useAppDispatch();
   const {
     actions: { process },
@@ -21,10 +18,15 @@ const OrderTable: React.FC<Props> = ({ data }) => {
     dispatch(process({ orderId, current }));
   };
 
+  const calculateTotal = (items: BasketItemInterface): number => {
+    const priceArray = Object.values(items).map(item => item.price * item.quantity)
+    return priceArray.reduce((prev, cur) => prev + cur)
+  }
+
   return (
-    <table className="w-screen text-sm text-left text-gray-500 table-auto">
-      <thead className="text-xs uppercase text-gray-700 bg-slate-50 ">
-        <tr>
+    <table className="w-screen text-sm text-left text-gray-500 table-auto max-w-prose">
+      <thead className="text-md uppercase text-gray-700 bg-slate-50 py-2">
+        <tr className="">
           <td>date</td>
           <td>time</td>
           <td>customer</td>
@@ -33,14 +35,20 @@ const OrderTable: React.FC<Props> = ({ data }) => {
           <td></td>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="p-4 font-light text-gray-600">
         {Object.values(data).map((el, index) => {
           return (
-            <tr key={index}>
-              <td>{el.paymentInfo.date}</td>
-              <td>{el.paymentInfo.time}</td>
-              <td>{`${el.customer.firstName} ${el.customer.lastName}`}</td>
-              <td>
+            <tr key={index} className="">
+              <td className={`py-2 ${index % 2 !== 0 && `bg-slate-50`}`}>
+                {el.paymentInfo.date}
+              </td>
+              <td className={`py-2 ${index % 2 !== 0 && `bg-slate-50`}`}>
+                {el.paymentInfo.time}
+              </td>
+              <td
+                className={`py-2 ${index % 2 !== 0 && `bg-slate-50`}`}
+              >{`${el.customer.firstName} ${el.customer.lastName}`}</td>
+              <td className={`py-2 ${index % 2 !== 0 && `bg-slate-50`}`}>
                 <div>
                   {Object.values(el.items).map((item, index) => {
                     return (
@@ -51,11 +59,11 @@ const OrderTable: React.FC<Props> = ({ data }) => {
                   })}
                 </div>
               </td>
-              <td></td>
-              <td>
+              <td className={`py-2 ${index % 2 !== 0 && `bg-slate-50`}`}>£{calculateTotal(el.items)}</td>
+              <td className={`py-2 ${index % 2 !== 0 && `bg-slate-50`}`}>
                 <button
                   className="border bg-green-600 text-white px-4 py-1"
-                  onClick={() => handleProcess(el.orderId, "cleaning")}
+                  onClick={() => handleProcess(el.orderId, current)}
                 >
                   Process
                 </button>

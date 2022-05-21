@@ -4,11 +4,10 @@ import orderSlice from "../../Store/orderSlice";
 
 const Cleaning = () => {
   const cleaningOrders = useAppSelector((state) => state.orders.cleaning);
-  
 
   const handleClick = () => {};
 
-  return <OrderTable data={cleaningOrders}/>
+  return <OrderTable data={cleaningOrders} current="cleaning" />;
 };
 
 export default Cleaning;
