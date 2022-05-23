@@ -10,9 +10,12 @@ interface Props {
 }
 const ProductCard = ({ id, title, price }: Props) => {
   const [showDecrement, setShowDecrement] = useState<boolean>(false);
+  const [addIsDisabled, setAddIsDisabled] = useState<boolean>(false);
   const basket = useBasket();
-  
-  const {actions: { removeItem }} = basket;
+
+  const {
+    actions: { removeItem },
+  } = basket;
 
   const handleClick = () => {
     const {
@@ -35,14 +38,18 @@ const ProductCard = ({ id, title, price }: Props) => {
       onClick={() => handleClick()}
       onMouseEnter={() => setShowDecrement(true)}
       onMouseLeave={() => setShowDecrement(false)}
+      disabled={addIsDisabled}
     >
       <p className="font-semibold text-lg uppercase">{title}</p>
       <p className="text-xs opacity-60">£{price}</p>
       {showDecrement && (
-        <div 
-          className="absolute right-2 bottom-2 z-10 p-1 rounded-full border"
-          onClick={() => removeItem({ id })}>
-          <AiOutlineMinusCircle size={"1.2em"} />
+        <div
+          className="absolute right-2 bottom-1 z-10 p-1 border-l-2"
+          onClick={() => removeItem({ id })}
+          onMouseEnter={() => setAddIsDisabled(true)}
+          onMouseLeave={() => setAddIsDisabled(false)}
+        >
+          <AiOutlineMinusCircle />
         </div>
       )}
     </button>

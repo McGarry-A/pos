@@ -11,7 +11,6 @@ import { CustomerInterface } from "../Components/CustomerInterface";
 
 interface Props {
   children: React.ReactNode;
-  className: string;
 }
 
 const BasketContext = createContext<BasketContextInterface>(
@@ -92,9 +91,14 @@ export const BasketProvider = ({ children }: Props) => {
   };
 
   const removeItem = (removeItem: RemoveItemParams) => {
-    console.log("remove me");
     const { items } = basket;
     const newBasket = { ...basket };
+
+    if (newBasket.items[removeItem.id].quantity === 1) {
+      delete newBasket.items[removeItem.id];
+      setBasket(newBasket);
+      return;
+    }
 
     const newItems = {
       ...items,

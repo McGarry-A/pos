@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App relative">
-      <nav className="fixed left-0 h-full w-12 border flex flex-col justify-center items-center space-y-14">
+      <nav className="fixed left-0 h-full w-12 border flex-col justify-center items-center space-y-14 hidden md:flex">
         <GoPackage
           size={"1.5rem"}
           className="hover:scale-125 hover:border-r-4 hover:border-green-500 transition cursor-pointer w-10"
@@ -35,7 +35,7 @@ function App() {
         />
       </nav>
 
-      <nav className="flex justify-center space-x-12 uppercase text-gray-700 tracking-wider my-12 font-light">
+      <nav className="flex justify-center space-x-12 uppercase text-gray-700 tracking-wider py-12 font-light">
         <NavLink
           className={({ isActive }) =>
             isActive
@@ -47,23 +47,23 @@ function App() {
           New Order
         </NavLink>
         <div className="relative">
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-2 border-green-600 transition-colors font-medium"
-              : ""
-          }
-          to="/cleaning"
-        >
-          Cleaning
-        </NavLink>
-        {cleaningToDo > 0 && (
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "border-b-2 border-green-600 transition-colors font-medium"
+                : ""
+            }
+            to="/cleaning"
+          >
+            Cleaning
+          </NavLink>
+          {cleaningToDo > 0 && (
             <span className="text-xs rounded-full text-white bg-red-500 absolute top-0 -right-4 px-1">
               {" "}
               {cleaningToDo}
             </span>
           )}
-          </div>
+        </div>
 
         <div className="relative">
           <NavLink
@@ -75,13 +75,12 @@ function App() {
             to="/delivery"
           >
             Delivery
-            
           </NavLink>
           {deliverToDo > 0 && (
-              <span className="text-xs rounded-full text-white bg-red-500 absolute top-0 -right-5 px-1">
-                {deliverToDo}
-              </span>
-            )}
+            <span className="text-xs rounded-full text-white bg-red-500 absolute top-0 -right-5 px-1">
+              {deliverToDo}
+            </span>
+          )}
         </div>
       </nav>
       <div className="w-fit mx-auto">

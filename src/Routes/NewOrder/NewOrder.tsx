@@ -6,7 +6,7 @@ import { BasketProvider } from "../../Context/BasketProvider";
 
 const NewOrder = () => {
   return (
-    <BasketProvider className="">
+    <BasketProvider>
       <NewOrderForm />
       <ProductGrid />
       <Basket />
@@ -16,3 +16,15 @@ const NewOrder = () => {
 };
 
 export default NewOrder;
+
+// parent
+// basketProvider
+
+// left
+// categories
+// productsgrid
+
+// right
+// newOrderFom
+// basket
+// paymentOptions
