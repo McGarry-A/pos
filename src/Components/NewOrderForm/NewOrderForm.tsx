@@ -5,16 +5,34 @@ import CreateCustomerForm from "../CreateCustomerForm/CreateCustomerForm";
 import React, { useState } from "react";
 import Portal from "../Portal/Portal";
 import useBasket from "../../Context/BasketProvider";
+import { useAppSelector } from "../../Store";
+
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import { CustomerInterface } from "../CustomerInterface";
 
 const NewOrderForm: React.FC = () => {
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
-  const target = document.getElementById("root");
 
   const basket = useBasket();
+  const customers = useAppSelector((state) => state.customers);
+
+  const target = document.getElementById("root");
 
   const handleClearCustomer = () => {
     const { setCurrentCustomer } = basket;
     setCurrentCustomer(null);
+  };
+
+  const handleSelectCustomer = (newValue: string | null) => {
+    const { setCurrentCustomer } = basket;
+    // probably need a better way to find the results
+
+    const filteredArray = customers.filter(
+      (el) => `${el.firstName} ${el.lastName}` === newValue
+    );
+    const customer = filteredArray[0];
+    setCurrentCustomer(customer);
   };
 
   const renderCustomerDetails = () => {
@@ -53,25 +71,31 @@ const NewOrderForm: React.FC = () => {
     const { currentCustomer } = basket;
 
     if (currentCustomer) return;
+    const options = customers.map((el) => `${el.firstName} ${el.lastName}`);
+
+    // change input to auto suggest box from mui or something
+    // our list of customers is declared at the top of the component and inside "customers"
 
     return (
       <div className="">
-        <p className="text-gray-700">
-          Customer
-        </p>
         <div className="flex space-x-2 my-1">
-          <input
-            type="text"
-            name=""
-            id=""
-            autoComplete=""
-            className="h-8 border-2 shadow-sm"
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={options}
+            sx={{ width: "100%" }}
+            onChange={(e: any, newValue: string | null) =>
+              handleSelectCustomer(newValue)
+            }
+            renderInput={(params) => (
+              <TextField {...params} label="Find a Customer" />
+            )}
           />
           <button
             className="border rounded bg-green-600 p-2 hover:bg-green-800"
             onClick={() => setPortalIsHidden(!portalIsHidden)}
           >
-            <AiOutlinePlus color="white"  />
+            <AiOutlinePlus color="white" />
           </button>
         </div>
       </div>
