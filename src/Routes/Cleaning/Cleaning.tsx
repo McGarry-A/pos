@@ -1,11 +1,8 @@
 import OrderTable from "../../Components/OrderTable/OrderTable";
-import { useAppDispatch, useAppSelector } from "../../Store";
-import orderSlice from "../../Store/orderSlice";
+import { useAppSelector } from "../../Store";
 
 const Cleaning = () => {
   const cleaningOrders = useAppSelector((state) => state.orders.cleaning);
-
-  const handleClick = () => {};
 
   return <OrderTable data={cleaningOrders} current="cleaning" />;
 };
