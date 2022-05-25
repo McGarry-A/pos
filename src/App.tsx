@@ -4,10 +4,6 @@ import NewOrder from "./Routes/NewOrder/NewOrder";
 import Delivery from "./Routes/Delivery/Delivery";
 import Cleaning from "./Routes/Cleaning/Cleaning";
 
-import { GoPackage } from "react-icons/go";
-import { HiOutlineDocumentReport } from "react-icons/hi";
-import { BsPerson } from "react-icons/bs";
-
 import "./App.css";
 import { useAppSelector } from "./Store";
 
@@ -20,21 +16,6 @@ function App() {
 
   return (
     <div className="App relative">
-      <nav className="fixed left-0 h-full w-12 border flex-col justify-center items-center space-y-14 hidden md:flex">
-        <GoPackage
-          size={"1.5rem"}
-          className="hover:scale-125 hover:border-r-4 hover:border-green-500 transition cursor-pointer w-10"
-        />
-        <HiOutlineDocumentReport
-          size={"1.5rem"}
-          className="hover:scale-125 hover:border-r-4 hover:border-green-500 transition cursor-pointer w-10"
-        />
-        <BsPerson
-          size={"1.5rem"}
-          className="hover:scale-125 hover:border-r-4 hover:border-green-500 transition cursor-pointer w-10"
-        />
-      </nav>
-
       <nav className="flex justify-center space-x-12 uppercase text-gray-700 tracking-wider py-12 font-light">
         <NavLink
           className={({ isActive }) =>

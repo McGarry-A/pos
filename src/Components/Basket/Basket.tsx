@@ -20,18 +20,24 @@ const Basket = () => {
   const renderOrderSummary = () => (
     <h3 className="flex items-center justify-between text-gray-700">
       Order Summary{" "}
-        <span className="block text-xs opacity-60">
-          You have {totalQuantity} item(s) in your basket
-        </span>
+      <span className="block text-xs opacity-60">
+        You have {totalQuantity} item(s) in your basket
+      </span>
     </h3>
   );
 
   const renderTableHeader = () => (
     <thead>
       <tr className="text-left">
-        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">Item</th>
-        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">Quantity</th>
-        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">Price</th>
+        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+          Item
+        </th>
+        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+          Quantity
+        </th>
+        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+          Price
+        </th>
       </tr>
     </thead>
   );
@@ -70,7 +76,7 @@ const Basket = () => {
 
   const renderTable = () => {
     if (!itemsArray.length) {
-      return
+      return;
     }
 
     return (
@@ -87,9 +93,7 @@ const Basket = () => {
   return (
     <div className="max-w-xl">
       {renderOrderSummary()}
-      <div className="my-4">
-        {renderTable()}
-      </div>
+      <div className="my-4 sm:h-[270px] sm:border">{renderTable()}</div>
     </div>
   );
 };
