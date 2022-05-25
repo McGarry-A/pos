@@ -33,9 +33,8 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
       address: addressField.value,
     };
 
-    dispatch(addCustomer(customer)); // ADD TO CUSTOMER DB
-    setCurrentCustomer(customer); // ACTIVE CUSTOMER WHEN USING THE BASKET
-
+    dispatch(addCustomer(customer));
+    setCurrentCustomer(customer);
     setPortalIsHidden(false);
   };
 

@@ -84,10 +84,8 @@ const PaymentOptions = () => {
 
   return (
     <div className="mt-2 max-w-xl">
-      <div className="flex justify-between my-1">
-        <p className="block text-gray-700">
-          Delivery Options
-        </p>
+      <div className="flex justify-between my-1 space-x-8">
+        <p className="block text-gray-700">Delivery Options</p>
         <select
           className="text-sm border shadow-sm py-1 px-2 rounded"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>

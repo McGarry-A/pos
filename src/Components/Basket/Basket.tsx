@@ -91,9 +91,9 @@ const Basket = () => {
   };
 
   return (
-    <div className="max-w-xl">
+    <div className="max-w-xl flex flex-col flex-grow">
       {renderOrderSummary()}
-      <div className="my-4 sm:h-[270px] sm:border">{renderTable()}</div>
+      <div className="my-4 sm:flex-2 sm:border flex-grow">{renderTable()}</div>
     </div>
   );
 };

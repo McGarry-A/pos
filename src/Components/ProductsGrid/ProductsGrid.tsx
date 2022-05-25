@@ -13,7 +13,7 @@ const ProductGrid = () => {
 
   const renderCategories = () => {
     return (
-      <div className="grid grid-cols-3 border-b-2 border-lime-300 sm:grid-cols-4 sm:gap-10">
+      <div className="grid grid-cols-3 border-b border-slate-300 sm:grid-cols-4 sm:gap-10">
         {categoryTitles.map((el, index) => (
           <button key={index} className="">
             <h3
