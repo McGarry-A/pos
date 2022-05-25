@@ -9,7 +9,6 @@ import { useAppSelector } from "../../Store";
 
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { CustomerInterface } from "../CustomerInterface";
 
 const NewOrderForm: React.FC = () => {
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
