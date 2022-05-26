@@ -52,7 +52,7 @@ const ProductGrid = () => {
   };
 
   return (
-    <div className="">
+    <div className="mt-4 sm:mt-2">
       {renderCategories()}
       {renderGrid()}
     </div>
