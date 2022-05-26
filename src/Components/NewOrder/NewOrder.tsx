@@ -1,7 +1,7 @@
-import Basket from "../../Components/Basket/Basket";
-import NewOrderForm from "../../Components/NewOrderForm/NewOrderForm";
-import PaymentOptions from "../../Components/PaymentOptions/PaymentOptions";
-import ProductGrid from "../../Components/ProductsGrid/ProductsGrid";
+import Basket from "../Basket/Basket";
+import NewOrderForm from "../NewOrderForm/NewOrderForm";
+import PaymentOptions from "../PaymentOptions/PaymentOptions";
+import ProductGrid from "../ProductsGrid/ProductsGrid";
 import { BasketProvider } from "../../Context/BasketProvider";
 import useIsMobile from "../../Hooks/useIsMobile";
 
@@ -21,7 +21,7 @@ const NewOrder = () => {
 
   return (
     <BasketProvider>
-      <div className="sm:flex sm:flex-row sm:gap-8">
+      <div className="sm:flex sm:flex-row sm:gap-16">
         <div>
           <ProductGrid />
         </div>

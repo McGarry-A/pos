@@ -1,4 +1,4 @@
-import OrderTable from "../../Components/OrderTable/OrderTable";
+import OrderTable from "../OrderTable/OrderTable";
 import { useAppSelector } from "../../Store";
 
 const Cleaning = () => {
