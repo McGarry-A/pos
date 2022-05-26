@@ -25,7 +25,7 @@ const NewOrder = () => {
         <div>
           <ProductGrid />
         </div>
-        <div className="flex flex-col min-h-full">
+        <div className="flex flex-col min-h-full space-y-2">
           <NewOrderForm />
           <Basket />
           <PaymentOptions />

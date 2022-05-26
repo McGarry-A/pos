@@ -41,26 +41,31 @@ const NewOrderForm: React.FC = () => {
       const { firstName, lastName, phone, email, address } = currentCustomer;
 
       return (
-        <div className="divide-y-2 space-y-2">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg">
-              {firstName} {lastName}
-            </h3>
-            <MdOutlineCancel
-              className="cursor-pointer"
-              size={"1.2rem"}
-              onClick={handleClearCustomer}
-            />
-          </div>
-          <div>
-            <p className="text-md">Contact Information</p>
-            <p className="text-sm opacity-50 italic">{phone}</p>
-            <p className="text-sm opacity-50 italic">{email}</p>
-          </div>
-          <div>
-            <p className="text-md">Street Address</p>
-            <p className="text-sm opacity-50 italic">{address}</p>
-          </div>
+        // <div className="divide-y-2 space-y-2">
+        //   <div className="flex items-center justify-between">
+        //     <h3 className="text-lg">
+        //       {firstName} {lastName}
+        //     </h3>
+        //     <MdOutlineCancel
+        //       className="cursor-pointer"
+        //       size={"1.2rem"}
+        //       onClick={handleClearCustomer}
+        //     />
+        //   </div>
+        //   <div>
+        //     <p className="text-md">Contact Information</p>
+        //     <p className="text-sm opacity-50 italic">{phone}</p>
+        //     <p className="text-sm opacity-50 italic">{email}</p>
+        //   </div>
+        //   <div>
+        //     <p className="text-md">Street Address</p>
+        //     <p className="text-sm opacity-50 italic">{address}</p>
+        //   </div>
+        // </div>
+        <div className="">
+          <h3 className="mb-1 text-gray-700">{firstName} {lastName}</h3>
+          <p className="text-sm opacity-60 italic">{phone}</p>
+          <p className="text-sm opacity-60 italic">{address}</p>
         </div>
       );
     }

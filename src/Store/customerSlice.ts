@@ -3,10 +3,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialCustomerState: CustomerInterface[] = [
     {
-        address:"test",
-        firstName:"test",
-        lastName:"test",
-        phone:"123",
+        address:"357 Leyland Road",
+        firstName:"Ahmed",
+        lastName:"McGarry",
+        phone:"07907733824",
         email:"123"
     }
 ]

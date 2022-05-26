@@ -13,7 +13,83 @@ interface ProcessInterface {
 }
 
 const initialState: OrderSliceInterface = {
-  cleaning: {},
+  cleaning: {
+    "sku-01": {
+      customer: {
+        firstName: "Ahmed",
+        lastName: "McGarry",
+        email: "ahmedmcgarry@hotmail.com",
+        phone: "07907733824",
+        address: "357 Leyland Road",
+      },
+      orderId: "sku-01",
+      orderNotes: "Please dont be late!",
+      paymentInfo: {
+        date: "Today",
+        delivery: "premium",
+        payment: "card",
+        time: "11:59:59",
+      },
+      items: {
+        "order-01": {
+          id: "order-01",
+          title: "Based",
+          price: 9.99,
+          quantity: 2,
+        },
+      },
+    },
+    "sku-02": {
+      customer: {
+        firstName: "Ahmed",
+        lastName: "McGarry",
+        email: "ahmedmcgarry@hotmail.com",
+        phone: "07907733824",
+        address: "357 Leyland Road",
+      },
+      orderId: "sku-02",
+      orderNotes: "Please dont be late!",
+      paymentInfo: {
+        date: "Today",
+        delivery: "premium",
+        payment: "credit",
+        time: "11:59:59",
+      },
+      items: {
+        "order-01": {
+          id: "order-01",
+          title: "Based",
+          price: 9.99,
+          quantity: 2,
+        },
+      },
+    },
+    "sku-03": {
+      customer: {
+        firstName: "Ahmed",
+        lastName: "McGarry",
+        email: "ahmedmcgarry@hotmail.com",
+        phone: "07907733824",
+        address: "357 Leyland Road",
+      },
+      orderId: "sku-03",
+      orderNotes: "Please dont be late!",
+      paymentInfo: {
+        date: "Today",
+        delivery: "premium",
+        payment: "card",
+        time: "11:59:59",
+      },
+      items: {
+        "order-01": {
+          id: "order-01",
+          title: "Based",
+          price: 9.99,
+          quantity: 2,
+        },
+      },
+    },
+  },
   deliver: {},
   done: {},
 };
@@ -41,14 +117,14 @@ const orderSlice = createSlice({
       const {
         payload: { orderId, current },
       } = action;
-      
+
       if (current === "cleaning") {
         const currentOrder = state.cleaning[orderId];
         state.deliver = {
           ...state.deliver,
           [currentOrder.orderId]: { ...currentOrder },
         };
-        console.log(currentOrder.orderId)
+        console.log(currentOrder.orderId);
         delete state.cleaning[orderId];
       }
       if (current === "delivery") {
@@ -57,7 +133,7 @@ const orderSlice = createSlice({
           ...state.done,
           [currentOrder.orderId]: { ...currentOrder },
         };
-        console.log(currentOrder.orderId)
+        console.log(currentOrder.orderId);
         delete state.deliver[orderId];
       }
     },

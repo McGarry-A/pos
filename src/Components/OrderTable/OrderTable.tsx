@@ -3,6 +3,7 @@ import { BasketItemInterface } from "../../Context";
 import { useAppDispatch } from "../../Store";
 import orderSlice from "../../Store/orderSlice";
 import { OrderInterface } from "../OrderInterface";
+import { TiTick } from "react-icons/ti";
 
 interface Props {
   data: OrderInterface;
@@ -23,7 +24,7 @@ const OrderTable: React.FC<Props> = ({ data, current }) => {
     const priceArray = Object.values(items).map(
       (item) => item.price * item.quantity
     );
-    return priceArray.reduce((prev, cur) => prev + cur);
+    return Number(priceArray.reduce((prev, cur) => prev + cur).toFixed(2));
   };
 
   const renderNoOrders = () => {
@@ -31,7 +32,7 @@ const OrderTable: React.FC<Props> = ({ data, current }) => {
       <div className="text-gray-700 flex flex-col justify-center items-center space-y-4">
         <p className="text-xl">You have no orders!</p>
         <Link
-          to="/new-order"
+          to="/"
           className="block border bg-green-600 text-white text-bold px-4 py-2 hover:bg-green-500 hover:shadow-md active:scale-90 transition duration-150"
         >
           Create Order
@@ -42,15 +43,31 @@ const OrderTable: React.FC<Props> = ({ data, current }) => {
 
   const renderTable = () => {
     return (
-      <table className="text-sm text-left text-gray-500 border border-separate table-auto">
-        <thead className="uppercase text-gray-700 bg-slate-50 py-2 h-12">
+      <table className="">
+        <thead className="bg-gray-100 border-b-2 border-gray-200">
           <tr className="">
-            <td className="">Date</td>
-            <td className="">Time</td>
-            <td className="">Customer</td>
-            <td className="">Items</td>
-            <td className="">Total Price</td>
-            <td className=""></td>
+            <th className="p-3 text-sm font-semibold tracking-wide text-left">
+              Date
+            </th>
+            <th className="p-3 text-sm font-semibold tracking-wide text-left">
+              Time
+            </th>
+            <th className="p-3 text-sm font-semibold tracking-wide text-left">
+              Customer
+            </th>
+            <th className="p-3 text-sm font-semibold tracking-wide text-left">
+              Order Notes
+            </th>
+            <th className="p-3 text-sm font-semibold tracking-wide text-left">
+              Items
+            </th>
+            <th className="p-3 text-sm font-semibold tracking-wide text-left">
+              Total Price
+            </th>
+            <th className="p-3 text-sm font-semibold tracking-wide text-left">
+              Paid
+            </th>
+            <th className="p-3 text-sm font-semibold tracking-wide text-left"></th>
           </tr>
         </thead>
         <tbody className="p-4 font-light text-gray-600">
@@ -58,12 +75,19 @@ const OrderTable: React.FC<Props> = ({ data, current }) => {
             return (
               <tr
                 key={index}
-                className={`h-fit min-h-12 ${index % 2 !== 0 && `bg-slate-50`}`}
+                className={`h-fit min-h-12 hover:bg-gray-100 ${
+                  index % 2 !== 0 && `bg-gray-100 hover:bg-gray-200`
+                }`}
               >
-                <td className="w-24">{el.paymentInfo.date}</td>
-                <td className="w-24">{el.paymentInfo.time}</td>
-                <td className="w-24 whitespace-nowrap">{`${el.customer.firstName} ${el.customer.lastName}`}</td>
-                <td className="w-24">
+                <td className="p-3 text-sm text-gray-700">
+                  {el.paymentInfo.date}
+                </td>
+                <td className="p-3 text-sm text-gray-700">
+                  {el.paymentInfo.time}
+                </td>
+                <td className="p-3 text-sm text-gray-700">{`${el.customer.firstName} ${el.customer.lastName}`}</td>
+                <td className="p-3 text-sm text-gray-700">{`${el.orderNotes}`}</td>
+                <td className="p-3 text-sm text-gray-700">
                   <div>
                     {Object.values(el.items).map((item, index) => {
                       return (
@@ -75,13 +99,26 @@ const OrderTable: React.FC<Props> = ({ data, current }) => {
                     })}
                   </div>
                 </td>
-                <td className="w-24 min-w-fit">£{calculateTotal(el.items)}</td>
-                <td className="w-24 min-w-fit">
+                <td className="p-3 text-sm text-gray-700">
+                  £{calculateTotal(el.items)}
+                </td>
+                <td className="p-3 text-sm text-gray-700">
+                  {el.paymentInfo.payment === "credit" ? (
+                    <span className="px-3 w-full py-1 rounded text-white bg-red-600">
+                      Unpaid
+                    </span>
+                  ) : (
+                    <span className="px-3 w-full py-1 rounded text-white bg-green-600">
+                      Paid
+                    </span>
+                  )}
+                </td>
+                <td className="p-3 text-sm text-gray-700">
                   <button
-                    className="border bg-green-600 text-white px-4 py-1"
+                    className="px-4 py-1"
                     onClick={() => handleProcess(el.orderId, current)}
                   >
-                    Process
+                    <TiTick size={"1.3rem"} />
                   </button>
                 </td>
               </tr>
