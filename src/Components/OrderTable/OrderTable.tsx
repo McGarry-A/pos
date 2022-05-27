@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { BasketItemInterface } from "../../Context";
 import { useAppDispatch } from "../../Store";
 import orderSlice from "../../Store/orderSlice";
-import { OrderInterface } from "../OrderInterface";
+import { OrderInterface, PaymentType } from "../OrderInterface";
 import { TiTick } from "react-icons/ti";
+import useIsMobile from "../../Hooks/useIsMobile";
 
 interface Props {
   data: OrderInterface;
@@ -15,6 +16,8 @@ const OrderTable: React.FC<Props> = ({ data, current }) => {
   const {
     actions: { process },
   } = orderSlice;
+
+  const isMobile = useIsMobile();
 
   const handleProcess = (orderId: string, current: "cleaning" | "delivery") => {
     dispatch(process({ orderId, current }));
@@ -41,9 +44,25 @@ const OrderTable: React.FC<Props> = ({ data, current }) => {
     );
   };
 
+  const renderPaymentBadge = (paymentMethod: PaymentType) => {
+    if (paymentMethod === "credit") {
+      return (
+        <span className="px-3 w-full py-1 rounded text-white bg-red-600">
+          Unpaid
+        </span>
+      );
+    }
+
+    return (
+      <span className="px-3 w-full py-1 rounded text-white bg-green-600">
+        Paid
+      </span>
+    );
+  };
+
   const renderTable = () => {
     return (
-      <table className="">
+      <table className="hidden md:block">
         <thead className="bg-gray-100 border-b-2 border-gray-200">
           <tr className="">
             <th className="p-3 text-sm font-semibold tracking-wide text-left">
@@ -72,6 +91,14 @@ const OrderTable: React.FC<Props> = ({ data, current }) => {
         </thead>
         <tbody className="p-4 font-light text-gray-600">
           {Object.values(data).map((el, index) => {
+            const {
+              orderId,
+              orderNotes,
+              items,
+              paymentInfo: { payment, date, time },
+              customer: { firstName, lastName },
+            } = el;
+
             return (
               <tr
                 key={index}
@@ -79,44 +106,32 @@ const OrderTable: React.FC<Props> = ({ data, current }) => {
                   index % 2 !== 0 && `bg-gray-100 hover:bg-gray-200`
                 }`}
               >
-                <td className="p-3 text-sm text-gray-700">
-                  {el.paymentInfo.date}
-                </td>
-                <td className="p-3 text-sm text-gray-700">
-                  {el.paymentInfo.time}
-                </td>
-                <td className="p-3 text-sm text-gray-700">{`${el.customer.firstName} ${el.customer.lastName}`}</td>
-                <td className="p-3 text-sm text-gray-700">{`${el.orderNotes}`}</td>
+                <td className="p-3 text-sm text-gray-700">{date}</td>
+                <td className="p-3 text-sm text-gray-700">{time}</td>
+                <td className="p-3 text-sm text-gray-700">{`${firstName} ${lastName}`}</td>
+                <td className="p-3 text-sm text-gray-700">{`${orderNotes}`}</td>
                 <td className="p-3 text-sm text-gray-700">
                   <div>
                     {Object.values(el.items).map((item, index) => {
+                      const { title, quantity } = item;
                       return (
                         <p key={index} className="">
-                          <span className="text-xs">x{item.quantity}</span>{" "}
-                          {item.title}
+                          <span className="text-xs">x{quantity}</span> {title}
                         </p>
                       );
                     })}
                   </div>
                 </td>
                 <td className="p-3 text-sm text-gray-700">
-                  £{calculateTotal(el.items)}
+                  £{calculateTotal(items)}
                 </td>
                 <td className="p-3 text-sm text-gray-700">
-                  {el.paymentInfo.payment === "credit" ? (
-                    <span className="px-3 w-full py-1 rounded text-white bg-red-600">
-                      Unpaid
-                    </span>
-                  ) : (
-                    <span className="px-3 w-full py-1 rounded text-white bg-green-600">
-                      Paid
-                    </span>
-                  )}
+                  {renderPaymentBadge(payment)}
                 </td>
                 <td className="p-3 text-sm text-gray-700">
                   <button
                     className="px-4 py-1"
-                    onClick={() => handleProcess(el.orderId, current)}
+                    onClick={() => handleProcess(orderId, current)}
                   >
                     <TiTick size={"1.3rem"} />
                   </button>
@@ -129,7 +144,58 @@ const OrderTable: React.FC<Props> = ({ data, current }) => {
     );
   };
 
-  return Object.keys(data).length < 1 ? renderNoOrders() : renderTable();
+  const renderOrderCard = () => {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 w-full">
+        {Object.values(data).map((el, index) => {
+          const {
+            orderId,
+            orderNotes,
+            paymentInfo: { payment, date, time },
+            customer: { firstName, lastName },
+          } = el;
+
+          return (
+            <div
+              key={index}
+              className="grid grid-cols-2 border-2 p-3 m-3 rounded max-w-lg"
+            >
+              <div className="grid grid-cols-2 col-span-2 justify-between gap-y-3">
+                <span className="text-xs opacity-50">{orderId}</span>
+                <div className="text-right">{renderPaymentBadge(payment)}</div>
+                <div className="text-gray-700 text-lg col-span-2">
+                  {firstName} {lastName}
+                </div>
+                <div className="text-gray-500 col-span-2">
+                  <p className="text-sm">{orderNotes}</p>
+                </div>
+                <div className="flex space-x-2">
+                  <div className="text-gray-600 text-sm font-light">{date}</div>
+                  <div className="text-gray-600 text-sm font-light">{time}</div>
+                </div>
+                <div
+                  className="justify-end cursor-pointer"
+                  onClick={() => handleProcess(orderId, current)}
+                >
+                  <TiTick className="ml-auto" size={"1.3rem"} />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  return (
+    <section>
+      {Object.keys(data).length < 1 ? (
+        renderNoOrders()
+      ) : (
+        <>{isMobile ? renderOrderCard() : renderTable()}</>
+      )}
+    </section>
+  );
 };
 
 export default OrderTable;

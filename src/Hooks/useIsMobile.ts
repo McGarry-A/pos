@@ -16,8 +16,8 @@ const useIsMobile = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize)
     }, [])
-
-    return windowWidth < 768 ? true : false
+    
+    return  windowWidth < 768 ? true : false
 }
 
 export default useIsMobile;
