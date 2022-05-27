@@ -1,5 +1,7 @@
 import { TiTick } from "react-icons/ti";
 import { BasketItemInterface } from "../../Context";
+import { useAppDispatch } from "../../Store";
+import orderSlice from "../../Store/orderSlice";
 import { OrderInterface } from "../OrderInterface";
 
 interface Props {
@@ -9,6 +11,12 @@ interface Props {
 }
 
 const OrderTable: React.FC<Props> = ({ handleClick, data, current }) => {
+  const dispatch = useAppDispatch();
+
+  const {
+    actions: { markAsPaid },
+  } = orderSlice;
+
   const calculateTotal = (items: BasketItemInterface): number => {
     const priceArray = Object.values(items).map(
       (item) => item.price * item.quantity
@@ -87,7 +95,10 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, current }) => {
               </td>
               <td className="p-3 text-sm text-gray-700">
                 {payment === "credit" ? (
-                  <span className="px-3 w-full py-1 rounded text-white bg-red-600">
+                  <span
+                    className="px-3 w-full py-1 rounded text-white bg-red-600 cursor-pointer"
+                    onClick={() => dispatch(markAsPaid({ current, orderId }))}
+                  >
                     Unpaid
                   </span>
                 ) : (

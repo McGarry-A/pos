@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { OrderInterface } from "../Components/OrderInterface";
+import { orderIdType, OrderInterface } from "../Components/OrderInterface";
 
 interface OrderSliceInterface {
   cleaning: OrderInterface;
@@ -11,7 +11,10 @@ interface ProcessInterface {
   orderId: string;
   current: "cleaning" | "delivery";
 }
-
+interface markAsPaidPayload {
+  orderId:string;
+  current:string;
+}
 const initialState: OrderSliceInterface = {
   cleaning: {
     "sku-01": {
@@ -137,6 +140,16 @@ const orderSlice = createSlice({
         delete state.deliver[orderId];
       }
     },
+    markAsPaid: (state: OrderSliceInterface, action:PayloadAction<markAsPaidPayload>) => {
+      const {current, orderId} = action.payload
+
+      if (current === "cleaning") {
+        state.cleaning[orderId].paymentInfo.payment = "cash"
+      }
+      if (current === "delivery") {
+        state.deliver[orderId].paymentInfo.payment = "cash"
+      }
+    }
   },
 });
 

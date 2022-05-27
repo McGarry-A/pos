@@ -11,9 +11,6 @@ const Workflow = () => {
   const orders = useAppSelector((state) => state.orders);
   const { cleaning, deliver } = orders;
 
-  // Use this to create the bubbles that show
-  // how many orders are in this section
-
   const cleaningToDo = Object.keys(cleaning).length;
   const deliverToDo = Object.keys(deliver).length;
 
@@ -39,7 +36,7 @@ const Workflow = () => {
 
   const renderDeliveryTab = () => {
     if (activeTab === "Delivery") {
-      return <WorkflowOrders current="cleaning" data={deliverOrders} />;
+      return <WorkflowOrders current="delivery" data={deliverOrders} />;
     }
   };
 
