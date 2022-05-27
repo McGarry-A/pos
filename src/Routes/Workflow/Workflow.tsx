@@ -19,9 +19,9 @@ const Workflow = () => {
   const deliverOrders = useAppSelector((state) => state.orders.deliver);
   const cleaningOrders = useAppSelector((state) => state.orders.cleaning);
 
-  const tabClass = "";
+  const tabClass = "font-medium upppercase font-thin text-gray-600";
   const activeTabClass =
-    "border-b-2 border-green-600 transition-colors font-medium";
+    "border-b-4 border-gray-600 transition-colors font-medium upppercase font-thin text-gray-600";
 
   const renderNewOrderTab = () => {
     if (activeTab === "NewOrder") {

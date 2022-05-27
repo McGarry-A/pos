@@ -24,18 +24,18 @@ const Orders = () => {
   const handleFormSubmit = () => {};
   return (
     <div>
-      <div className="space-y-2">
+      <div className="space-y-2 p-2">
         <h2 className="text-2xl text-gray-800">Order Search</h2>
-        <p className="text-gray-600 text-sm">
+        <p className="text-gray-500 text-sm">
           Use this page to easily find orders, including those that are not
           currently in your workflow.
         </p>
-        <p className="text-gray-600 text-sm">
+        <p className="text-gray-500 text-sm">
           You can also make edits to orders that are in the "Cleaning" stage,
           and delete orders that have not yet been paid for.
         </p>
       </div>
-      <form onSubmit={handleFormSubmit} className="my-6">
+      <form onSubmit={handleFormSubmit} className="my-6 px-2">
         <div className="grid grid-cols-2 gap-5 max-w-lg">
           <div>
             <label className="text-xs text-gray-700 font-light">Order ID</label>
@@ -62,7 +62,7 @@ const Orders = () => {
                 <option>Unpaid</option>
               </select>
             </div>
-            <div className="w-full">
+            <div className="w-full ml-2">
               <label className="text-xs text-gray-700 font-light">
                 Section
               </label>
@@ -73,8 +73,8 @@ const Orders = () => {
               </select>
             </div>
           </div>
-          <div className="grid">
-            <button className="justify-self-end bg-green-600 px-2 text-white text-sm font-semibold uppercase">
+          <div className="flex justify-end">
+            <button className="border-gray-300 border px-2 text-gray-500 text-xs font-semibold uppercase rounded">
               Find Results
             </button>
           </div>

@@ -75,10 +75,10 @@ const NewOrderForm: React.FC = () => {
             )}
           />
           <button
-            className="border rounded bg-green-600 p-2 hover:bg-green-800"
+            className="border rounded p-2 border-gray-300"
             onClick={() => setPortalIsHidden(!portalIsHidden)}
           >
-            <AiOutlinePlus color="white" />
+            <AiOutlinePlus color="gray" />
           </button>
         </div>
       </div>

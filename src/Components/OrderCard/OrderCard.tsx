@@ -17,9 +17,14 @@ const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
   } = data;
 
   return (
-    <div className="grid grid-cols-2 border-2 p-3 m-3 rounded max-w-lg">
+    <div className="grid grid-cols-2 border p-3 m-3 rounded max-w-lg shadow-sm">
       <div className="grid grid-cols-2 col-span-2 justify-between gap-y-3">
-        <span className="text-xs opacity-50">{orderId}</span>
+        <div>
+          <span className="text-xs opacity-50">{orderId}</span>
+          <span className="text-xs uppercare px-2 py-1 text-gray-400 uppercase">
+            {current}
+          </span>
+        </div>
         <div className="text-right">
           {payment === "credit" ? (
             <span className="px-3 w-full py-1 rounded text-white bg-red-600">
@@ -38,17 +43,15 @@ const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
           <p className="text-sm">{orderNotes}</p>
         </div>
         <div className="flex space-x-2">
-          <div className="text-gray-600 text-sm font-light">{date}</div>
-          <div className="text-gray-600 text-sm font-light">{time}</div>
+          <div className="text-gray-600 text-xs font-light">{date}</div>
+          <div className="text-gray-600 text-xs font-light">{time}</div>
         </div>
-        {current && (
-          <div
-            className="justify-end cursor-pointer"
-            onClick={() => handleClick(orderId)}
-          >
-            <TiTick className="ml-auto" size={"1.3rem"} />
-          </div>
-        )}
+        <div
+          className="justify-end cursor-pointer"
+          onClick={() => handleClick(orderId)}
+        >
+          <TiTick className="ml-auto" size={"1.3rem"} />
+        </div>
       </div>
     </div>
   );

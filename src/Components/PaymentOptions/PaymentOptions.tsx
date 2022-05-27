@@ -125,7 +125,7 @@ const PaymentOptions = () => {
         Clear Basket
       </button>
       <button
-        className="w-full uppercase tracking-widest bg-green-600 p-2 text-white rounded font-bold my-1"
+        className="w-full uppercase tracking-widest bg-gray-600 p-2 text-gray-50 rounded font-bold my-1"
         onClick={handleSubmit}
       >
         Submit

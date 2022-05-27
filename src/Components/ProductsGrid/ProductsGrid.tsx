@@ -16,7 +16,7 @@ const ProductGrid = () => {
               onClick={() => setActiveCat(el)}
               className={`uppercase text-md ${
                 activeCat === el
-                  ? `border-b-green-600 border-b-4 bold transition duration-150`
+                  ? `border-b-gray-500 border-b-4 border-dashed bold transition duration-150`
                   : ``
               }`}
             >
