@@ -8,10 +8,9 @@ import OrderTable from "../OrderTable/OrderTable";
 
 interface Props {
   data: OrderInterface;
-  current: "cleaning" | "delivery";
 }
 
-const WorkflowOrders: React.FC<Props> = ({ data, current }) => {
+const WorkflowOrders: React.FC<Props> = ({ data }) => {
   const dispatch = useAppDispatch();
   const {
     actions: { process },
@@ -20,8 +19,8 @@ const WorkflowOrders: React.FC<Props> = ({ data, current }) => {
   const isMobile = useIsMobile();
   const isOrders = Object.keys(data).length < 1 ? false : true;
 
-  const handleProcess = (orderId: string, current: "cleaning" | "delivery") => {
-    dispatch(process({ orderId, current }));
+  const handleProcess = (orderId: string) => {
+    dispatch(process({ orderId }));
   };
 
   const renderNoOrders = () => {
@@ -46,13 +45,7 @@ const WorkflowOrders: React.FC<Props> = ({ data, current }) => {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 w-full">
         {Object.values(data).map((el, index) => {
-          return (
-            <OrderCard
-              handleClick={handleProcess}
-              data={el}
-              current={current}
-            />
-          );
+          return <OrderCard handleClick={handleProcess} data={el} />;
         })}
       </div>
     );
@@ -61,9 +54,7 @@ const WorkflowOrders: React.FC<Props> = ({ data, current }) => {
   const renderTable = () => {
     if (!isOrders || isMobile) return;
 
-    return (
-      <OrderTable handleClick={handleProcess} data={data} current={current} />
-    );
+    return <OrderTable handleClick={handleProcess} data={data} />;
   };
 
   return (

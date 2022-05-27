@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { orderIdType, OrderInterface } from "../Components/OrderInterface";
+import { OrderInterface } from "../Components/OrderInterface";
 
 interface OrderSliceInterface {
   cleaning: OrderInterface;
@@ -9,7 +9,6 @@ interface OrderSliceInterface {
 
 interface ProcessInterface {
   orderId: string;
-  current: "cleaning" | "delivery";
 }
 interface markAsPaidPayload {
   orderId:string;
@@ -27,6 +26,7 @@ const initialState: OrderSliceInterface = {
       },
       orderId: "sku-01",
       orderNotes: "Please dont be late!",
+      current: "cleaning",
       paymentInfo: {
         date: "Today",
         delivery: "premium",
@@ -52,6 +52,7 @@ const initialState: OrderSliceInterface = {
       },
       orderId: "sku-02",
       orderNotes: "Please dont be late!",
+      current: "cleaning",
       paymentInfo: {
         date: "Today",
         delivery: "premium",
@@ -77,6 +78,7 @@ const initialState: OrderSliceInterface = {
       },
       orderId: "sku-03",
       orderNotes: "Please dont be late!",
+      current: "cleaning",
       paymentInfo: {
         date: "Today",
         delivery: "premium",
@@ -118,11 +120,16 @@ const orderSlice = createSlice({
       action: PayloadAction<ProcessInterface>
     ) => {
       const {
-        payload: { orderId, current },
+        payload: { orderId },
       } = action;
+
+      const allOrders = {...state.cleaning, ...state.deliver}
+      const current = allOrders[orderId].current
 
       if (current === "cleaning") {
         const currentOrder = state.cleaning[orderId];
+        currentOrder.current = "delivery"
+
         state.deliver = {
           ...state.deliver,
           [currentOrder.orderId]: { ...currentOrder },
@@ -130,8 +137,10 @@ const orderSlice = createSlice({
         console.log(currentOrder.orderId);
         delete state.cleaning[orderId];
       }
+      
       if (current === "delivery") {
         const currentOrder = state.deliver[orderId];
+        currentOrder.current = "done"
         state.done = {
           ...state.done,
           [currentOrder.orderId]: { ...currentOrder },

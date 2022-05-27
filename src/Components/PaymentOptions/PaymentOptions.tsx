@@ -52,6 +52,7 @@ const PaymentOptions = () => {
         orderId,
         items,
         orderNotes,
+        current: "cleaning",
         paymentInfo: { payment, delivery, date, time },
         customer: {
           ...currentCustomer,

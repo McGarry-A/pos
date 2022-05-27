@@ -5,12 +5,14 @@ import orderSlice from "../../Store/orderSlice";
 import { OrderInterface } from "../OrderInterface";
 
 interface Props {
-  handleClick: (orderId: string, current: "cleaning" | "delivery") => void;
+  handleClick: (
+    orderId: string,
+    current: "cleaning" | "delivery" | "done"
+  ) => void;
   data: OrderInterface;
-  current: "cleaning" | "delivery";
 }
 
-const OrderTable: React.FC<Props> = ({ handleClick, data, current }) => {
+const OrderTable: React.FC<Props> = ({ handleClick, data }) => {
   const dispatch = useAppDispatch();
 
   const {
@@ -29,10 +31,16 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, current }) => {
       <thead className="bg-gray-100 border-b-2 border-gray-200">
         <tr className="">
           <th className="p-3 text-sm font-semibold tracking-wide text-left">
+            Order ID
+          </th>
+          <th className="p-3 text-sm font-semibold tracking-wide text-left">
             Date
           </th>
           <th className="p-3 text-sm font-semibold tracking-wide text-left">
             Time
+          </th>
+          <th className="p-3 text-sm font-semibold tracking-wide text-left">
+            Section
           </th>
           <th className="p-3 text-sm font-semibold tracking-wide text-left">
             Customer
@@ -63,6 +71,7 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, current }) => {
             orderId,
             orderNotes,
             items,
+            current,
             paymentInfo: { payment, date, time },
             customer: { firstName, lastName },
           } = el;
@@ -74,8 +83,10 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, current }) => {
                 index % 2 !== 0 && `bg-gray-100 hover:bg-gray-200`
               }`}
             >
+              <td className="p-3 text-sm text-gray-700">{orderId}</td>
               <td className="p-3 text-sm text-gray-700">{date}</td>
               <td className="p-3 text-sm text-gray-700">{time}</td>
+              <td className="p-3 text-sm text-gray-700">{current}</td>
               <td className="p-3 text-sm text-gray-700">{`${firstName} ${lastName}`}</td>
               <td className="p-3 text-sm text-gray-700">{`${orderNotes}`}</td>
               <td className="p-3 text-sm text-gray-700">
@@ -96,8 +107,12 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, current }) => {
               <td className="p-3 text-sm text-gray-700">
                 {payment === "credit" ? (
                   <span
-                    className="px-3 w-full py-1 rounded text-white bg-red-600 cursor-pointer"
-                    onClick={() => dispatch(markAsPaid({ current, orderId }))}
+                    className={`px-3 w-full py-1 rounded text-white bg-red-600 ${
+                      current ? "cursor-pointer" : "cursor-error"
+                    }`}
+                    onClick={() =>
+                      current && dispatch(markAsPaid({ current, orderId }))
+                    }
                   >
                     Unpaid
                   </span>

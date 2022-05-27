@@ -3,15 +3,15 @@ import { OrderBody } from "../OrderInterface";
 import { TiTick } from "react-icons/ti";
 
 interface Props {
-  handleClick: (orderId: string, current: "cleaning" | "delivery") => void;
+  handleClick: (orderId: string) => void;
   data: OrderBody;
-  current: "cleaning" | "delivery";
 }
 
-const OrderCard: React.FC<Props> = ({ handleClick, data, current }) => {
+const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
   const {
     orderId,
     orderNotes,
+    current,
     paymentInfo: { payment, date, time },
     customer: { firstName, lastName },
   } = data;
@@ -41,12 +41,14 @@ const OrderCard: React.FC<Props> = ({ handleClick, data, current }) => {
           <div className="text-gray-600 text-sm font-light">{date}</div>
           <div className="text-gray-600 text-sm font-light">{time}</div>
         </div>
-        <div
-          className="justify-end cursor-pointer"
-          onClick={() => handleClick(orderId, current)}
-        >
-          <TiTick className="ml-auto" size={"1.3rem"} />
-        </div>
+        {current && (
+          <div
+            className="justify-end cursor-pointer"
+            onClick={() => handleClick(orderId)}
+          >
+            <TiTick className="ml-auto" size={"1.3rem"} />
+          </div>
+        )}
       </div>
     </div>
   );

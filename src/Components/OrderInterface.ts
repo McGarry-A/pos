@@ -9,8 +9,9 @@ export type PaymentType = "cash" | "card" | "credit";
 export type DeliveryType = "standard" | "premium";
 
 export interface OrderBody extends BasketInterface {
-  orderId: orderIdType,
+  orderId: orderIdType;
   customer: CustomerInterface;
+  current: "cleaning" | "delivery" | "done";
   paymentInfo: {
     payment: PaymentType;
     delivery: DeliveryType;
@@ -20,5 +21,5 @@ export interface OrderBody extends BasketInterface {
 };
 
 export interface OrderInterface {
-  [key: string]: OrderBody
+  [key: string]: OrderBody;
 };

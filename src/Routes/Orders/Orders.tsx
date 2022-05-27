@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { OrderInterface } from "../../Components/OrderInterface";
 import WorkflowOrders from "../../Components/WorkflowOrders/WorkflowOrders";
 import { useAppSelector } from "../../Store";
 
@@ -6,12 +8,20 @@ const Orders = () => {
   // allow for search/filter options
   // allow a customer to edit orders here > redirected to workflow page
   // and their context pulls from that data.
-  const handleFormSubmit = () => {};
+  const [filteredOrders, setFilteredOrders] = useState<OrderInterface | null>(
+    null
+  );
 
   const ordersWithSections = useAppSelector((state) => state.orders);
-  const { cleaning, deliver } = ordersWithSections;
-  const orders = { ...cleaning, ...deliver };
 
+  useEffect(() => {
+    const { cleaning, deliver, done } = ordersWithSections;
+    const orders = { ...cleaning, ...deliver, ...done };
+
+    setFilteredOrders(orders);
+  }, [ordersWithSections]);
+
+  const handleFormSubmit = () => {};
   return (
     <div>
       <div className="space-y-2">
@@ -71,7 +81,7 @@ const Orders = () => {
         </div>
       </form>
       <div className="mt-4">
-        <WorkflowOrders data={orders} current="cleaning" />
+        {filteredOrders && <WorkflowOrders data={filteredOrders} />}
       </div>
     </div>
   );
