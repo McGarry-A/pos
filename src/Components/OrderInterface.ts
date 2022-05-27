@@ -8,7 +8,7 @@ export type orderIdType = string;
 export type PaymentType = "cash" | "card" | "credit";
 export type DeliveryType = "standard" | "premium";
 
-interface OrderBody extends BasketInterface {
+export interface OrderBody extends BasketInterface {
   orderId: orderIdType,
   customer: CustomerInterface;
   paymentInfo: {

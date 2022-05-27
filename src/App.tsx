@@ -11,17 +11,11 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  const [navIsOpen, setNavIsOpen] = useState<boolean>(true);
+  const [navIsOpen, setNavIsOpen] = useState<boolean>(false);
 
-  const renderNavLinks = () => {
-    return (
-      <div className="hidden sm:flex list-none space-x-12 sm:items-center">
-        <NavLink to="/">Workflow</NavLink>
-        <NavLink to="/customers">Customers</NavLink>
-        <NavLink to="/orders">Orders</NavLink>
-        <NavLink to="/contact">Contact</NavLink>
-      </div>
-    );
+  const handleToggleNav = () => {
+    setNavIsOpen(!navIsOpen);
+    console.log(navIsOpen);
   };
 
   return (
@@ -30,9 +24,14 @@ function App() {
         <div className="flex items-center">
           <h2 className="sm:block text-2xl">BusinessLogo</h2>
         </div>
-        <nav className="sm:block flex items-center sm:flex-1">
-          {renderNavLinks()}
-          <button className="sm:hidden" onClick={() => setNavIsOpen(true)}>
+        <div className="hidden list-none sm:flex space-x-12 sm:items-center">
+          <NavLink to="/">Workflow</NavLink>
+          <NavLink to="/customers">Customers</NavLink>
+          <NavLink to="/orders">Orders</NavLink>
+          <NavLink to="/contact">Contact</NavLink>
+        </div>
+        <nav className="flex items-center sm:flex-1">
+          <button className="sm:hidden" onClick={handleToggleNav}>
             <GiHamburgerMenu size={"1.8rem"} color={""} />
           </button>
         </nav>

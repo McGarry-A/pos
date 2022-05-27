@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useAppSelector } from "../../Store";
 
 import NewOrder from "../../Components/NewOrder/NewOrder";
-import Cleaning from "../../Components/Cleaning/Cleaning";
-import Delivery from "../../Components/Delivery/Delivery";
+
+import WorkflowOrders from "../../Components/WorkflowOrders/WorkflowOrders";
 
 const Workflow = () => {
   type Workflow = "NewOrder" | "Cleaning" | "Delivery";
@@ -19,6 +19,9 @@ const Workflow = () => {
 
   const [activeTab, setActiveTab] = useState<Workflow>("NewOrder");
 
+  const deliverOrders = useAppSelector((state) => state.orders.deliver);
+  const cleaningOrders = useAppSelector((state) => state.orders.cleaning);
+
   const tabClass = "";
   const activeTabClass =
     "border-b-2 border-green-600 transition-colors font-medium";
@@ -30,13 +33,13 @@ const Workflow = () => {
   };
   const renderCleaningTab = () => {
     if (activeTab === "Cleaning") {
-      return <Cleaning />;
+      return <WorkflowOrders current="cleaning" data={cleaningOrders} />;
     }
   };
 
   const renderDeliveryTab = () => {
     if (activeTab === "Delivery") {
-      return <Delivery />;
+      return <WorkflowOrders current="cleaning" data={deliverOrders} />;
     }
   };
 
