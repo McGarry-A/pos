@@ -1,5 +1,4 @@
 import { AiOutlinePlus } from "react-icons/ai";
-import { MdOutlineCancel } from "react-icons/md";
 
 import CreateCustomerForm from "../CreateCustomerForm/CreateCustomerForm";
 import React, { useState } from "react";
@@ -18,14 +17,13 @@ const NewOrderForm: React.FC = () => {
 
   const target = document.getElementById("root");
 
-  const handleClearCustomer = () => {
-    const { setCurrentCustomer } = basket;
-    setCurrentCustomer(null);
-  };
+  // const handleClearCustomer = () => {
+  //   const { setCurrentCustomer } = basket;
+  //   setCurrentCustomer(null);
+  // };
 
   const handleSelectCustomer = (newValue: string | null) => {
     const { setCurrentCustomer } = basket;
-    // probably need a better way to find the results
 
     const filteredArray = customers.filter(
       (el) => `${el.firstName} ${el.lastName}` === newValue
@@ -57,6 +55,9 @@ const NewOrderForm: React.FC = () => {
 
     if (currentCustomer) return;
     const options = customers.map((el) => `${el.firstName} ${el.lastName}`);
+
+    // change input to auto suggest box from mui or something
+    // our list of customers is declared at the top of the component and inside "customers"
 
     return (
       <div className="">

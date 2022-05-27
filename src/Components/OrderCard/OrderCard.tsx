@@ -1,4 +1,3 @@
-import useIsMobile from "../../Hooks/useIsMobile";
 import { OrderBody } from "../OrderInterface";
 
 import { TiTick } from "react-icons/ti";
@@ -13,7 +12,6 @@ const OrderCard: React.FC<Props> = ({ handleClick, data, current }) => {
   const {
     orderId,
     orderNotes,
-    items,
     paymentInfo: { payment, date, time },
     customer: { firstName, lastName },
   } = data;

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../Store";
 import orderSlice from "../../Store/orderSlice";
-import { OrderInterface, PaymentType } from "../OrderInterface";
+import { OrderInterface } from "../OrderInterface";
 import useIsMobile from "../../Hooks/useIsMobile";
 import OrderCard from "../OrderCard/OrderCard";
 import OrderTable from "../OrderTable/OrderTable";
