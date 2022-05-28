@@ -2,6 +2,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import useBasket from "../../Context/BasketProvider";
 import useFormField from "../../Hooks/useFormField";
+import { useAppDispatch } from "../../Store";
 import customerSlice from "../../Store/customerSlice";
 import { CustomerInterface } from "../CustomerInterface";
 
@@ -9,38 +10,41 @@ interface Props {
   setPortalIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
-  const firstNameField = useFormField();
-  const lastNameField = useFormField();
+  const nameField = useFormField();
   const emailField = useFormField();
   const phoneNumberField = useFormField();
   const addressField = useFormField();
 
   const basket = useBasket();
-  const dispatch = useDispatch();
+  const dispatchContext = useDispatch();
+  const dispatchRedux = useAppDispatch();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { setCurrentCustomer } = basket;
+    
     const {
       actions: { addCustomer },
     } = customerSlice;
 
     const customer: CustomerInterface = {
-      firstName: firstNameField.value,
-      lastName: lastNameField.value,
+      name: nameField.value,
       phone: phoneNumberField.value,
       email: emailField.value,
       address: addressField.value,
     };
 
-    dispatch(addCustomer(customer));
-    setCurrentCustomer(customer);
+    if (setCurrentCustomer) {
+      dispatchContext(addCustomer(customer));
+      setCurrentCustomer(customer);
+    } else {
+      dispatchRedux(addCustomer(customer));
+    }
+
     setPortalIsHidden(false);
   };
 
-  const handleExit = () => {
-    setPortalIsHidden(false);
-  };
+  const handleExit = () => setPortalIsHidden(false);
 
   return (
     <div className="bg-white max-w-md shadow-md rounded flex relative">
@@ -57,13 +61,9 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
           </p>
         </div>
         <div className="grid grid-cols-2 gap-x-2">
-          <div className="">
-            <label>First Name</label>
-            <input placeholder="Ahmed" type="text" {...firstNameField} />
-          </div>
-          <div className="grid g">
-            <label>Last Name</label>
-            <input placeholder="McGarry" type="text" {...lastNameField} />
+          <div className="col-span-2">
+            <label>Full Name</label>
+            <input placeholder="Ahmed" type="text" {...nameField} />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-x-2">

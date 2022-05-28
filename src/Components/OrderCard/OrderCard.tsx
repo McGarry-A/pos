@@ -13,7 +13,7 @@ const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
     orderNotes,
     current,
     paymentInfo: { payment, date, time },
-    customer: { firstName, lastName },
+    customer: { name },
   } = data;
 
   return (
@@ -37,7 +37,7 @@ const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
           )}
         </div>
         <div className="text-gray-700 text-lg col-span-2">
-          {firstName} {lastName}
+          {name}
         </div>
         <div className="text-gray-500 col-span-2">
           <p className="text-sm">{orderNotes}</p>

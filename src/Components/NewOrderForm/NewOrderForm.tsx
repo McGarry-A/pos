@@ -26,7 +26,7 @@ const NewOrderForm: React.FC = () => {
     const { setCurrentCustomer } = basket;
 
     const filteredArray = customers.filter(
-      (el) => `${el.firstName} ${el.lastName}` === newValue
+      (el) => `${el.name}` === newValue
     );
     const customer = filteredArray[0];
     setCurrentCustomer(customer);
@@ -36,12 +36,12 @@ const NewOrderForm: React.FC = () => {
     const { currentCustomer } = basket;
 
     if (currentCustomer) {
-      const { firstName, lastName, phone, address } = currentCustomer;
+      const { name, phone, address } = currentCustomer;
 
       return (
         <div className="">
           <h3 className="mb-1 text-gray-700">
-            {firstName} {lastName}
+            {name}
           </h3>
           <p className="text-sm opacity-60 italic">{phone}</p>
           <p className="text-sm opacity-60 italic">{address}</p>
@@ -54,7 +54,7 @@ const NewOrderForm: React.FC = () => {
     const { currentCustomer } = basket;
 
     if (currentCustomer) return;
-    const options = customers.map((el) => `${el.firstName} ${el.lastName}`);
+    const options = customers.map((el) => `${el.name}`);
 
     // change input to auto suggest box from mui or something
     // our list of customers is declared at the top of the component and inside "customers"

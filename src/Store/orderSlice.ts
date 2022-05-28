@@ -18,8 +18,7 @@ const initialState: OrderSliceInterface = {
   cleaning: {
     "sku-01": {
       customer: {
-        firstName: "Ahmed",
-        lastName: "McGarry",
+        name: "Ahmed McGarry",
         email: "ahmedmcgarry@hotmail.com",
         phone: "07907733824",
         address: "357 Leyland Road",
@@ -44,8 +43,7 @@ const initialState: OrderSliceInterface = {
     },
     "sku-02": {
       customer: {
-        firstName: "Ahmed",
-        lastName: "McGarry",
+        name: "Ahmed McGarry",
         email: "ahmedmcgarry@hotmail.com",
         phone: "07907733824",
         address: "357 Leyland Road",
@@ -70,8 +68,7 @@ const initialState: OrderSliceInterface = {
     },
     "sku-03": {
       customer: {
-        firstName: "Ahmed",
-        lastName: "McGarry",
+        name: "Ahmed McGarry",
         email: "ahmedmcgarry@hotmail.com",
         phone: "07907733824",
         address: "357 Leyland Road",

@@ -73,7 +73,7 @@ const OrderTable: React.FC<Props> = ({ handleClick, data }) => {
             items,
             current,
             paymentInfo: { payment, date, time },
-            customer: { firstName, lastName },
+            customer: { name },
           } = el;
 
           return (
@@ -87,7 +87,7 @@ const OrderTable: React.FC<Props> = ({ handleClick, data }) => {
               <td className="p-3 text-sm text-gray-700">{date}</td>
               <td className="p-3 text-sm text-gray-700">{time}</td>
               <td className="p-3 text-sm text-gray-700">{current}</td>
-              <td className="p-3 text-sm text-gray-700">{`${firstName} ${lastName}`}</td>
+              <td className="p-3 text-sm text-gray-700">{name}</td>
               <td className="p-3 text-sm text-gray-700">{`${orderNotes}`}</td>
               <td className="p-3 text-sm text-gray-700">
                 <div>
