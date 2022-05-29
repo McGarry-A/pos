@@ -1,20 +1,31 @@
-import { FormEvent, useState } from "react";
-import { OrderInterface } from "../../Components/OrderInterface";
-import WorkflowOrders from "../../Components/WorkflowOrders/WorkflowOrders";
+import { FormEvent, useEffect, useState } from "react";
 import useFormField from "../../Hooks/useFormField";
 import { AiOutlinePlus } from "react-icons/ai";
 import Portal from "../../Components/Portal/Portal";
 import CreateCustomerForm from "../../Components/CreateCustomerForm/CreateCustomerForm";
+import CustomerTable from "../../Components/CustomerTable/CustomerTable";
+import { CustomerInterface } from "../../Components/CustomerInterface";
+import { useAppSelector } from "../../Store";
+import useIsMobile from "../../Hooks/useIsMobile";
+import CustomerCard from "../../Components/CustomerCard/CustomerCard";
 
 const Customers = () => {
-  const [filteredCustomers, setFilteredCustomers] =
-    useState<OrderInterface | null>(null);
+  const [filteredCustomers, setFilteredCustomers] = useState<
+    CustomerInterface[] | null
+  >(null);
+
+  const customers = useAppSelector((state) => state.customers);
+
+  useEffect(() => {
+    setFilteredCustomers(customers);
+  }, [customers]);
 
   const nameField = useFormField();
   const numberField = useFormField();
   const emailField = useFormField();
 
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
+  const isMobile = useIsMobile();
 
   const renderAddCustomerPopup = () => {
     const target = document.getElementById("root");
@@ -30,6 +41,27 @@ const Customers = () => {
     if (!filteredCustomers) return;
   };
 
+  const renderCustomerTable = () => {
+    if (!isMobile) {
+      return <CustomerTable data={customers} />;
+    }
+  };
+
+  const renderCustomerCards = () => {
+    if (isMobile) {
+      return (
+        <div>
+          {customers.map((customer) => {
+            return (
+              <>
+                <CustomerCard customer={customer} />
+              </>
+            );
+          })}
+        </div>
+      );
+    }
+  };
   return (
     <div>
       <div className="space-y-2 p-2">
@@ -74,7 +106,8 @@ const Customers = () => {
         </p>
       </div>
       <div className="mt-4">
-        {filteredCustomers && <WorkflowOrders data={filteredCustomers} />}
+        {renderCustomerCards()}
+        {renderCustomerTable()}
       </div>
       {renderAddCustomerPopup()}
     </div>
