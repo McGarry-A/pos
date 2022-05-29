@@ -15,8 +15,12 @@ const Orders = () => {
 
   const nameField = useFormField();
   const orderIdField = useFormField();
-  const [paymentFilter, setPaymentFilter] = useState<PaymentType | null>();
-  const [sectionFilter, setSectionFilter] = useState<sectionType>(null);
+  const [paymentFilter, setPaymentFilter] = useState<
+    PaymentType | null | "none"
+  >(null);
+  const [sectionFilter, setSectionFilter] = useState<
+    sectionType | null | "none"
+  >(null);
 
   const ordersWithSections = useAppSelector((state) => state.orders);
 
@@ -31,22 +35,6 @@ const Orders = () => {
     e.preventDefault();
     if (!filteredOrders) return;
 
-    const queryArray = [
-      { name: nameField.value },
-      { orderId: orderIdField.value },
-      { paid: paymentFilter },
-      { current: sectionFilter },
-    ];
-
-    const filteredQueries = queryArray.filter(
-      (el) =>
-        Object.values(el)[0] !== null &&
-        Object.values(el)[0] !== undefined &&
-        Object.values(el)[0] !== ""
-    );
-
-    console.log(filteredQueries);
-    console.log({ ...filteredQueries });
   };
   return (
     <div>
@@ -80,7 +68,7 @@ const Orders = () => {
                   setPaymentFilter(e.target.value as PaymentType)
                 }
               >
-                <option>Payment Type</option>
+                <option value="none"></option>
                 <option value="cash">Cash</option>
                 <option value="card">Card</option>
                 <option value="credit">Credit</option>
@@ -96,7 +84,7 @@ const Orders = () => {
                   setSectionFilter(e.target.value as sectionType)
                 }
               >
-                <option>Section</option>
+                <option value={undefined}></option>
                 <option value="cleaning">Cleaning</option>
                 <option value="delivery">Delivery</option>
                 <option value="done">Done</option>

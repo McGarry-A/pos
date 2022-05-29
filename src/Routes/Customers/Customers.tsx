@@ -49,6 +49,7 @@ const Customers = () => {
         name === nameQuery && phone === phoneQuery && email === emailQuery
     );
 
+
     console.log(newFilteredCustomers)
     setFilteredCustomers(newFilteredCustomers);
   };

@@ -43,7 +43,7 @@ const initialState: OrderSliceInterface = {
     },
     "sku-02": {
       customer: {
-        name: "Ahmed McGarry",
+        name: "Ayman McGarry",
         email: "ahmedmcgarry@hotmail.com",
         phone: "07907733824",
         address: "357 Leyland Road",
@@ -68,7 +68,7 @@ const initialState: OrderSliceInterface = {
     },
     "sku-03": {
       customer: {
-        name: "Ahmed McGarry",
+        name: "Alicia McGarry",
         email: "ahmedmcgarry@hotmail.com",
         phone: "07907733824",
         address: "357 Leyland Road",
