@@ -10,11 +10,10 @@ import useIsMobile from "../../Hooks/useIsMobile";
 import CustomerCard from "../../Components/CustomerCard/CustomerCard";
 
 const Customers = () => {
-  const [filteredCustomers, setFilteredCustomers] = useState<
-    CustomerInterface[] | null
-  >(null);
-
   const customers = useAppSelector((state) => state.customers);
+  const [filteredCustomers, setFilteredCustomers] = useState<
+    CustomerInterface[]>(customers);
+
 
   useEffect(() => {
     setFilteredCustomers(customers);
@@ -39,23 +38,36 @@ const Customers = () => {
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!filteredCustomers) return;
+    console.log("SEARCH")
+
+    const nameQuery = nameField.value;
+    const emailQuery = emailField.value;
+    const phoneQuery = numberField.value;
+
+    const newFilteredCustomers = filteredCustomers.filter(
+      ({ name, phone, email }) =>
+        name === nameQuery && phone === phoneQuery && email === emailQuery
+    );
+
+    console.log(newFilteredCustomers)
+    setFilteredCustomers(newFilteredCustomers);
   };
 
   const renderCustomerTable = () => {
-    if (!isMobile) {
-      return <CustomerTable data={customers} />;
+    if (!isMobile || filteredCustomers.length >= 1) {
+      return <CustomerTable data={filteredCustomers} />;
     }
   };
 
   const renderCustomerCards = () => {
-    if (isMobile) {
+    if (isMobile || filteredCustomers.length >= 1) {
       return (
         <div>
-          {customers.map((customer) => {
+          {filteredCustomers.map((customer, index) => {
             return (
-              <>
+              <div key={index}>
                 <CustomerCard customer={customer} />
-              </>
+              </div>
             );
           })}
         </div>

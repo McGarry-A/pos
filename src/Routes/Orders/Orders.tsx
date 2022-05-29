@@ -4,15 +4,11 @@ import { OrderInterface, PaymentType } from "../../Components/OrderInterface";
 import WorkflowOrders from "../../Components/WorkflowOrders/WorkflowOrders";
 import useFormField from "../../Hooks/useFormField";
 import { useAppSelector } from "../../Store";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 type sectionType = "cleaning" | "delivery" | "done" | null;
 
 const Orders = () => {
-  // show all orders (including done)
-  // allow for search/filter options
-  // allow a customer to edit orders here > redirected to workflow page
-  // and their context pulls from that data.
   const [filteredOrders, setFilteredOrders] = useState<OrderInterface | null>(
     null
   );
@@ -57,7 +53,7 @@ const Orders = () => {
       <div className="space-y-2 p-2">
         <h2 className="text-2xl text-gray-800 mt-4">Order Search</h2>
       </div>
-      <form onSubmit={(e) => handleFormSubmit(e)} className="my-6 px-2">
+      <form onSubmit={(e) => handleFormSubmit(e)} className="my-6 px-2 mx-auto">
         <div className="grid grid-cols-3 gap-5 max-w-lg">
           <div className="col-span-1">
             <label className="text-xs text-gray-700 font-light">Order ID</label>
@@ -118,13 +114,18 @@ const Orders = () => {
       <div className="flex justify-end">
         <p className="flex items-center opacity-60 text-sm">
           Create a new order{" "}
-          <Link to="/" className="ml-2 border border-gray-600 p-1 cursor-pointer">
+          <Link
+            to="/"
+            className="ml-2 border border-gray-600 p-1 cursor-pointer"
+          >
             <AiOutlinePlus />
           </Link>
         </p>
       </div>
       <div className="mt-4">
-        {filteredOrders && <WorkflowOrders data={filteredOrders} />}
+        {filteredOrders && (
+          <WorkflowOrders data={filteredOrders} showCurrent={true} />
+        )}
       </div>
     </div>
   );

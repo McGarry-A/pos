@@ -30,13 +30,13 @@ const Workflow = () => {
   };
   const renderCleaningTab = () => {
     if (activeTab === "Cleaning") {
-      return <WorkflowOrders data={cleaningOrders} />;
+      return <WorkflowOrders data={cleaningOrders} showCurrent={false} />;
     }
   };
 
   const renderDeliveryTab = () => {
     if (activeTab === "Delivery") {
-      return <WorkflowOrders data={deliverOrders} />;
+      return <WorkflowOrders data={deliverOrders} showCurrent={false} />;
     }
   };
 

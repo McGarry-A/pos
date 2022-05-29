@@ -10,9 +10,10 @@ interface Props {
     current: "cleaning" | "delivery" | "done"
   ) => void;
   data: OrderInterface;
+  showCurrent: boolean;
 }
 
-const OrderTable: React.FC<Props> = ({ handleClick, data }) => {
+const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
   const dispatch = useAppDispatch();
 
   const {
@@ -39,9 +40,11 @@ const OrderTable: React.FC<Props> = ({ handleClick, data }) => {
           <th className="p-3 text-sm font-semibold tracking-wide text-left">
             Time
           </th>
-          <th className="p-3 text-sm font-semibold tracking-wide text-left">
-            Section
-          </th>
+          {showCurrent && (
+            <th className="p-3 text-sm font-semibold tracking-wide text-left">
+              Section
+            </th>
+          )}
           <th className="p-3 text-sm font-semibold tracking-wide text-left">
             Customer
           </th>
@@ -86,7 +89,9 @@ const OrderTable: React.FC<Props> = ({ handleClick, data }) => {
               <td className="p-3 text-sm text-gray-700">{orderId}</td>
               <td className="p-3 text-sm text-gray-700">{date}</td>
               <td className="p-3 text-sm text-gray-700">{time}</td>
-              <td className="p-3 text-sm text-gray-700">{current}</td>
+              {showCurrent && (
+                <td className="p-3 text-sm text-gray-700">{current}</td>
+              )}
               <td className="p-3 text-sm text-gray-700">{name}</td>
               <td className="p-3 text-sm text-gray-700">{`${orderNotes}`}</td>
               <td className="p-3 text-sm text-gray-700">

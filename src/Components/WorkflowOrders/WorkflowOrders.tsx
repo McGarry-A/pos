@@ -1,17 +1,20 @@
-import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../Store";
-import orderSlice from "../../Store/orderSlice";
-import { OrderInterface } from "../OrderInterface";
 import useIsMobile from "../../Hooks/useIsMobile";
+import {useNavigate} from "react-router-dom"
+
+import orderSlice from "../../Store/orderSlice";
+
+import { OrderInterface } from "../OrderInterface";
+
 import OrderCard from "../OrderCard/OrderCard";
 import OrderTable from "../OrderTable/OrderTable";
-import {useNavigate} from "react-router-dom"
 
 interface Props {
   data: OrderInterface;
+  showCurrent: boolean;
 }
 
-const WorkflowOrders: React.FC<Props> = ({ data }) => {
+const WorkflowOrders: React.FC<Props> = ({ data, showCurrent }) => {
   const dispatch = useAppDispatch();
   const {
     actions: { process },
@@ -60,7 +63,7 @@ const WorkflowOrders: React.FC<Props> = ({ data }) => {
   const renderTable = () => {
     if (!isOrders || isMobile) return;
 
-    return <OrderTable handleClick={handleProcess} data={data} />;
+    return <OrderTable handleClick={handleProcess} data={data} showCurrent={showCurrent} />;
   };
 
   return (
