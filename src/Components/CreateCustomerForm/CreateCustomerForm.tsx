@@ -8,8 +8,14 @@ import { CustomerInterface } from "../CustomerInterface";
 
 interface Props {
   setPortalIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  allowEdit?: boolean;
+  customer?: CustomerInterface;
 }
-const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
+const CreateCustomerForm: React.FC<Props> = ({
+  setPortalIsHidden,
+  allowEdit,
+  customer,
+}) => {
   const nameField = useFormField();
   const emailField = useFormField();
   const phoneNumberField = useFormField();
@@ -19,13 +25,13 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
   const dispatchContext = useDispatch();
   const dispatchRedux = useAppDispatch();
 
+  const {
+    actions: { addCustomer, editCustomer },
+  } = customerSlice;
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { setCurrentCustomer } = basket;
-    
-    const {
-      actions: { addCustomer },
-    } = customerSlice;
 
     const customer: CustomerInterface = {
       name: nameField.value,
@@ -44,13 +50,33 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
     setPortalIsHidden(false);
   };
 
+  const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!customer) return;
+
+    const newCustomer: CustomerInterface = {
+      name: nameField.value,
+      phone: phoneNumberField.value,
+      email: emailField.value,
+      address: addressField.value,
+    };
+
+    dispatchRedux(editCustomer({ newCustomer, customer }));
+    setPortalIsHidden(false);
+  };
+
   const handleExit = () => setPortalIsHidden(false);
 
   return (
     <div className="bg-white max-w-md shadow-md rounded flex relative">
       <form
         className="p-4 space-y-4"
-        onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
+        onSubmit={
+          allowEdit
+            ? (e: React.FormEvent<HTMLFormElement>) => handleEditSubmit(e)
+            : (e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)
+        }
       >
         <div>
           <h3 className="text-xl font-semibold uppercase">
@@ -99,7 +125,7 @@ const CreateCustomerForm: React.FC<Props> = ({ setPortalIsHidden }) => {
             className="border px-6 py-2 rounded font-semibold bg-green-600 text-white"
             type="submit"
           >
-            Save
+            {allowEdit ? "Edit" : "Save"}
           </button>
         </div>
       </form>

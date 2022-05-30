@@ -10,6 +10,11 @@ const initialCustomerState: CustomerInterface[] = [
     }
 ]
 
+interface editInterface {
+    newCustomer: CustomerInterface;
+    customer: CustomerInterface;
+}
+
 const customerSlice = createSlice({
     name: 'customer',
     initialState: initialCustomerState,
@@ -19,9 +24,26 @@ const customerSlice = createSlice({
                 ...state, 
                 action.payload
             ]
-        }, // REMOVE A CUSTOMER USING ID IDEALLY BUT NOW I GUESS JUST FILTER THE RESULTS BASED ON THE WHOLE ELEMENT
-        deleteCustomer: (state: CustomerInterface[], action: PayloadAction<number>) => {
-            console.log("delete customer");
+        }, 
+        deleteCustomer: (state: CustomerInterface[], action: PayloadAction<CustomerInterface>) => {
+            return state.filter(el => el.phone !== action.payload.phone)
+        },
+        editCustomer: (state: CustomerInterface[], action: PayloadAction<editInterface>) => {
+            console.log("edit customer")
+            const { payload: {newCustomer, customer}} = action
+            
+            state.map(el => {
+                if (el.phone === customer.phone) {
+                    el.address = newCustomer.address
+                    el.name = newCustomer.name
+                    el.phone = newCustomer.phone
+                    el.email = newCustomer.email
+
+                    return el
+                }
+
+                return el
+            })
         }
     },
 })
