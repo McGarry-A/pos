@@ -23,7 +23,6 @@ const Orders = () => {
   useEffect(() => {
     const { cleaning, deliver, done } = ordersWithSections;
     const orders = { ...cleaning, ...deliver, ...done };
-
     setFilteredOrders(orders);
   }, [ordersWithSections]);
 
@@ -50,65 +49,62 @@ const Orders = () => {
 
         switch (action) {
           case "FILTER_NAME":
-            const matchingNames = Object.values(filteredOrders).filter((el) =>
-              el.customer.name.includes(query!)
-            );
+            const matchingNames = Object.values(
+              Object.keys(allOrders).length === 0 ? filteredOrders : allOrders
+            ).filter((el) => el.customer.name.includes(query!));
             const matchingNamesArray = matchingNames.map((el) => {
               return [[el.orderId], el];
             });
-            console.log(Object.fromEntries(matchingNamesArray));
             allOrders = {
               ...Object.fromEntries(matchingNamesArray),
               ...allOrders,
             };
             break;
           case "FILTER_ORDERID":
-            const matchingOrderIds = Object.values(filteredOrders).filter(
-              (el) => el.orderId.includes(query!)
-            );
+            const matchingOrderIds = Object.values(
+              Object.keys(allOrders).length === 0 ? filteredOrders : allOrders
+            ).filter((el) => el.orderId.includes(query!));
             const matchingOrderIdsArray = matchingOrderIds.map((el) => {
               return [[el.orderId], el];
             });
-            console.log(Object.fromEntries(matchingOrderIdsArray));
             allOrders = {
               ...Object.fromEntries(matchingOrderIdsArray),
-              ...allOrders,
             };
             break;
           case "FILTER_PAID":
-            const matchingPaid = Object.values(filteredOrders).filter(
-              (el) => el.paymentInfo.payment === query
-            );
+            const matchingPaid = Object.values(
+              Object.keys(allOrders).length === 0 ? filteredOrders : allOrders
+            ).filter((el) => el.paymentInfo.payment === query);
             const matchingPaidArray = matchingPaid.map((el) => {
               return [[el.orderId], el];
             });
             allOrders = {
               ...Object.fromEntries(matchingPaidArray),
-              ...allOrders,
             };
             break;
           case "FILTER_SECTION":
-            const matchingSections = Object.values(filteredOrders).filter(
-              (el) => el.current === query
-            );
+            const matchingSections = Object.values(
+              Object.keys(allOrders).length === 0 ? filteredOrders : allOrders
+            ).filter((el) => el.current === query);
             const matchingSectionsArray = matchingSections.map((el) => [
               [el.orderId],
               el,
             ]);
             allOrders = {
               ...Object.fromEntries(matchingSectionsArray),
-              ...allOrders,
             };
             break;
-          case "CLEAR":
-            const { cleaning, deliver, done } = ordersWithSections;
-            const orders = { ...cleaning, ...deliver, ...done };
-            setFilteredOrders(orders);
-            return;
+          // case "CLEAR":
+          //   const { cleaning, deliver, done } = ordersWithSections;
+          //   const orders = { ...cleaning, ...deliver, ...done };
+          //   setFilteredOrders(orders);
+          //   return;
           default:
             break;
         }
       });
+
+      setFilteredOrders(allOrders);
     };
 
     filterOrders();
@@ -169,8 +165,25 @@ const Orders = () => {
             </div>
           </div>
           <div></div>
-          <div className="flex justify-end">
-            <button className="border-gray-300 border p-3 text-gray-500 text-xs font-semibold uppercase rounded">
+          <div className="flex justify-end space-x-3">
+            <button
+              className="border-gray-300 border p-3 text-gray-500 text-xs font-semibold uppercase rounded"
+              type="button"
+              onClick={() => {
+                setFilteredOrders({
+                  ...ordersWithSections.cleaning,
+                  ...ordersWithSections.deliver,
+                  ...ordersWithSections.done,
+                });
+                console.log("CLEAR");
+              }}
+            >
+              CLEAR
+            </button>
+            <button
+              type="submit"
+              className="bg-gray-600 border p-3 text-gray-50 text-xs font-semibold uppercase rounded"
+            >
               Find Results
             </button>
           </div>
