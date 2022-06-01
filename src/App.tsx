@@ -4,11 +4,11 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 import Customers from "./Routes/Customers/Customers";
 import Orders from "./Routes/Orders/Orders";
-import Contact from "./Routes/Contact/Contact";
 import Workflow from "./Routes/Workflow/Workflow";
 
 import "./App.css";
 import { useState } from "react";
+import Reports from "./Routes/Reports/Reports";
 
 function App() {
   const [navIsOpen, setNavIsOpen] = useState<boolean>(false);
@@ -28,7 +28,7 @@ function App() {
           <NavLink to="/">Workflow</NavLink>
           <NavLink to="/customers">Customers</NavLink>
           <NavLink to="/orders">Orders</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
+          <NavLink to="/reports">Reports</NavLink>
         </div>
         <nav className="flex items-center sm:flex-1">
           <button className="sm:hidden" onClick={handleToggleNav}>
@@ -42,7 +42,7 @@ function App() {
           <Route path="/" element={<Workflow />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/orders" element={<Orders />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/reports" element={<Reports />} />
         </Routes>
       </div>
     </div>

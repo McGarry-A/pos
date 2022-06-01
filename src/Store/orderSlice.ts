@@ -13,7 +13,9 @@ interface ProcessInterface {
 interface markAsPaidPayload {
   orderId:string;
   current:string;
+  paymentType: "cash" | "card";
 }
+
 const initialState: OrderSliceInterface = {
   cleaning: {
     "sku-01": {
@@ -150,13 +152,13 @@ const orderSlice = createSlice({
     },
     
     markAsPaid: (state: OrderSliceInterface, action:PayloadAction<markAsPaidPayload>) => {
-      const {current, orderId} = action.payload
+      const {current, orderId, paymentType} = action.payload
 
       if (current === "cleaning") {
-        state.cleaning[orderId].paymentInfo.payment = "cash"
+        state.cleaning[orderId].paymentInfo.payment = paymentType
       }
       if (current === "delivery") {
-        state.deliver[orderId].paymentInfo.payment = "cash"
+        state.deliver[orderId].paymentInfo.payment = paymentType
       }
     }
   },
