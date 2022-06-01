@@ -190,7 +190,7 @@ const Orders = () => {
         </div>
       </form>
       <div className="flex justify-end">
-        <p className="flex items-center opacity-60 text-sm">
+        <p className="flex items-center opacity-60 text-sm mr-2">
           Create a new order{" "}
           <Link
             to="/"

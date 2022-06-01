@@ -2,7 +2,7 @@ import { useAppSelector } from "../../Store";
 
 const Reports = () => {
   const redux = useAppSelector((state) => state);
-  const { orders, customers } = redux;
+  const { orders } = redux;
 
   const { cleaning, deliver, done } = orders;
 

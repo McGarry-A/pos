@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import useFormField from "../../Hooks/useFormField";
 import { AiOutlinePlus } from "react-icons/ai";
 import Portal from "../../Components/Portal/Portal";
@@ -22,6 +22,10 @@ const Customers = () => {
   const numberField = useFormField();
   const emailField = useFormField();
 
+  const nameRef = useRef<HTMLInputElement>(null);
+  const numberRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
   const isMobile = useIsMobile();
 
@@ -33,22 +37,72 @@ const Customers = () => {
     );
   };
 
+  const handleClearCustomers = () => {
+    nameRef.current!.value = "";
+    numberRef.current!.value = "";
+    emailRef.current!.value = "";
+
+    setFilteredCustomers(customers);
+  };
+
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!filteredCustomers) return;
     console.log("SEARCH");
 
-    const nameQuery = nameField.value;
-    const emailQuery = emailField.value;
-    const phoneQuery = numberField.value;
+    const name = nameField.value;
+    const email = emailField.value;
+    const phone = numberField.value;
 
-    const newFilteredCustomers = filteredCustomers.filter(
-      ({ name, phone, email }) =>
-        name === nameQuery && phone === phoneQuery && email === emailQuery
-    );
+    const queries = [
+      { query: name, action: "FILTER_NAME" },
+      { query: email, action: "FILTER_EMAIL" },
+      { query: phone, action: "FILTER_PHONE" },
+    ]
+      .filter((el) => el.query !== null)
+      .filter((el) => el.query.length !== 0);
 
-    console.log(newFilteredCustomers);
-    setFilteredCustomers(newFilteredCustomers);
+    const filterCustomers = () => {
+      if (!filteredCustomers) return;
+      let allCustomers: CustomerInterface[] = [];
+
+      queries.forEach((el) => {
+        const { query, action } = el;
+
+        switch (action) {
+          case "FILTER_NAME":
+            const matchingNames = (
+              allCustomers.length === 0 ? filteredCustomers : allCustomers
+            ).filter((el) => {
+              return el.name.includes(query) ? el : null;
+            });
+            allCustomers = [...matchingNames];
+            break;
+          case "FILTER_EMAIL":
+            const matchingEmails = (
+              allCustomers.length === 0 ? filteredCustomers : allCustomers
+            ).filter((el) => {
+              return el.email.includes(query) ? el : null;
+            });
+            allCustomers = [...matchingEmails];
+            break;
+          case "FILTER_PHONE":
+            const matchingPhone = (
+              allCustomers.length === 0 ? filteredCustomers : allCustomers
+            ).filter((el) => {
+              return el.phone.includes(query) ? el : null;
+            });
+            allCustomers = [...matchingPhone];
+            break;
+          default:
+            break;
+        }
+      });
+
+      setFilteredCustomers(allCustomers);
+    };
+
+    filterCustomers();
   };
 
   const renderCustomerTable = () => {
@@ -83,22 +137,34 @@ const Customers = () => {
             <label className="text-xs text-gray-700 font-light">
               Full Name
             </label>
-            <input type="text" className="h-8" {...nameField} />
+            <input type="text" className="h-8" {...nameField} ref={nameRef} />
           </div>
           <div className="">
             <label className="text-xs text-gray-700 font-light">
               E-mail Address
             </label>
-            <input type="text" className="h-8" {...emailField} />
+            <input type="text" className="h-8" {...emailField} ref={emailRef} />
           </div>
           <div className="">
             <label className="text-xs text-gray-700 font-light">
               Phone Number
             </label>
-            <input type="text" className="h-8" {...numberField} />
+            <input
+              type="text"
+              className="h-8"
+              {...numberField}
+              ref={numberRef}
+            />
           </div>
-          <div className="flex col-span-2 justify-end">
-            <button className="border-gray-300 border p-4 text-gray-500 text-xs font-semibold uppercase rounded">
+          <div className="flex col-span-2 justify-end space-x-4">
+            <button
+              className="border-gray-300 border p-3 text-gray-500 text-xs font-semibold uppercase rounded"
+              type="button"
+              onClick={handleClearCustomers}
+            >
+              CLEAR
+            </button>
+            <button className="border-gray-300 bg-gray-600 border p-4 text-gray-50 text-xs font-semibold uppercase rounded">
               Find Results
             </button>
           </div>
@@ -107,7 +173,7 @@ const Customers = () => {
       <div className="col-span-2 flex justify-end">
         <p className="flex items-center text-sm text-gray-600 opacity-70">
           Add a new customer{" "}
-          <span className="ml-2 border p-1 border-gray-500">
+          <span className="ml-2 border p-1 border-gray-500 mr-2">
             <AiOutlinePlus
               className="cursor-pointer"
               onClick={() => setPortalIsHidden(!portalIsHidden)}
