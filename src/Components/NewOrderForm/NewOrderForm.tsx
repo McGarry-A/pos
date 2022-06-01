@@ -25,9 +25,7 @@ const NewOrderForm: React.FC = () => {
   const handleSelectCustomer = (newValue: string | null) => {
     const { setCurrentCustomer } = basket;
 
-    const filteredArray = customers.filter(
-      (el) => `${el.name}` === newValue
-    );
+    const filteredArray = customers.filter((el) => `${el.name}` === newValue);
     const customer = filteredArray[0];
     setCurrentCustomer(customer);
   };
@@ -40,9 +38,7 @@ const NewOrderForm: React.FC = () => {
 
       return (
         <div className="">
-          <h3 className="mb-1 text-gray-700">
-            {name}
-          </h3>
+          <h3 className="mb-1 text-gray-700">{name}</h3>
           <p className="text-sm opacity-60 italic">{phone}</p>
           <p className="text-sm opacity-60 italic">{address}</p>
         </div>
@@ -86,7 +82,7 @@ const NewOrderForm: React.FC = () => {
   };
 
   const renderAddCustomerPopUp = () => (
-    <Portal target={target!} isHidden={portalIsHidden}>
+    <Portal isHidden={portalIsHidden}>
       <CreateCustomerForm setPortalIsHidden={setPortalIsHidden} />
     </Portal>
   );

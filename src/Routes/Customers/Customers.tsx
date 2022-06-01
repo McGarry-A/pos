@@ -26,9 +26,8 @@ const Customers = () => {
   const isMobile = useIsMobile();
 
   const renderAddCustomerPopup = () => {
-    const target = document.getElementById("root");
     return (
-      <Portal target={target!} isHidden={portalIsHidden}>
+      <Portal isHidden={portalIsHidden}>
         <CreateCustomerForm setPortalIsHidden={setPortalIsHidden} />
       </Portal>
     );

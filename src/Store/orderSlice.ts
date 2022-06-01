@@ -123,6 +123,8 @@ const orderSlice = createSlice({
       const allOrders = {...state.cleaning, ...state.deliver}
       const current = allOrders[orderId].current
 
+      if (current === "done") return;
+
       if (current === "cleaning") {
         const currentOrder = state.cleaning[orderId];
         currentOrder.current = "delivery"
@@ -131,7 +133,7 @@ const orderSlice = createSlice({
           ...state.deliver,
           [currentOrder.orderId]: { ...currentOrder },
         };
-        console.log(currentOrder.orderId);
+        
         delete state.cleaning[orderId];
       }
       
@@ -146,6 +148,7 @@ const orderSlice = createSlice({
         delete state.deliver[orderId];
       }
     },
+    
     markAsPaid: (state: OrderSliceInterface, action:PayloadAction<markAsPaidPayload>) => {
       const {current, orderId} = action.payload
 

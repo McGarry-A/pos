@@ -15,12 +15,8 @@ const Orders = () => {
 
   const nameField = useFormField();
   const orderIdField = useFormField();
-  const [paymentFilter, setPaymentFilter] = useState<
-    PaymentType | null | "none"
-  >(null);
-  const [sectionFilter, setSectionFilter] = useState<
-    sectionType | null | "none"
-  >(null);
+  const [paymentFilter, setPaymentFilter] = useState<PaymentType | null>(null);
+  const [sectionFilter, setSectionFilter] = useState<sectionType | null>(null);
 
   const ordersWithSections = useAppSelector((state) => state.orders);
 
@@ -33,8 +29,89 @@ const Orders = () => {
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!filteredOrders) return;
+    const name = nameField.value;
+    const orderId = orderIdField.value;
 
+    const queries = [
+      { query: name, action: "FILTER_NAME" },
+      { query: orderId, action: "FILTER_ORDERID" },
+      { query: paymentFilter, action: "FILTER_PAID" },
+      { query: sectionFilter, action: "FILTER_SECTION" },
+    ]
+      .filter((el) => el.query !== null)
+      .filter((el) => el.query!.length > 2);
+
+    const filterOrders = () => {
+      if (!filteredOrders) return;
+      let allOrders = {};
+
+      queries.forEach((el) => {
+        const { query, action } = el;
+
+        switch (action) {
+          case "FILTER_NAME":
+            const matchingNames = Object.values(filteredOrders).filter((el) =>
+              el.customer.name.includes(query!)
+            );
+            const matchingNamesArray = matchingNames.map((el) => {
+              return [[el.orderId], el];
+            });
+            console.log(Object.fromEntries(matchingNamesArray));
+            allOrders = {
+              ...Object.fromEntries(matchingNamesArray),
+              ...allOrders,
+            };
+            break;
+          case "FILTER_ORDERID":
+            const matchingOrderIds = Object.values(filteredOrders).filter(
+              (el) => el.orderId.includes(query!)
+            );
+            const matchingOrderIdsArray = matchingOrderIds.map((el) => {
+              return [[el.orderId], el];
+            });
+            console.log(Object.fromEntries(matchingOrderIdsArray));
+            allOrders = {
+              ...Object.fromEntries(matchingOrderIdsArray),
+              ...allOrders,
+            };
+            break;
+          case "FILTER_PAID":
+            const matchingPaid = Object.values(filteredOrders).filter(
+              (el) => el.paymentInfo.payment === query
+            );
+            const matchingPaidArray = matchingPaid.map((el) => {
+              return [[el.orderId], el];
+            });
+            allOrders = {
+              ...Object.fromEntries(matchingPaidArray),
+              ...allOrders,
+            };
+            break;
+          case "FILTER_SECTION":
+            const matchingSections = Object.values(filteredOrders).filter(
+              (el) => el.current === query
+            );
+            const matchingSectionsArray = matchingSections.map((el) => [
+              [el.orderId],
+              el,
+            ]);
+            allOrders = {
+              ...Object.fromEntries(matchingSectionsArray),
+              ...allOrders,
+            };
+            break;
+          case "CLEAR":
+            const { cleaning, deliver, done } = ordersWithSections;
+            const orders = { ...cleaning, ...deliver, ...done };
+            setFilteredOrders(orders);
+            return;
+          default:
+            break;
+        }
+      });
+    };
+
+    filterOrders();
   };
   return (
     <div>
@@ -84,7 +161,7 @@ const Orders = () => {
                   setSectionFilter(e.target.value as sectionType)
                 }
               >
-                <option value={undefined}></option>
+                <option></option>
                 <option value="cleaning">Cleaning</option>
                 <option value="delivery">Delivery</option>
                 <option value="done">Done</option>
