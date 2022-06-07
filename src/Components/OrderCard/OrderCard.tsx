@@ -1,8 +1,5 @@
 import { OrderBody } from "../OrderInterface";
-
 import { TiTick } from "react-icons/ti";
-import { useAppDispatch } from "../../Store";
-import orderSlice from "../../Store/orderSlice";
 import PaymentBadge from "../PaymentBadge/PaymentBadge";
 import MarkAsPaidForm from "../MarkAsPaidForm/MarkAsPaidForm";
 import { useState } from "react";
