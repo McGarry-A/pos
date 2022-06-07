@@ -36,6 +36,7 @@ const CreateCustomerForm: React.FC<Props> = ({
   } = customerSlice;
 
   useEffect(() => {
+    console.log(customer);
     const populateFields = () => {
       if (!customer) return;
 
@@ -45,7 +46,7 @@ const CreateCustomerForm: React.FC<Props> = ({
       addressRef.current!.value = customer.address;
     };
     populateFields();
-  });
+  }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

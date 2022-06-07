@@ -13,6 +13,8 @@ interface Props {
 
 const CustomerTable: React.FC<Props> = ({ data }) => {
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
+  const [activeCustomer, setActiveCustomer] = useState<CustomerInterface>();
+
   const dispatch = useAppDispatch();
 
   const {
@@ -23,13 +25,19 @@ const CustomerTable: React.FC<Props> = ({ data }) => {
     dispatch(deleteCustomer(customer));
   };
 
-  const renderEditCustomer = (customer: CustomerInterface) => {
+  const handleEditCustomer = (currentCustomer: CustomerInterface) => {
+    setActiveCustomer(currentCustomer);
+    setPortalIsHidden(!portalIsHidden);
+  };
+
+  const renderEditCustomer = (customer: CustomerInterface | undefined) => {
+    if (customer === undefined) return;
     return (
       <Portal isHidden={portalIsHidden}>
         <CreateCustomerForm
           setPortalIsHidden={setPortalIsHidden}
           allowEdit
-          customer={customer}
+          customer={activeCustomer}
         />
       </Portal>
     );
@@ -51,8 +59,12 @@ const CustomerTable: React.FC<Props> = ({ data }) => {
           <th className="p-3 text-sm font-semibold tracking-wide text-left">
             Address
           </th>
-          <th className="p-3 text-sm font-semibold tracking-wide text-left"></th>
-          <th className="p-3 text-sm font-semibold tracking-wide text-left"></th>
+          <th className="p-3 text-sm font-semibold tracking-wide text-left">
+            Edit
+          </th>
+          <th className="p-3 text-sm font-semibold tracking-wide text-left">
+            Delete
+          </th>
         </tr>
       </thead>
     );
@@ -63,7 +75,6 @@ const CustomerTable: React.FC<Props> = ({ data }) => {
       <tbody className="p-4 font-light text-gray-600">
         {data.map((customer, index) => {
           const { name, address, email, phone } = customer;
-
           return (
             <tr
               key={index}
@@ -79,16 +90,24 @@ const CustomerTable: React.FC<Props> = ({ data }) => {
                 <button className="px-4 py-1">
                   <FiEdit2
                     size={"1.3rem"}
-                    onClick={() => setPortalIsHidden(!portalIsHidden)}
+                    onClick={() =>
+                      handleEditCustomer({
+                        name,
+                        phone,
+                        email,
+                        address,
+                      } as CustomerInterface)
+                    }
                   />
-                  {renderEditCustomer(customer)}
                 </button>
               </td>
               <td className="p-3 text-sm text-gray-700">
                 <button className="px-4 py-1">
                   <RiDeleteBack2Line
                     size={"1.3rem"}
-                    onClick={() => handleDeleteCustomer(customer)}
+                    onClick={() => {
+                      handleDeleteCustomer(customer);
+                    }}
                   />
                 </button>
               </td>
@@ -99,10 +118,13 @@ const CustomerTable: React.FC<Props> = ({ data }) => {
     );
   };
   return (
-    <table className="hidden md:block">
-      {renderTableHead()}
-      {renderTableBody()}
-    </table>
+    <>
+      <table className="hidden md:block">
+        {renderTableHead()}
+        {renderTableBody()}
+      </table>
+      {renderEditCustomer(activeCustomer)}
+    </>
   );
 };
 
