@@ -160,6 +160,9 @@ const orderSlice = createSlice({
       if (current === "delivery") {
         state.deliver[orderId].paymentInfo.payment = paymentType
       }
+      if (current === "done") {
+        state.done[orderId].paymentInfo.payment = paymentType
+      }
     }
   },
 });

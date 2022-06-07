@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import useBasket from "../../Context/BasketProvider";
@@ -21,6 +22,11 @@ const CreateCustomerForm: React.FC<Props> = ({
   const phoneNumberField = useFormField();
   const addressField = useFormField();
 
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const addressRef = useRef<HTMLInputElement>(null);
+
   const basket = useBasket();
   const dispatchContext = useDispatch();
   const dispatchRedux = useAppDispatch();
@@ -28,6 +34,18 @@ const CreateCustomerForm: React.FC<Props> = ({
   const {
     actions: { addCustomer, editCustomer },
   } = customerSlice;
+
+  useEffect(() => {
+    const populateFields = () => {
+      if (!customer) return;
+
+      nameRef.current!.value = customer.name;
+      phoneRef.current!.value = customer.phone;
+      emailRef.current!.value = customer.email;
+      addressRef.current!.value = customer.address;
+    };
+    populateFields();
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,10 +74,10 @@ const CreateCustomerForm: React.FC<Props> = ({
     if (!customer) return;
 
     const newCustomer: CustomerInterface = {
-      name: nameField.value,
-      phone: phoneNumberField.value,
-      email: emailField.value,
-      address: addressField.value,
+      name: nameRef.current!.value,
+      phone: nameRef.current!.value,
+      email: emailRef.current!.value,
+      address: addressRef.current!.value,
     };
 
     dispatchRedux(editCustomer({ newCustomer, customer }));
@@ -67,6 +85,32 @@ const CreateCustomerForm: React.FC<Props> = ({
   };
 
   const handleExit = () => setPortalIsHidden(false);
+
+  const renderHeader = () => {
+    if (customer) {
+      return (
+        <div>
+          <h3 className="text-xl font-semibold uppercase">
+            Update customer information
+          </h3>
+          <p className="opacity-40 text-xs mb-2 italic">
+            Change any of this customers information, and click edit to save.
+          </p>
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        <h3 className="text-xl font-semibold uppercase">
+          Create a New Customer
+        </h3>
+        <p className="opacity-40 text-xs mb-2 italic">
+          Please enter some personal information about this customer.
+        </p>
+      </div>
+    );
+  };
 
   return (
     <div className="bg-white max-w-md shadow-md rounded flex relative">
@@ -78,18 +122,16 @@ const CreateCustomerForm: React.FC<Props> = ({
             : (e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)
         }
       >
-        <div>
-          <h3 className="text-xl font-semibold uppercase">
-            Create a New Customer
-          </h3>
-          <p className="opacity-40 text-xs mb-2 italic">
-            Please enter some personal information about this customer.
-          </p>
-        </div>
+        {renderHeader()}
         <div className="grid grid-cols-2 gap-x-2">
           <div className="col-span-2">
             <label>Full Name</label>
-            <input placeholder="Ahmed" type="text" {...nameField} />
+            <input
+              placeholder="Ahmed"
+              type="text"
+              {...nameField}
+              ref={nameRef}
+            />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-x-2">
@@ -99,6 +141,7 @@ const CreateCustomerForm: React.FC<Props> = ({
               placeholder="atomcgarry@hotmail.com"
               type="email"
               {...emailField}
+              ref={emailRef}
             />
           </div>
           <div className="">
@@ -107,12 +150,18 @@ const CreateCustomerForm: React.FC<Props> = ({
               placeholder="07907733824"
               type="text"
               {...phoneNumberField}
+              ref={phoneRef}
             />
           </div>
         </div>
         <div>
           <label>Street Address</label>
-          <input placeholder="357 Leyland Road" type="text" {...addressField} />
+          <input
+            placeholder="357 Leyland Road"
+            type="text"
+            {...addressField}
+            ref={addressRef}
+          />
         </div>
         <div className="flex w-full justify-end space-x-4">
           <button

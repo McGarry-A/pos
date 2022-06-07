@@ -11,13 +11,13 @@ const initialCustomerState: CustomerInterface[] = [
     {
         address:"357 Leyland Road",
         name:"Adam McGarry",
-        phone:"07907733824",
+        phone:"0500564304",
         email:"123"
     },
     {
         address:"357 Leyland Road",
         name:"Alicia McGarry",
-        phone:"07907733824",
+        phone:"123456789",
         email:"123"
     },
 

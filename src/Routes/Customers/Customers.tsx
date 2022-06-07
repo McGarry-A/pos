@@ -102,6 +102,7 @@ const Customers = () => {
       setFilteredCustomers(allCustomers);
     };
 
+    handleClearCustomers();
     filterCustomers();
   };
 

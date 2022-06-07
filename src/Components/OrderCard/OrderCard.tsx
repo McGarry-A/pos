@@ -1,6 +1,11 @@
 import { OrderBody } from "../OrderInterface";
 
 import { TiTick } from "react-icons/ti";
+import { useAppDispatch } from "../../Store";
+import orderSlice from "../../Store/orderSlice";
+import PaymentBadge from "../PaymentBadge/PaymentBadge";
+import MarkAsPaidForm from "../MarkAsPaidForm/MarkAsPaidForm";
+import { useState } from "react";
 
 interface Props {
   handleClick: (orderId: string) => void;
@@ -16,6 +21,8 @@ const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
     customer: { name },
   } = data;
 
+  const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
+
   return (
     <div className="grid grid-cols-2 border p-3 m-3 rounded max-w-lg shadow-sm">
       <div className="grid grid-cols-2 col-span-2 justify-between gap-y-3">
@@ -26,19 +33,18 @@ const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
           </span>
         </div>
         <div className="text-right">
-          {payment === "credit" ? (
-            <span className="px-3 w-full py-1 rounded text-white bg-red-600">
-              Unpaid
-            </span>
-          ) : (
-            <span className="px-3 w-full py-1 rounded text-white bg-green-600">
-              Paid
-            </span>
-          )}
+          <PaymentBadge
+            payment={payment}
+            setPortalIsHidden={setPortalIsHidden}
+          />
+          <MarkAsPaidForm
+            current={current}
+            orderId={orderId}
+            portalIsHidden={portalIsHidden}
+            setPortalIsHidden={setPortalIsHidden}
+          />
         </div>
-        <div className="text-gray-700 text-lg col-span-2">
-          {name}
-        </div>
+        <div className="text-gray-700 text-lg col-span-2">{name}</div>
         <div className="text-gray-500 col-span-2">
           <p className="text-sm">{orderNotes}</p>
         </div>

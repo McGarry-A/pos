@@ -94,11 +94,6 @@ const Orders = () => {
               ...Object.fromEntries(matchingSectionsArray),
             };
             break;
-          // case "CLEAR":
-          //   const { cleaning, deliver, done } = ordersWithSections;
-          //   const orders = { ...cleaning, ...deliver, ...done };
-          //   setFilteredOrders(orders);
-          //   return;
           default:
             break;
         }
