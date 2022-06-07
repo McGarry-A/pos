@@ -1,6 +1,6 @@
 import { useAppDispatch } from "../../Store";
 import useIsMobile from "../../Hooks/useIsMobile";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 import orderSlice from "../../Store/orderSlice";
 
@@ -20,17 +20,18 @@ const WorkflowOrders: React.FC<Props> = ({ data, showCurrent }) => {
     actions: { process },
   } = orderSlice;
 
-  const isMobile = useIsMobile();
-  const isOrders = Object.keys(data).length < 1 ? false : true;
+  const isMobile: boolean = useIsMobile();
+  const isOrders: boolean = Object.keys(data).length < 1 ? false : true;
 
   const handleProcess = (orderId: string) => {
     dispatch(process({ orderId }));
   };
-  
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
+
   const handleRefresh = () => {
-    navigate(0)  
-  }
+    navigate(0);
+  };
 
   const renderNoOrders = () => {
     if (isOrders) return;
@@ -54,7 +55,9 @@ const WorkflowOrders: React.FC<Props> = ({ data, showCurrent }) => {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2">
         {Object.values(data).map((el, index) => {
-          return <OrderCard handleClick={handleProcess} data={el} key={index} />;
+          return (
+            <OrderCard handleClick={handleProcess} data={el} key={index} />
+          );
         })}
       </div>
     );
@@ -63,7 +66,13 @@ const WorkflowOrders: React.FC<Props> = ({ data, showCurrent }) => {
   const renderTable = () => {
     if (!isOrders || isMobile) return;
 
-    return <OrderTable handleClick={handleProcess} data={data} showCurrent={showCurrent} />;
+    return (
+      <OrderTable
+        handleClick={handleProcess}
+        data={data}
+        showCurrent={showCurrent}
+      />
+    );
   };
 
   return (
