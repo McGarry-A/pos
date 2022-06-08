@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { TiTick } from "react-icons/ti";
-import { BasketItemInterface } from "../../Context";
+import { BasketItemInterface, ItemInterface } from "../../Context";
 import MarkAsPaidForm from "../MarkAsPaidForm/MarkAsPaidForm";
-import { OrderInterface } from "../OrderInterface";
+import { OrderBody, OrderInterface } from "../OrderInterface";
 import PaymentBadge from "../PaymentBadge/PaymentBadge";
 
 interface Props {
@@ -66,72 +66,81 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
   const renderTableBody = () => {
     return (
       <tbody className="p-4 font-light text-gray-600">
-        {Object.values(data).map((el, index) => {
-          const {
-            orderId,
-            orderNotes,
-            items,
-            current,
-            paymentInfo: { payment, date, time },
-            customer: { name },
-          } = el;
-
-          return (
-            <tr
-              key={index}
-              className={`h-fit min-h-12 hover:bg-gray-100 ${
-                index % 2 !== 0 && `bg-gray-100 hover:bg-gray-200`
-              }`}
-            >
-              <td className="p-3 text-sm text-gray-700">{orderId}</td>
-              <td className="p-3 text-sm text-gray-700">{date}</td>
-              <td className="p-3 text-sm text-gray-700">{time}</td>
-              {showCurrent && (
-                <td className="p-3 text-sm text-gray-700">{current}</td>
-              )}
-              <td className="p-3 text-sm text-gray-700">{name}</td>
-              <td className="p-3 text-sm text-gray-700">{`${orderNotes}`}</td>
-              <td className="p-3 text-sm text-gray-700">
-                <div>
-                  {Object.values(el.items).map((item, index) => {
-                    const { title, quantity } = item;
-                    return (
-                      <p key={index} className="">
-                        <span className="text-xs">x{quantity}</span> {title}
-                      </p>
-                    );
-                  })}
-                </div>
-              </td>
-              <td className="p-3 text-sm text-gray-700">
-                £{calculateTotal(items)}
-              </td>
-              <td className="p-3 text-sm text-gray-700">
-                <PaymentBadge
-                  payment={payment}
-                  setPortalIsHidden={setPortalIsHidden}
-                />
-                <MarkAsPaidForm
-                  current={current}
-                  orderId={orderId}
-                  portalIsHidden={portalIsHidden}
-                  setPortalIsHidden={setPortalIsHidden}
-                />
-              </td>
-              <td className="p-3 text-sm text-gray-700">
-                <button
-                  className="px-4 py-1"
-                  onClick={() => handleClick(orderId, current)}
-                >
-                  <TiTick size={"1.3rem"} />
-                </button>
-              </td>
-            </tr>
-          );
-        })}
+        {Object.values(data).map(renderTableRow)}
       </tbody>
     );
   };
+
+  const renderTableRow = (el: OrderBody, index: number) => {
+    const {
+      orderId,
+      orderNotes,
+      items,
+      current,
+      paymentInfo: { payment, date, time },
+      customer: { name },
+    } = el;
+
+    return (
+      <tr
+        key={index}
+        className={`h-fit min-h-12 hover:bg-gray-100 ${
+          index % 2 !== 0 && `bg-gray-100 hover:bg-gray-200`
+        }`}
+      >
+        <td className="p-3 text-sm text-gray-700">{orderId}</td>
+        <td className="p-3 text-sm text-gray-700">{date}</td>
+        <td className="p-3 text-sm text-gray-700">{time}</td>
+        {showCurrent && (
+          <td className="p-3 text-sm text-gray-700">{current}</td>
+        )}
+        <td className="p-3 text-sm text-gray-700">{name}</td>
+        <td className="p-3 text-sm text-gray-700">{`${orderNotes}`}</td>
+        <td className="p-3 text-sm text-gray-700">
+          {Object.values(el.items).map(renderItems)}
+        </td>
+        <td className="p-3 text-sm text-gray-700">£{calculateTotal(items)}</td>
+        <td className="p-3 text-sm text-gray-700">
+          <PaymentBadge
+            payment={payment}
+            setPortalIsHidden={setPortalIsHidden}
+          />
+          <MarkAsPaidForm
+            current={current}
+            orderId={orderId}
+            portalIsHidden={portalIsHidden}
+            setPortalIsHidden={setPortalIsHidden}
+          />
+        </td>
+        <td className="p-3 text-sm text-gray-700">
+          <button
+            className="px-4 py-1"
+            onClick={() => handleClick(orderId, current)}
+          >
+            <TiTick size={"1.3rem"} />
+          </button>
+        </td>
+      </tr>
+    );
+  };
+
+  const renderItems = (
+    item: {
+      id: string;
+      title: string;
+      price: number;
+      quantity: number;
+    },
+    index: number
+  ) => {
+    const { title, quantity } = item;
+    return (
+      <p key={index} className="">
+        <span className="text-xs">x{quantity}</span> {title}
+      </p>
+    );
+  };
+
   return (
     <table className="hidden md:block">
       {renderTableHead()}

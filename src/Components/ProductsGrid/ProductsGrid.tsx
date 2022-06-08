@@ -40,6 +40,7 @@ const ProductGrid = () => {
             title={el.name}
             price={el.price}
             id={el.id}
+            icon={el.icon}
             key={index}
           />
         ))}

@@ -31,7 +31,7 @@ const initialState: OrderSliceInterface = {
       paymentInfo: {
         date: "Today",
         delivery: "premium",
-        payment: "card",
+        payment: "credit",
         time: "11:59:59",
       },
       items: {

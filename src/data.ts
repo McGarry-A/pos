@@ -1,143 +1,149 @@
+
+// MENS ICONS 
+import sportsT from "./icons/Mens/sports-t.png"
+import TShirt from "./icons/Mens/tshirt.png"
+import Jacket from "./icons/Mens/jacket.png"
+import Jumper from "./icons/Mens/jumper.png"
+import Jeans from "./icons/Mens/jeans.png"
+import Coat from "./icons/Mens/coat.png"
+import Uniforms from "./icons/Mens/publicservices.png"
+import Pajama from "./icons/Mens/pajama.png"
+
+// WOMENS ICONS 
+import WomensJumper from "./icons/Womens/jumper.png"
+import Scarf from "./icons/Womens/scarf.png"
+import Skirt from "./icons/Womens/skirt.png"
+import Swimwear from "./icons/Womens/swimwear.png"
+import WeddingDress from "./icons/Womens/weddingdress.png"
+import WomansPajama from "./icons/Womens/womenspajama.png"
+//TSHIRT AGAIN
+
+
 export const categories = {
     "cat01": {
-        name: "Tops",
+        name: "Mens",
         categoryId: "cat01",
         products: [
             {
-                name: "t-shirt",
+                name: "Sports Top",
+                icon: sportsT,
                 price: 4.99,
-                id: "01-t"
+                id: "mens-01"
             },
             {
-                name: "dress shirt",
+                name: "T-Shirt",
+                icon: TShirt,
                 price: 5.99,
-                id: "01-ds"
+                id: "mens-02"
             },
             {
-                name: "tank top",
+                name: "Jacket",
+                icon: Jacket,
                 price: 2.99,
-                id: "01-tt"
+                id: "mens-03"
             },
             {
-                name: "stringer",
-                price: 1.99,
-                id: "01-s"
+                name: "Jumper",
+                icon: Jumper,
+                price: 2.99,
+                id: "mens-04"
             },
             {
-                name: "t-shirt",
+                name: "Jeans",
+                icon: Jeans,
                 price: 4.99,
-                id: "01-rs"
+                id: "mens-05"
             },
             {
-                name: "polo shirt",
+                name: "Coat",
+                icon: Coat,
                 price: 4.99,
-                id: "01-ps"
+                id: "mens-05"
             },
             {
-                name: "athletic t-shirt",
-                price: 3.99,
-                id: "01-ats"
+                name: "Uniforms",
+                icon: Uniforms,
+                price: 4.99,
+                id: "mens-06"
             },
             {
-                name: "delicate",
+                name: "Pajama",
+                icon: Pajama,
                 price: 4.99,
-                id: "01-d"
+                id: "mens-07"
             },
             {
-                name: "rash guard",
+                name: "Delicates",
+                icon: Pajama,
                 price: 4.99,
-                id: "01-rg"
+                id: "mens-08"
             },
-            {
-                name: "cycling top",
-                price: 4.99,
-                id: "01-ct"
-            }, 
-            {
-                name: "athletic t-shirt",
-                price: 3.99,
-                id: "01-ats"
-            },
-            {
-                name: "delicate",
-                price: 4.99,
-                id: "01-d"
-            },
-            {
-                name: "rash guard",
-                price: 4.99,
-                id: "01-rg"
-            },
-            {
-                name: "cycling top",
-                price: 4.99,
-                id: "01-ct"
-            }, {
-                name: "rash guard",
-                price: 4.99,
-                id: "01-rg"
-            },
-            {
-                name: "cycling top",
-                price: 4.99,
-                id: "01-ct"
-            }, 
         ]
     },
     "cat02": {
-        name: "Bottoms",
+        name: "Womens",
         categoryId: "cat02",
         products: [
             {
-                name: "test",
+                name: "Jumper",
+                icon: WomensJumper,
                 price: 4.99,
-                id: "01-t"
+                id: "wmen-01"
             },
             {
-                name: "dress pants",
+                name: "T-Shirt",
+                icon: TShirt,
                 price: 5.99,
-                id: "01-ds"
+                id: "wmen-02"
             },
             {
-                name: "tank pants",
+                name: "Jacket",
+                icon: Jacket,
                 price: 2.99,
-                id: "01-tt"
+                id: "wmen-03"
             },
             {
-                name: "stringer",
-                price: 1.99,
-                id: "01-s"
+                name: "Scarf",
+                icon: Scarf,
+                price: 2.99,
+                id: "wmen-04"
             },
             {
-                name: "t-pants",
+                name: "Jeans",
+                icon: Jeans,
                 price: 4.99,
-                id: "01-rs"
+                id: "wmen-05"
             },
             {
-                name: "polo pants",
+                name: "Coat",
+                icon: Coat,
                 price: 4.99,
-                id: "01-ps"
+                id: "wmen-06"
             },
             {
-                name: "athletic t-pants",
-                price: 3.99,
-                id: "01-ats"
-            },
-            {
-                name: "delicate",
+                name: "Wedding Dress",
+                icon: WeddingDress,
                 price: 4.99,
-                id: "01-d"
+                id: "wmen-07"
             },
             {
-                name: "rash guard shorts",
+                name: "Pajama",
+                icon: WomansPajama,
                 price: 4.99,
-                id: "01-rg"
+                id: "wmen-08"
             },
             {
-                name: "cycling pants",
+                name: "Swimwear",
+                icon: Swimwear,
                 price: 4.99,
-                id: "01-ct"
+                id: "wmen-09"
+            },
+            {
+                name: "Skirt",
+                icon: Skirt,
+                price: 4.99,
+                id: "wmen-10"
             },
         ]
-    }
+    },
 }

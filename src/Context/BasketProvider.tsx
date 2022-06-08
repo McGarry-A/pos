@@ -18,23 +18,12 @@ const BasketContext = createContext<BasketContextInterface>(
 );
 export const useBasket = () => useContext(BasketContext);
 
-// const basketReducer = (state, action) => {
-//  const {type, payload} = action
-//   switch (type) {
-//     case "ADD_ITEM":
-//       return;
-//     default:
-//       throw new Error("Error in reducer");
-//   }
-// };
-
 export const BasketProvider = ({ children }: Props) => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalQuantity, setTotalQuantity] = useState<number>(0);
   const [currentCustomer, setCurrentCustomer] =
     useState<CustomerInterface | null>(null);
 
-  // can replace this with useReducer
   const [basket, setBasket] = useState<BasketInterface>({
     items: {},
     orderNotes: "",

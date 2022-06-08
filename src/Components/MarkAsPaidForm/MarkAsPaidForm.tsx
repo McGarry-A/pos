@@ -2,6 +2,7 @@ import Portal from "../Portal/Portal";
 import { useAppDispatch } from "../../Store";
 import orderSlice from "../../Store/orderSlice";
 import { Dispatch, useState, SetStateAction } from "react";
+import { MdOutlineCancel } from "react-icons/md";
 
 interface props {
   current: "cleaning" | "delivery" | "done";
@@ -17,23 +18,41 @@ const MarkAsPaidForm: React.FC<props> = ({
   portalIsHidden,
 }) => {
   const [paymentType, setPaymentType] = useState<"cash" | "card">();
+  const [error, setError] = useState<string>("");
 
   const dispatch = useAppDispatch();
+  const activeClass = "bg-slate-800 text-gray-100";
+
   const { markAsPaid } = orderSlice.actions;
+
+  const handleSubmit = () => {
+    if (!paymentType) {
+      setError("Please select a payment type");
+    } else {
+      console.log(current, orderId, paymentType);
+      dispatch(markAsPaid({ current, orderId, paymentType }));
+      setPortalIsHidden(false);
+    }
+  };
 
   return (
     <Portal isHidden={portalIsHidden}>
-      <div className="bg-white flex flex-col p-2">
+      <div className="bg-white flex flex-col p-4 relative shadow-md">
         <h2 className="col-span-2">Please select a Payment Type</h2>
+        <p className="text-red-500 text-xs">{error}</p>
         <div className="flex space-x-4 my-4 justify-center">
           <button
-            className="bg-gray-700 text-gray-100 px-4 py-2"
+            className={`border-gray-800 border px-4 py-2 ${
+              paymentType === "cash" ? activeClass : "text-gray-800"
+            }`}
             onClick={() => setPaymentType("cash")}
           >
             Cash
           </button>
           <button
-            className="border border-gray-700 text-gray-700 px-4 py-2"
+            className={`border-gray-800 border px-4 py-2 ${
+              paymentType === "card" ? activeClass : "text-gray-800"
+            }`}
             onClick={() => setPaymentType("card")}
           >
             Card
@@ -46,16 +65,13 @@ const MarkAsPaidForm: React.FC<props> = ({
           >
             Exit
           </button>
-          <button
-            onClick={() => {
-              if (!paymentType) return;
-              console.log(current, orderId, paymentType);
-              dispatch(markAsPaid({ current, orderId, paymentType }));
-              setPortalIsHidden(false);
-            }}
-          >
-            Confirm
-          </button>
+          <button onClick={() => handleSubmit()}>Confirm</button>
+        </div>
+        <div className="bg-white absolute -top-3 -left-4 rounded-full cursor-pointer">
+          <MdOutlineCancel
+            size={"2rem"}
+            onClick={() => setPortalIsHidden(false)}
+          />
         </div>
       </div>
     </Portal>

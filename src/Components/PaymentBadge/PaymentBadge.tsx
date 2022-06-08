@@ -24,7 +24,6 @@ const PaymentBadge: React.FC<props> = ({ payment, setPortalIsHidden }) => {
       >
         Unpaid
       </span>
-      {}
     </>
   );
 };
