@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TiTick } from "react-icons/ti";
-import { BasketItemInterface, ItemInterface } from "../../Context";
+import { BasketItemInterface } from "../../Context";
 import MarkAsPaidForm from "../MarkAsPaidForm/MarkAsPaidForm";
 import { OrderBody, OrderInterface } from "../OrderInterface";
 import PaymentBadge from "../PaymentBadge/PaymentBadge";

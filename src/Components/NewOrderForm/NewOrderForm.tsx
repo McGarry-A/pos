@@ -15,8 +15,6 @@ const NewOrderForm: React.FC = () => {
   const basket = useBasket();
   const customers = useAppSelector((state) => state.customers);
 
-  const target = document.getElementById("root");
-
   const handleClearCustomer = () => {
     const { setCurrentCustomer } = basket;
     setCurrentCustomer(null);
