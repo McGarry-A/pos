@@ -1,5 +1,5 @@
 import { AiOutlinePlus } from "react-icons/ai";
-
+import { MdClear } from "react-icons/md";
 import CreateCustomerForm from "../CreateCustomerForm/CreateCustomerForm";
 import React, { useState } from "react";
 import Portal from "../Portal/Portal";
@@ -17,10 +17,10 @@ const NewOrderForm: React.FC = () => {
 
   const target = document.getElementById("root");
 
-  // const handleClearCustomer = () => {
-  //   const { setCurrentCustomer } = basket;
-  //   setCurrentCustomer(null);
-  // };
+  const handleClearCustomer = () => {
+    const { setCurrentCustomer } = basket;
+    setCurrentCustomer(null);
+  };
 
   const handleSelectCustomer = (newValue: string | null) => {
     const { setCurrentCustomer } = basket;
@@ -38,7 +38,14 @@ const NewOrderForm: React.FC = () => {
 
       return (
         <div className="">
-          <h3 className="mb-1 text-gray-700">{name}</h3>
+          <div className="flex justify-between items-center">
+            <h3 className="mb-1 text-gray-700">{name}</h3>
+            <MdClear
+              size={"1.3rem"}
+              className="text-gray-700 cursor-pointer"
+              onClick={() => handleClearCustomer()}
+            />
+          </div>
           <p className="text-sm opacity-60 italic">{phone}</p>
           <p className="text-sm opacity-60 italic">{address}</p>
         </div>
@@ -62,12 +69,14 @@ const NewOrderForm: React.FC = () => {
             disablePortal
             id="combo-box-demo"
             options={options}
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+            }}
             onChange={(e: any, newValue: string | null) =>
               handleSelectCustomer(newValue)
             }
             renderInput={(params) => (
-              <TextField {...params} label="Find a Customer" />
+              <TextField {...params} label="Start typing a customer..." />
             )}
           />
           <button
