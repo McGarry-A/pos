@@ -19,7 +19,7 @@ const PaymentOptions = () => {
     actions: { create },
   } = orderSlice;
 
-  const orderId = useId("order-");
+  const orderId = useId("sku-");
   const basketContext = useBasket();
   const {
     actions: { clearBasket },

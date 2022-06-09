@@ -1,7 +1,7 @@
 import Portal from "../Portal/Portal";
 import { useAppDispatch } from "../../Store";
 import orderSlice from "../../Store/orderSlice";
-import { Dispatch, useState, SetStateAction } from "react";
+import { Dispatch, useState, SetStateAction, useEffect } from "react";
 import { MdOutlineCancel } from "react-icons/md";
 
 interface props {
@@ -17,7 +17,7 @@ const MarkAsPaidForm: React.FC<props> = ({
   setPortalIsHidden,
   portalIsHidden,
 }) => {
-  const [paymentType, setPaymentType] = useState<"cash" | "card">();
+  const [paymentType, setPaymentType] = useState<"cash" | "card" | null>();
   const [error, setError] = useState<string>("");
 
   const dispatch = useAppDispatch();
@@ -25,12 +25,18 @@ const MarkAsPaidForm: React.FC<props> = ({
 
   const { markAsPaid } = orderSlice.actions;
 
-  const handleSubmit = () => {
+  interface SubmitInterface {
+    current: string;
+    orderId: string;
+  }
+
+  const handleSubmit = ({ current, orderId }: SubmitInterface): void => {
     if (!paymentType) {
       setError("Please select a payment type");
     } else {
-      console.log(current, orderId, paymentType);
+      console.log(`${orderId} In Form`);
       dispatch(markAsPaid({ current, orderId, paymentType }));
+      setPaymentType(null);
       setPortalIsHidden(false);
     }
   };
@@ -65,7 +71,9 @@ const MarkAsPaidForm: React.FC<props> = ({
           >
             Exit
           </button>
-          <button onClick={() => handleSubmit()}>Confirm</button>
+          <button onClick={() => handleSubmit({ current, orderId })}>
+            Confirm
+          </button>
         </div>
         <div className="bg-white absolute -top-3 -left-4 rounded-full cursor-pointer">
           <MdOutlineCancel

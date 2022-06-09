@@ -153,6 +153,7 @@ const orderSlice = createSlice({
     
     markAsPaid: (state: OrderSliceInterface, action:PayloadAction<markAsPaidPayload>) => {
       const {current, orderId, paymentType} = action.payload
+      console.log(`${orderId} - In Redux`)
 
       if (current === "cleaning") {
         state.cleaning[orderId].paymentInfo.payment = paymentType

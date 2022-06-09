@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import useBasket from "../../Context/BasketProvider";
-import useFormField from "../../Hooks/useFormField";
 import { useAppDispatch } from "../../Store";
 import customerSlice from "../../Store/customerSlice";
 import { CustomerInterface } from "../CustomerInterface";
@@ -17,11 +16,6 @@ const CreateCustomerForm: React.FC<Props> = ({
   allowEdit,
   customer,
 }) => {
-  const nameField = useFormField();
-  const emailField = useFormField();
-  const phoneNumberField = useFormField();
-  const addressField = useFormField();
-
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
@@ -39,23 +33,25 @@ const CreateCustomerForm: React.FC<Props> = ({
     const populateFields = () => {
       if (!customer) return;
 
-      nameRef.current!.value = customer.name;
-      phoneRef.current!.value = customer.phone;
-      emailRef.current!.value = customer.email;
-      addressRef.current!.value = customer.address;
+      const { name, phone, email, address } = customer;
+
+      nameRef.current!.value = name;
+      phoneRef.current!.value = phone;
+      emailRef.current!.value = email;
+      addressRef.current!.value = address;
     };
     populateFields();
-  }, [customer]);
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { setCurrentCustomer } = basket;
 
     const customer: CustomerInterface = {
-      name: nameField.value,
-      phone: phoneNumberField.value,
-      email: emailField.value,
-      address: addressField.value,
+      name: nameRef.current!.value,
+      phone: phoneRef.current!.value,
+      email: emailRef.current!.value,
+      address: addressRef.current!.value,
     };
 
     if (setCurrentCustomer) {
@@ -75,7 +71,7 @@ const CreateCustomerForm: React.FC<Props> = ({
 
     const newCustomer: CustomerInterface = {
       name: nameRef.current!.value,
-      phone: nameRef.current!.value,
+      phone: phoneRef.current!.value,
       email: emailRef.current!.value,
       address: addressRef.current!.value,
     };
@@ -126,12 +122,7 @@ const CreateCustomerForm: React.FC<Props> = ({
         <div className="grid grid-cols-2 gap-x-2">
           <div className="col-span-2">
             <label>Full Name</label>
-            <input
-              placeholder="Ahmed"
-              type="text"
-              {...nameField}
-              ref={nameRef}
-            />
+            <input placeholder="Ahmed" type="text" ref={nameRef} />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-x-2">
@@ -140,28 +131,17 @@ const CreateCustomerForm: React.FC<Props> = ({
             <input
               placeholder="atomcgarry@hotmail.com"
               type="email"
-              {...emailField}
               ref={emailRef}
             />
           </div>
           <div className="">
             <label>Phone Number</label>
-            <input
-              placeholder="07907733824"
-              type="text"
-              {...phoneNumberField}
-              ref={phoneRef}
-            />
+            <input placeholder="07907733824" type="text" ref={phoneRef} />
           </div>
         </div>
         <div>
           <label>Street Address</label>
-          <input
-            placeholder="357 Leyland Road"
-            type="text"
-            {...addressField}
-            ref={addressRef}
-          />
+          <input placeholder="357 Leyland Road" type="text" ref={addressRef} />
         </div>
         <div className="flex w-full justify-end space-x-4">
           <button

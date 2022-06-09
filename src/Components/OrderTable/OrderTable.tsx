@@ -14,8 +14,14 @@ interface Props {
   showCurrent: boolean;
 }
 
+interface portalInterface {
+  current: "cleaning" | "delivery" | "done";
+  orderId: string;
+}
+
 const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
+  const [portalProps, setPortalProps] = useState<portalInterface>();
 
   const calculateTotal = (items: BasketItemInterface): number => {
     const priceArray = Object.values(items).map(
@@ -63,11 +69,20 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
     );
   };
 
-  const renderTableBody = () => {
+  const renderItems = (
+    item: {
+      id: string;
+      title: string;
+      price: number;
+      quantity: number;
+    },
+    index: number
+  ) => {
+    const { title, quantity } = item;
     return (
-      <tbody className="p-4 font-light text-gray-600">
-        {Object.values(data).map(renderTableRow)}
-      </tbody>
+      <p key={index} className="">
+        <span className="text-xs">x{quantity}</span> {title}
+      </p>
     );
   };
 
@@ -104,12 +119,9 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
           <PaymentBadge
             payment={payment}
             setPortalIsHidden={setPortalIsHidden}
-          />
-          <MarkAsPaidForm
-            current={current}
+            setPortalProps={setPortalProps}
             orderId={orderId}
-            portalIsHidden={portalIsHidden}
-            setPortalIsHidden={setPortalIsHidden}
+            current={current}
           />
         </td>
         <td className="p-3 text-sm text-gray-700">
@@ -124,28 +136,29 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
     );
   };
 
-  const renderItems = (
-    item: {
-      id: string;
-      title: string;
-      price: number;
-      quantity: number;
-    },
-    index: number
-  ) => {
-    const { title, quantity } = item;
+  const renderTableBody = () => {
     return (
-      <p key={index} className="">
-        <span className="text-xs">x{quantity}</span> {title}
-      </p>
+      <tbody className="p-4 font-light text-gray-600">
+        {Object.values(data).map(renderTableRow)}
+      </tbody>
     );
   };
 
   return (
-    <table className="hidden md:block">
-      {renderTableHead()}
-      {renderTableBody()}
-    </table>
+    <>
+      <table className="hidden md:block">
+        {renderTableHead()}
+        {renderTableBody()}
+      </table>
+
+      {portalProps && (
+        <MarkAsPaidForm
+          {...portalProps}
+          portalIsHidden={portalIsHidden}
+          setPortalIsHidden={setPortalIsHidden}
+        />
+      )}
+    </>
   );
 };
 
