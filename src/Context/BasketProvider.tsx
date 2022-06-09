@@ -62,7 +62,6 @@ export const BasketProvider = ({ children }: Props) => {
     returnTotalQuantity();
   }, [basket]);
 
-  // add all these methods to useReducer
   const addItem = ({ item }: AddItemParams) => {
     const { items } = basket;
     const newBasket = { ...basket };

@@ -1,7 +1,7 @@
 import Portal from "../Portal/Portal";
 import { useAppDispatch } from "../../Store";
 import orderSlice from "../../Store/orderSlice";
-import { Dispatch, useState, SetStateAction, useEffect } from "react";
+import { Dispatch, useState, SetStateAction } from "react";
 import { MdOutlineCancel } from "react-icons/md";
 
 interface props {

@@ -29,22 +29,15 @@ const WorkflowOrders: React.FC<Props> = ({ data, showCurrent }) => {
 
   const navigate = useNavigate();
 
-  const handleRefresh = () => {
-    navigate(0);
-  };
-
   const renderNoOrders = () => {
     if (isOrders) return;
 
     return (
       <div className="text-gray-700 flex flex-col justify-center items-center space-y-4">
         <p className="text-xl">You have no orders!</p>
-        <button
-          onClick={() => handleRefresh()}
-          className="block border bg-green-600 text-white text-bold px-4 py-2 hover:bg-green-500 hover:shadow-md active:scale-90 transition duration-150"
-        >
-          Create Order
-        </button>
+        <p className="tracking-tight">
+          Go Back to new Order to create a new order.
+        </p>
       </div>
     );
   };

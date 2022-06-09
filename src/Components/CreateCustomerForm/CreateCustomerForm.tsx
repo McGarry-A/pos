@@ -40,6 +40,7 @@ const CreateCustomerForm: React.FC<Props> = ({
       emailRef.current!.value = email;
       addressRef.current!.value = address;
     };
+
     populateFields();
   });
 

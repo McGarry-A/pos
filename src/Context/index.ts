@@ -17,7 +17,7 @@ export interface BasketContextInterface {
   totalPrice: number;
   totalQuantity: number;
   currentCustomer: CustomerInterface | null,
-  setCurrentCustomer: React.Dispatch<React.SetStateAction<CustomerInterface | null>>
+  setCurrentCustomer: React.Dispatch<React.SetStateAction<CustomerInterface | null>>;
 }
 
 export interface ItemInterface {

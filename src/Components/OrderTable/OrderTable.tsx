@@ -144,20 +144,25 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
     );
   };
 
+  const renderMarkAsPaidForm = () => {
+    if (portalProps) {
+      return (
+        <MarkAsPaidForm
+          {...portalProps}
+          portalIsHidden={portalIsHidden}
+          setPortalIsHidden={setPortalIsHidden}
+        />
+      );
+    }
+  };
+
   return (
     <>
       <table className="hidden md:block">
         {renderTableHead()}
         {renderTableBody()}
       </table>
-
-      {portalProps && (
-        <MarkAsPaidForm
-          {...portalProps}
-          portalIsHidden={portalIsHidden}
-          setPortalIsHidden={setPortalIsHidden}
-        />
-      )}
+      {renderMarkAsPaidForm()}
     </>
   );
 };

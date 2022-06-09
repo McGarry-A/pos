@@ -122,7 +122,7 @@ const orderSlice = createSlice({
         payload: { orderId },
       } = action;
 
-      const allOrders = {...state.cleaning, ...state.deliver}
+      const allOrders = {...state.cleaning, ...state.deliver, ...state.done}
       const current = allOrders[orderId].current
 
       if (current === "done") return;
@@ -150,7 +150,6 @@ const orderSlice = createSlice({
         delete state.deliver[orderId];
       }
     },
-    
     markAsPaid: (state: OrderSliceInterface, action:PayloadAction<markAsPaidPayload>) => {
       const {current, orderId, paymentType} = action.payload
       console.log(`${orderId} - In Redux`)

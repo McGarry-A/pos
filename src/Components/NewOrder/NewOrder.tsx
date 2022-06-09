@@ -5,7 +5,7 @@ import ProductGrid from "../ProductsGrid/ProductsGrid";
 import { BasketProvider } from "../../Context/BasketProvider";
 import useIsMobile from "../../Hooks/useIsMobile";
 
-const NewOrder = () => {
+const NewOrder: React.FC = () => {
   const isMobile = useIsMobile();
 
   if (isMobile) {
