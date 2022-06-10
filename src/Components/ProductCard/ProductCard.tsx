@@ -2,7 +2,6 @@ import { AddItemParams } from "../../Context";
 import { useBasket } from "../../Context/BasketProvider";
 import { BsXLg } from "react-icons/bs";
 import { useState } from "react";
-import { MdOutlineCancel } from "react-icons/md";
 
 interface Props {
   id: string;
