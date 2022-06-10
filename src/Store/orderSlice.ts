@@ -27,6 +27,7 @@ const initialState: OrderSliceInterface = {
       },
       orderId: "sku-01",
       orderNotes: "Please dont be late!",
+      totalPrice: 19.98,
       current: "cleaning",
       paymentInfo: {
         date: "Today",
@@ -52,6 +53,7 @@ const initialState: OrderSliceInterface = {
       },
       orderId: "sku-02",
       orderNotes: "Please dont be late!",
+      totalPrice: 19.98,
       current: "cleaning",
       paymentInfo: {
         date: "Today",
@@ -77,6 +79,7 @@ const initialState: OrderSliceInterface = {
       },
       orderId: "sku-03",
       orderNotes: "Please dont be late!",
+      totalPrice: 19.98,
       current: "cleaning",
       paymentInfo: {
         date: "Today",

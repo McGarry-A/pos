@@ -65,24 +65,6 @@ export const options = {
   },
 };
 
-const labels = ["Cleaning", "Delivery", "Done"];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Unpaid",
-      data: [21, 34, 56],
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Total",
-      data: [26, 44, 96],
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
-
 ///
 interface props {
   children: React.ReactNode;
@@ -110,9 +92,62 @@ const Reports = () => {
 
   const { cleaning, deliver, done } = orders;
 
+  const labels = ["Cleaning", "Delivery", "Done"];
+
   const ordersInCleaning = Object.keys(cleaning).length;
+  const unpaidInCleaning = Object.values(cleaning).filter(
+    (el) => el.paymentInfo.payment === "credit"
+  ).length;
+  const totalPriceOfItemsInCleaning =
+    Object.values(cleaning).length > 1
+      ? Object.values(cleaning)
+          .map((el) => el.totalPrice)
+          .reduce((prev, cur) => prev + cur)
+      : 0;
+
   const ordersInDeliver = Object.keys(deliver).length;
+  const unpaidInDeliver = Object.values(deliver).filter(
+    (el) => el.paymentInfo.payment === "credit"
+  ).length;
+  const totalPriceOfItemsInDeliver =
+    Object.values(deliver).length > 1
+      ? Object.values(deliver)
+          .map((el) => el.totalPrice)
+          .reduce((prev, cur) => prev + cur)
+      : 0;
+
   const ordersInDone = Object.keys(done).length;
+  const unpaidInDone = Object.values(done).filter(
+    (el) => el.paymentInfo.payment === "credit"
+  ).length;
+  const totalPriceOfItemsInDone =
+    Object.values(done).length > 1
+      ? Object.values(done)
+          .map((el) => el.totalPrice)
+          .reduce((prev, cur) => prev + cur)
+      : 0;
+
+  const totalSales =
+    totalPriceOfItemsInCleaning +
+    totalPriceOfItemsInDeliver +
+    totalPriceOfItemsInDone;
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Unpaid",
+        data: [unpaidInCleaning, unpaidInDeliver, unpaidInDone],
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+      {
+        label: "Total",
+        data: [ordersInCleaning, ordersInDeliver, ordersInDone],
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
+    ],
+  };
+
   const totalOrders = ordersInCleaning + ordersInDeliver + ordersInDone;
 
   return (
@@ -120,35 +155,8 @@ const Reports = () => {
       <h1 className="mx-8 my-8 text-4xl text-center md:text-left">Reports</h1>
 
       {/* WORKFLOW COUNT */}
-      <div className="flex justify-center sm:justify-end space-x-12 mx-8">
-        <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2">
-          <span className="bg-gray-300 py-5 px-7 rounded">
-            <h2 className="text-3xl font-bold">{ordersInCleaning}</h2>
-          </span>
-          <h3 className="text-sm text-gray-600 text-center">
-            Orders in Cleaning
-          </h3>
-        </div>
-        <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2">
-          <span className="bg-gray-300 py-5 px-7 rounded">
-            <h2 className="text-3xl font-bold">{ordersInDeliver}</h2>
-          </span>
-          <h3 className="text-sm text-gray-600 text-center">
-            Orders in Delivery
-          </h3>
-        </div>
-        <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2">
-          <span className="bg-gray-300 py-5 px-7 rounded">
-            <h2 className="text-3xl font-bold">{ordersInDone}</h2>
-          </span>
-          <h3 className="text-sm text-gray-600 text-center">Orders Complete</h3>
-        </div>
-        <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2">
-          <span className="bg-gray-300 py-5 px-7 rounded">
-            <h2 className="text-3xl font-bold">{totalOrders}</h2>
-          </span>
-          <h3 className="text-sm text-gray-600 text-center">Total orders</h3>
-        </div>
+      <div className="grid grid-cols-2">
+        <div></div>
       </div>
 
       <div className="space-y-4 mt-6">
@@ -156,37 +164,73 @@ const Reports = () => {
           Sales & Workflow
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 w-full my-5 space-y-4 justify-items-center">
-          <ChartWrapper large chartTitle="Sales in Workflow">
+          {/* <ChartWrapper large chartTitle="Sales in Workflow">
             <Bar data={data} />
-          </ChartWrapper>
-          <div className="grid grid-cols-2 grid-rows-2 w-full gap-6">
-            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2">
-              <span className="bg-gray-300 py-5 px-7 rounded">
-                <h2 className="text-xl font-bold">£435.99</h2>
+          </ChartWrapper> */}
+          <div className="grid grid-cols-2 gap-x-2">
+            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
+              <span className="p-5">
+                <h2 className="text-3xl font-bold">{ordersInCleaning}</h2>
               </span>
-              <h3 className="text-sm text-gray-600 text-center">Total Sales</h3>
+              <h3 className="text-center tracking-tight">Orders in Cleaning</h3>
             </div>
-            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2">
-              <span className="bg-gray-300 py-5 px-7 rounded">
-                <h2 className="text-xl font-bold">£435.99</h2>
+            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
+              <span className="p-5">
+                <h2 className="text-3xl font-bold">{ordersInDeliver}</h2>
               </span>
-              <h3 className="text-sm text-gray-600 text-center">
+              <h3 className="text-center tracking-tight">Orders in Delivery</h3>
+            </div>
+            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
+              <span className="p-5">
+                <h2 className="text-3xl font-bold">{ordersInDone}</h2>
+              </span>
+              <h3 className="text-center tracking-tight">Orders Complete</h3>
+            </div>
+            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
+              <span className="p-5 ">
+                <h2 className="text-3xl font-bold">{totalOrders}</h2>
+              </span>
+              <h3 className="text-center tracking-tight">Total orders</h3>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 grid-rows-2 w-full gap-2 px-2">
+            <div className="flex flex-col items-center justify-center space-y-2 bg-gray-700 p-2">
+              <span className="p-5 rounded">
+                <h2 className="text-xl font-bold text-gray-50">
+                  £{totalSales}
+                </h2>
+              </span>
+              <h3 className="text-gray-50 text-center tracking-tight">
+                Total Sales
+              </h3>
+            </div>
+            <div className="flex flex-col items-center justify-center space-y-2 bg-gray-700 p-2">
+              <span className="bg-gray-700 p-5 rounded">
+                <h2 className="text-xl font-bold text-gray-50">
+                  £{totalPriceOfItemsInCleaning}
+                </h2>
+              </span>
+              <h3 className="text-gray-50 text-center tracking-tight">
                 Value in Cleaning
               </h3>
             </div>
-            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2">
-              <span className="bg-gray-300 py-5 px-7 rounded">
-                <h2 className="text-xl font-bold">£435.99</h2>
+            <div className="flex flex-col items-center justify-center space-y-2 bg-gray-700 p-2">
+              <span className="bg-gray-700 p-5 rounded">
+                <h2 className="text-xl font-bold text-gray-50">
+                  £{totalPriceOfItemsInDeliver}
+                </h2>
               </span>
-              <h3 className="text-sm text-gray-600 text-center">
+              <h3 className="text-gray-50 text-center tracking-tight">
                 Value in Delivery
               </h3>
             </div>
-            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2">
-              <span className="bg-gray-300 py-5 px-7 rounded">
-                <h2 className="text-xl font-bold">£435.99</h2>
+            <div className="flex flex-col items-center justify-center space-y-2 bg-gray-700 p-2">
+              <span className="bg-gray-700 p-5 rounded">
+                <h2 className="text-xl font-bold text-gray-50">
+                  £{totalPriceOfItemsInDone}
+                </h2>
               </span>
-              <h3 className="text-sm text-gray-600 text-center">
+              <h3 className="text-gray-50 text-center tracking-tight">
                 Value of Done
               </h3>
             </div>

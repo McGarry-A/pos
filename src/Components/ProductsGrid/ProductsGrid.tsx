@@ -9,15 +9,13 @@ const ProductGrid = () => {
 
   const renderCategories = () => {
     return (
-      <div className="grid grid-cols-3 sm:grid-cols-4 sm:gap-10">
+      <div className="mt-10 space-x-6 pl-4">
         {categoryTitles.map((el, index) => (
           <button key={index} className="">
             <h3
               onClick={() => setActiveCat(el)}
-              className={`uppercase text-md ${
-                activeCat === el
-                  ? `border-b-gray-500 border-b-4 border-dashed bold transition duration-150`
-                  : ``
+              className={`text-sm tracking-tighter transition duration-150 ${
+                activeCat === el ? `opacity-1 shadow` : `opacity-70`
               }`}
             >
               {el}
@@ -34,7 +32,7 @@ const ProductGrid = () => {
       .map((el) => el.products)[0];
 
     return (
-      <div className="grid grid-cols-3 gap-2 my-2 py-2 md:grid-cols-4">
+      <div className="grid grid-cols-3 gap-3 md:grid-cols-4 md:p-4 lg:grid-cols-5">
         {products.map((el, index) => (
           <ProductCard
             title={el.name}

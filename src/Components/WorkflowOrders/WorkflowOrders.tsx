@@ -1,6 +1,5 @@
 import { useAppDispatch } from "../../Store";
 import useIsMobile from "../../Hooks/useIsMobile";
-import { useNavigate } from "react-router-dom";
 
 import orderSlice from "../../Store/orderSlice";
 
@@ -26,8 +25,6 @@ const WorkflowOrders: React.FC<Props> = ({ data, showCurrent }) => {
   const handleProcess = (orderId: string) => {
     dispatch(process({ orderId }));
   };
-
-  const navigate = useNavigate();
 
   const renderNoOrders = () => {
     if (isOrders) return;

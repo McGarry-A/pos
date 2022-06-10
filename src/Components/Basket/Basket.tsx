@@ -18,12 +18,14 @@ const Basket = () => {
   const { totalQuantity } = basketContext;
 
   const renderOrderSummary = () => (
-    <h3 className="flex items-center justify-between text-gray-700">
-      Order Summary{" "}
-      <span className="block text-xs opacity-60">
+    <>
+      <h3 className="flex items-center justify-between text-gray-900">
+        Order Summary{" "}
+      </h3>
+      <span className="block text-xs opacity-30 tracking-tighter">
         You have {totalQuantity} item(s) in your basket
       </span>
-    </h3>
+    </>
   );
 
   const renderTableHeader = () => (
@@ -50,10 +52,10 @@ const Basket = () => {
 
     return (
       <tr key={id} className="">
-        <td className="text-sm text-gray-500">{title}</td>
-        <td className="text-sm text-gray-500">x{quantity}</td>
-        <td className="text-sm text-gray-500">£{price * quantity}</td>
-        <td className="text-sm text-gray-500">
+        <td className="text-sm text-gray-900">{title}</td>
+        <td className="text-sm text-gray-900">x{quantity}</td>
+        <td className="text-sm text-gray-900">£{price * quantity}</td>
+        <td className="text-sm text-gray-900">
           <button onClick={() => clearItem({ id })}>
             <BsTrash />
           </button>
@@ -66,11 +68,22 @@ const Basket = () => {
     const { totalPrice } = basketContext;
 
     return (
-      <tr className="font-semibold">
-        <td className="text-gray-700">Total Price</td>
-        <td className=""></td>
-        <td className="text-gray-700">£{totalPrice}</td>
-      </tr>
+      <div className="grid grid-cols-2">
+        <p className="text-gray-900 text-sm tracking-tight">Subtotal</p>
+        <p className="text-gray-900 text-sm justify-self-end tracking-tight">
+          ${totalPrice}
+        </p>
+        <p className="text-gray-900 text-sm opacity-60 tracking-tight">
+          Delivery
+        </p>
+        <p className="text-gray-900 text-sm opacity-60 justify-self-end tracking-tight">
+          ${totalPrice}
+        </p>
+        <div className="col-span-2 grid grid-cols-2 mt-4 pt-4 border-dashed border-t-4 border-gray-300">
+          <p className="text-gray-900">Total Price</p>
+          <p className="text-gray-900 justify-self-end">£{totalPrice}</p>
+        </div>
+      </div>
     );
   };
 
@@ -82,18 +95,18 @@ const Basket = () => {
     return (
       <table className="table-auto w-full">
         {renderTableHeader()}
-        <tbody className="">
-          {itemsArray.map(renderOrderRow)}
-          {renderTotalForOrder()}
-        </tbody>
+        <tbody className="">{itemsArray.map(renderOrderRow)}</tbody>
       </table>
     );
   };
 
   return (
-    <div className="max-w-xl flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow bg-gray-100 p-6 rounded-lg w-96">
       {renderOrderSummary()}
-      <div className="my-4 sm:flex-2 sm:border flex-grow">{renderTable()}</div>
+      <div className="my-4 sm:flex-2 sm:border -border-3 flex-grow bg-white">
+        {renderTable()}
+      </div>
+      {renderTotalForOrder()}
     </div>
   );
 };

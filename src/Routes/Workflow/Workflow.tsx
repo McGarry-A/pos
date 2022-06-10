@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useAppSelector } from "../../Store";
 
+import { MdDeliveryDining, MdOutlineCleaningServices } from "react-icons/md";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+
 import NewOrder from "../../Components/NewOrder/NewOrder";
 
 import WorkflowOrders from "../../Components/WorkflowOrders/WorkflowOrders";
@@ -19,10 +22,6 @@ const Workflow = () => {
   const deliverOrders = useAppSelector((state) => state.orders.deliver);
   const cleaningOrders = useAppSelector((state) => state.orders.cleaning);
 
-  const tabClass = "font-medium upppercase font-thin text-gray-600";
-  const activeTabClass =
-    "border-b-4 border-gray-600 transition-colors font-medium upppercase font-thin text-gray-600";
-
   const renderNewOrderTab = () => {
     if (activeTab === "NewOrder") {
       return <NewOrder />;
@@ -40,50 +39,79 @@ const Workflow = () => {
     }
   };
 
+  const newOrderActive = activeTab === "NewOrder" ? true : false;
+  const cleaningActive = activeTab === "Cleaning" ? true : false;
+  const deliveryActive = activeTab === "Delivery" ? true : false;
+
   const renderNav = () => {
     return (
-      <nav className="flex justify-center space-x-12 py-12">
-        <button>
-          <h3
-            onClick={() => setActiveTab("NewOrder")}
-            className={
-              activeTab === "NewOrder" ? `${activeTabClass}` : `${tabClass}`
-            }
+      <nav className="flex space-x-4 mt-12">
+        <p className="text-black">{deliveryActive}</p>
+        <button
+          className={`flex items-center py-2 border px-4 rounded-lg shadow-md transition duration-150 ${
+            newOrderActive ? "bg-blue-800" : "bg-white"
+          }`}
+          onClick={() => setActiveTab("NewOrder")}
+        >
+          <div className="p-2 mr-2 bg-gray-100 rounded-xl shadow-sm">
+            <HiOutlinePencilAlt
+              size="2rem"
+              className={`${newOrderActive ? "text-blue-800" : ""}`}
+            />
+          </div>
+          <div
+            className={`${newOrderActive ? "text-gray-50" : "text-gray-800"}`}
           >
-            New Order
-          </h3>
+            <p className="text-lg">New Order</p>
+          </div>
         </button>
-        <button className="relative">
-          <h3
-            onClick={() => setActiveTab("Cleaning")}
-            className={
-              activeTab === "Cleaning" ? `${activeTabClass}` : `${tabClass}`
-            }
-          >
-            Cleaning
-          </h3>
-          {cleaningToDo > 0 && (
-            <span className="text-xs rounded-full text-white bg-red-500 absolute top-0 -right-4 px-1">
-              {" "}
-              {cleaningToDo}
-            </span>
-          )}
-        </button>
-        <button className="relative">
-          <h3
-            onClick={() => setActiveTab("Delivery")}
-            className={
-              activeTab === "Delivery" ? `${activeTabClass}` : `${tabClass}`
-            }
-          >
-            Delivery
-          </h3>
 
-          {deliverToDo > 0 && (
-            <span className="text-xs rounded-full text-white bg-red-500 absolute top-0 -right-4 px-1">
-              {deliverToDo}
-            </span>
-          )}
+        <button
+          className={`flex items-center py-2 border px-4 rounded-lg shadow-md transition duration-150 ${
+            cleaningActive ? "bg-blue-800" : "bg-gray-50"
+          }`}
+          onClick={() => setActiveTab("Cleaning")}
+        >
+          <div className="p-2 mr-2 bg-gray-100 rounded-xl shadow-sm">
+            <MdOutlineCleaningServices
+              size="2rem"
+              className={`${cleaningActive ? "text-blue-800" : "bg-white"}`}
+            />
+          </div>
+          <div
+            className={`${cleaningActive ? "text-gray-50" : "text-gray-900"}`}
+          >
+            <p className="text-left text-lg">Cleaning</p>
+            {cleaningToDo > 0 && (
+              <p className="text-xs text-left opacity-70">
+                {cleaningToDo} items in cleaning
+              </p>
+            )}
+          </div>
+        </button>
+
+        <button
+          className={`flex items-center py-2 border px-4 rounded-lg shadow-md transition duration-150 ${
+            deliveryActive ? "bg-blue-800" : "bg-gray-50"
+          }`}
+          onClick={() => setActiveTab("Delivery")}
+        >
+          <div className="p-2 mr-2 bg-gray-100 rounded-xl shadow-sm">
+            <MdDeliveryDining
+              size="2rem"
+              className={`${deliveryActive ? "text-blue-800" : "bg-white"}`}
+            />
+          </div>
+          <div
+            className={`${deliveryActive ? "text-gray-50" : "text-gray-900"}`}
+          >
+            <p className="text-left text-lg">Delivery</p>
+            {deliverToDo > 0 && (
+              <p className="text-xs text-left opacity-70">
+                {deliverToDo} items in delivery
+              </p>
+            )}
+          </div>
         </button>
       </nav>
     );

@@ -5,6 +5,12 @@ import useBasket from "../../Context/BasketProvider";
 import orderSlice from "../../Store/orderSlice";
 import getDateAndTime from "../../utils/getDateAndTime";
 
+import { BsCash, BsCreditCard2Back } from "react-icons/bs";
+import { FaRegHandshake } from "react-icons/fa";
+
+import { SiExpress } from "react-icons/si";
+import { HiOutlineTruck } from "react-icons/hi";
+
 import { OrderInterface } from "../OrderInterface";
 
 import { PaymentType, DeliveryType } from "../OrderInterface";
@@ -33,7 +39,7 @@ const PaymentOptions = () => {
 
   const handleSubmit = () => {
     const { date, time } = getDateAndTime();
-    const { basket, actions, currentCustomer, setCurrentCustomer } =
+    const { basket, actions, currentCustomer, setCurrentCustomer, totalPrice } =
       basketContext;
     const { items, orderNotes } = basket;
 
@@ -51,6 +57,7 @@ const PaymentOptions = () => {
       [orderId]: {
         orderId,
         items,
+        totalPrice,
         orderNotes,
         current: "cleaning",
         paymentInfo: { payment, delivery, date, time },
@@ -72,43 +79,131 @@ const PaymentOptions = () => {
     } = basketContext;
 
     return (
-      <input
-        type="text"
-        placeholder="Order Notes..."
-        className="my-1 border-2 block w-full rounded-md h-8"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setOrderNote(e.target.value)
-        }
-      />
+      <div className="my-2">
+        <p className="block text-gray-900">Order Notes</p>
+        <input
+          type="text"
+          placeholder="No starch please!"
+          className="my-1 border-2 block w-full rounded-md h-12 text-sm"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setOrderNote(e.target.value)
+          }
+        />
+      </div>
     );
   };
 
   return (
     <div className="mt-2 max-w-xl">
-      <div className="flex justify-between my-1 space-x-8">
-        <p className="block text-gray-700">Delivery Options</p>
-        <select
-          className="text-sm border shadow-sm py-1 px-2 rounded"
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            setDelivery(e.target.value as DeliveryType)
-          }
-        >
-          <option value={"standard"}>Standard Delivery (+2.99)</option>
-          <option value={"premium"}>Next Day Delivery (+£5.99)</option>
-        </select>
+      <div className="">
+        <p className="block text-gray-900">Delivery Options</p>
+        <div className="flex space-x-3 my-2 w-full">
+          <div
+            className={`${
+              delivery === "standard" ? "border-blue-900 border-2" : ""
+            } bg-blue-600 bg-opacity-10 p-4 rounded-2xl text-blue-900 text-xs flex justify-center items-center flex-col w-24 cursor-pointer`}
+            onClick={() => setDelivery("standard")}
+          >
+            <HiOutlineTruck
+              size={"2rem"}
+              className={`${
+                delivery === "standard" ? "opacity-1" : "opacity-40"
+              } text-blue-900 mb-1`}
+            />
+            <p
+              className={` ${
+                delivery === "standard" ? "opacity-1" : "opacity-40"
+              } tracking-tighter font-bold}`}
+            >
+              Standard
+            </p>
+          </div>
+          <div
+            className={`${
+              delivery === "premium" ? "border-blue-900 border-2" : ""
+            } bg-blue-600 bg-opacity-10 p-4 rounded-2xl text-blue-900 text-xs flex justify-center items-center flex-col w-24 cursor-pointer`}
+            onClick={() => setDelivery("premium")}
+          >
+            <SiExpress
+              size={"2rem"}
+              className={`${
+                delivery === "premium" ? "opacity-1" : "opacity-40"
+              } text-blue-900 mb-1`}
+            />
+            <p
+              className={` ${
+                delivery === "premium" ? "opacity-1" : "opacity-40"
+              } tracking-tighter font-bold}`}
+            >
+              Premium
+            </p>
+          </div>
+        </div>
       </div>
-      <div className="flex justify-between my-1">
-        <p className="block text-gray-700">Payment type</p>
-        <select
-          className="text-sm border shadow-sm py-1 px-2 rounded"
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            setPayment(e.target.value as PaymentType)
-          }
-        >
-          <option value="cash">Cash</option>
-          <option value="card">Card</option>
-          <option value="credit">Credit</option>
-        </select>
+      <div className="">
+        <p className="block text-gray-900">Payment Method</p>
+        <div className="flex space-x-3 my-2 w-full">
+          <div
+            className={`${
+              payment === "cash" ? "border-blue-900 border-2" : ""
+            } bg-blue-600 bg-opacity-10 p-4 rounded-2xl text-blue-900 text-xs flex justify-center items-center flex-col w-24 cursor-pointer`}
+            onClick={() => setPayment("cash")}
+          >
+            <BsCash
+              size={"2rem"}
+              className={`${
+                payment === "cash" ? "opacity-1" : "opacity-40"
+              } text-blue-900 mb-1`}
+            />
+            <p
+              className={` ${
+                payment === "cash" ? "opacity-1" : "opacity-40"
+              } tracking-tighter font-bold}`}
+            >
+              Cash
+            </p>
+          </div>
+          <div
+            className={`${
+              payment === "card" ? "border-blue-900 border-2" : ""
+            } bg-blue-600 bg-opacity-10 p-4 rounded-2xl text-blue-900 text-xs flex justify-center items-center flex-col w-24 cursor-pointer`}
+            onClick={() => setPayment("card")}
+          >
+            <BsCreditCard2Back
+              size={"2rem"}
+              className={`${
+                payment === "card" ? "opacity-1" : "opacity-40"
+              } text-blue-900 mb-1`}
+            />
+            <p
+              className={` ${
+                payment === "card" ? "opacity-1" : "opacity-40"
+              } tracking-tighter font-bold}`}
+            >
+              Debit Card
+            </p>
+          </div>
+          <div
+            className={`${
+              payment === "credit" ? "border-blue-900 border-2" : ""
+            } bg-blue-600 bg-opacity-10 p-4 rounded-2xl text-blue-900 text-xs flex justify-center items-center flex-col w-24 cursor-pointer`}
+            onClick={() => setPayment("credit")}
+          >
+            <FaRegHandshake
+              size={"2rem"}
+              className={`${
+                payment === "credit" ? "opacity-1" : "opacity-40"
+              } text-blue-900 mb-1`}
+            />
+            <p
+              className={` ${
+                payment === "credit" ? "opacity-1" : "opacity-40"
+              } tracking-tighter font-bold}`}
+            >
+              Cash
+            </p>
+          </div>
+        </div>
       </div>
       <p
         className={`${
@@ -119,13 +214,13 @@ const PaymentOptions = () => {
       </p>
       {renderNote()}
       <button
-        className="w-full uppercase tracking-widest p-2 rounded font-bold mt-2 border-2 text-gray-600"
+        className="w-full py-3 rounded-lg mt-2 border-2 text-gray-900 text-sm shadow-md font-semibold antialiased"
         onClick={() => clearBasket()}
       >
         Clear Basket
       </button>
       <button
-        className="w-full uppercase tracking-widest bg-gray-600 p-2 text-gray-50 rounded font-bold my-1"
+        className="w-full bg-blue-800 py-3 text-gray-100 rounded-lg my-2 shadow-md font-semibold antialiased"
         onClick={handleSubmit}
       >
         Submit

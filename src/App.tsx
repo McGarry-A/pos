@@ -19,8 +19,8 @@ function App() {
   };
 
   return (
-    <div className="App relative max-w-[1920px] mx-auto">
-      <header className="py-6 px-2 flex text-gray-50 items-center justify-between sm:space-x-16 bg-gray-600">
+    <div className="App relative max-w-[1420px] mx-auto bg-gray-50 min-h-screen">
+      <header className="py-6 px-2 flex items-center justify-between sm:space-x-16">
         <div className="flex items-center">
           <h2 className="sm:block text-2xl">BusinessLogo</h2>
         </div>
@@ -36,7 +36,7 @@ function App() {
           </button>
         </nav>
       </header>
-      <div className="w-fit mx-auto">
+      <div className="">
         <Outlet />
         <Routes>
           <Route path="/" element={<Workflow />} />

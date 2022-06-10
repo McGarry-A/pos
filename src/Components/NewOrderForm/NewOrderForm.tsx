@@ -1,4 +1,3 @@
-import { AiOutlinePlus } from "react-icons/ai";
 import { MdClear } from "react-icons/md";
 import CreateCustomerForm from "../CreateCustomerForm/CreateCustomerForm";
 import React, { useState } from "react";
@@ -61,29 +60,23 @@ const NewOrderForm: React.FC = () => {
     // our list of customers is declared at the top of the component and inside "customers"
 
     return (
-      <div className="">
-        <div className="flex space-x-2 my-1">
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={options}
-            sx={{
-              width: "100%",
-            }}
-            onChange={(e: any, newValue: string | null) =>
-              handleSelectCustomer(newValue)
-            }
-            renderInput={(params) => (
-              <TextField {...params} label="Start typing a customer..." />
-            )}
-          />
-          <button
-            className="border rounded p-2 border-gray-300"
-            onClick={() => setPortalIsHidden(!portalIsHidden)}
-          >
-            <AiOutlinePlus color="gray" />
-          </button>
-        </div>
+      <div className="w-full">
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={options}
+          onChange={(e: any, newValue: string | null) =>
+            handleSelectCustomer(newValue)
+          }
+          sx={{
+            outline: "none",
+            border: "none",
+            fontSize: "12px",
+          }}
+          renderInput={(params) => (
+            <TextField {...params} label="Start typing a customer..." />
+          )}
+        />
       </div>
     );
   };
