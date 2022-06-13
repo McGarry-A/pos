@@ -5,7 +5,7 @@ import Portal from "../Portal/Portal";
 import useBasket from "../../Context/BasketProvider";
 import { useAppSelector } from "../../Store";
 import Autocomplete from "react-autocomplete";
-import { HiOutlinePlus } from "react-icons/hi";
+import { HiPlusSm } from "react-icons/hi";
 
 const NewOrderForm: React.FC = () => {
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
@@ -61,7 +61,7 @@ const NewOrderForm: React.FC = () => {
     // our list of customers is declared at the top of the component and inside "customers"
 
     return (
-      <div className="flex mb-2">
+      <div className="flex p-4 md:p-0">
         <Autocomplete
           wrapperStyle={{ width: "100%", height: "", fontSize: "12px" }}
           getItemValue={(customer) => customer.name}
@@ -84,10 +84,10 @@ const NewOrderForm: React.FC = () => {
           }}
         />
         <div
-          className="border flex justify-center items-center p-2 ml-2 cursor-pointer"
+          className="flex justify-center items-center p-2 ml-2 cursor-pointer bg-blue-600 text-white rounded hover:bg-blue-500"
           onClick={() => setPortalIsHidden(!portalIsHidden)}
         >
-          <HiOutlinePlus size="1.5rem" />
+          <HiPlusSm size="1.5rem" className="text-white" />
         </div>
       </div>
     );

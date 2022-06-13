@@ -9,15 +9,15 @@ const ProductGrid = () => {
 
   const renderCategories = () => {
     return (
-      <div className="mt-10 space-x-6 pl-4">
+      <div className="md:mt-10 space-x-6 pl-4 mb-4">
         {categoryTitles.map((el, index) => (
           <button key={index} className="">
             <h3
               onClick={() => setActiveCat(el)}
-              className={`text-sm tracking-tighter transition duration-150 px-4 py-2 border rounded-2xl ${
+              className={`text-xs tracking-tighter transition duration-150 px-6 py-2 border rounded-2xl ${
                 activeCat === el
-                  ? `bg-blue-800 text-gray-50`
-                  : `opacity-50 bg-white text-blue-800 border-blue-800`
+                  ? `bg-blue-700 text-gray-50`
+                  : `opacity-50 bg-white text-blue-700 border-blue-700`
               }`}
             >
               {el}
@@ -34,7 +34,7 @@ const ProductGrid = () => {
       .map((el) => el.products)[0];
 
     return (
-      <div className="grid grid-cols-3 gap-3 md:grid-cols-4 md:p-4 lg:grid-cols-5">
+      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:p-4 lg:grid-cols-5 mb-4 md:mb-0">
         {products.map((el, index) => (
           <ProductCard
             title={el.name}
@@ -49,7 +49,7 @@ const ProductGrid = () => {
   };
 
   return (
-    <div className="mt-8 sm:mt-8 md:mt-4">
+    <div className="md:mt-4">
       {renderCategories()}
       {renderGrid()}
     </div>

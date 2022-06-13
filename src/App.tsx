@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App relative max-w-[1420px] mx-auto bg-gray-50 min-h-screen overflow-hidden">
       <Sidebar />
-      <div className="ml-36">
+      <div className="md:ml-36">
         <Outlet />
         <Routes>
           <Route path="/" element={<Workflow />} />

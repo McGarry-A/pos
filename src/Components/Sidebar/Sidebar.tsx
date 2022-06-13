@@ -73,15 +73,15 @@ const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<NavType>("Workflow");
 
   return (
-    <nav className="absolute left-0 h-full w-32 bg-white border-1 border-gray-50 pt-6">
-      <div className="flex flex-col justify-evenly">
-        <div>
+    <nav className="absolute bg-white border-1 bottom-0 border-gray-50 md:pt-6 md:left-0 md:h-screen md:w-32 w-full">
+      <div className="flex md:flex-col justify-evenly w-full">
+        <div className="hidden md:block">
           <img src={Logo} alt="random Logo" />
           <p className="text-xs text-center leading-tighter italic opacity-70">
             Cleaning Solutions
           </p>
         </div>
-        <div className="space-y-8 mt-10">
+        <div className="flex items-center w-full justify-evenly md:flex-col md:space-y-8 md:mt-10">
           {links.map(({ title, link, Icon }, index) => {
             return (
               <NavItem
@@ -96,7 +96,7 @@ const Sidebar = () => {
           })}
         </div>
       </div>
-      <div className="h-full flex justify-center flex-col">
+      <div className="hidden md:flex md:flex-col md:mt-20 md:h-full md:justify-start">
         <NavItem
           key="LOGOUT"
           title="Exit"

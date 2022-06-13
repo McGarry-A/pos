@@ -33,8 +33,11 @@ const NewOrder: React.FC = () => {
             basketIsOpen ? "" : "translate-x-96"
           }`}
         >
-          <div className="p-3 rounded-full shadow-md bg-white w-min -translate-x-16 cursor-pointer">
-            <BsChevronRight onClick={() => setBasketIsOpen(!basketIsOpen)} />
+          <div
+            className="p-3 rounded-full shadow-md bg-white w-min -translate-x-16 cursor-pointer"
+            onClick={() => setBasketIsOpen(!basketIsOpen)}
+          >
+            <BsChevronRight />
           </div>
           <h2 className="text-xl mt-8 tracking-wide">Your Basket</h2>
           <NewOrderForm />

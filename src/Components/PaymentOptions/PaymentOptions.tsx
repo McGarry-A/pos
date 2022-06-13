@@ -95,7 +95,7 @@ const PaymentOptions = () => {
   };
 
   return (
-    <div className="mt-2 max-w-xl">
+    <div className="mt-2 max-w-xl p-4 md:p-0">
       <p className="block text-gray-900">Delivery Options</p>
       <div className="flex space-x-3 my-2 w-full">
         <PaymentOption
@@ -147,13 +147,13 @@ const PaymentOptions = () => {
       </p>
       {renderNote()}
       <button
-        className="w-full py-3 rounded-lg mt-2 border-2 text-gray-900 text-sm shadow-md font-semibold antialiased"
+        className="w-full py-3 rounded-lg mt-2 border text-gray-900 text-sm shadow"
         onClick={() => clearBasket()}
       >
         Clear Basket
       </button>
       <button
-        className="w-full bg-blue-800 py-3 text-gray-100 rounded-lg my-2 shadow-md font-semibold antialiased"
+        className="w-full bg-blue-600 py-3 text-gray-100 rounded-lg my-2 shadow-md font-semibold hover:bg-blue-500"
         onClick={handleSubmit}
       >
         Submit

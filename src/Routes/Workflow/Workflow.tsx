@@ -4,6 +4,7 @@ import { useAppSelector } from "../../Store";
 import { MdDeliveryDining, MdOutlineCleaningServices } from "react-icons/md";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
+import Logo from "../../icons/Logo.png";
 
 import NewOrder from "../../Components/NewOrder/NewOrder";
 
@@ -25,19 +26,27 @@ const Workflow = () => {
   };
   const renderCleaningTab = () => {
     if (activeTab === "Cleaning") {
-      return <WorkflowOrders data={cleaningOrders} showCurrent={false} />;
+      return (
+        <div className="mt-8 flex justify-center">
+          <WorkflowOrders data={cleaningOrders} showCurrent={false} />
+        </div>
+      );
     }
   };
 
   const renderDeliveryTab = () => {
     if (activeTab === "Delivery") {
-      return <WorkflowOrders data={deliverOrders} showCurrent={false} />;
+      return (
+        <div className="mt-8 flex justify-center">
+          <WorkflowOrders data={deliverOrders} showCurrent={false} />
+        </div>
+      );
     }
   };
 
   const renderNav = () => {
     return (
-      <nav className="flex space-x-4 mt-12 pl-4">
+      <nav className="flex space-x-4 mt-6 md:mt-12 pl-4 overflow-x-scroll">
         <WorkflowTab
           tab={"NewOrder"}
           activeTab={activeTab}
@@ -62,12 +71,19 @@ const Workflow = () => {
 
   const renderHeader = () => {
     return (
-      <div className="ml-4 mt-8 flex">
-        <div className="w-3/5">
+      <div className="md:ml-4 md:mt-8 flex items-center justify-between p-4 md:px-0 bg-white md:bg-gray-50">
+        <div className="md:w-3/5 w-full">
           <h1 className="text-2xl">The Cleanerz</h1>
           <h3 className="opacity-50 italic ">Take em to the Cleanerz!</h3>
         </div>
-        <div className="w-full">
+        <div className="w-full flex justify-end md:hidden">
+          <img
+            src={Logo}
+            alt="Cleaners Logo"
+            className="w-1/2 justify-self-end"
+          />
+        </div>
+        <div className="w-full hidden md:block">
           <div className="flex items-center bg-white w-80 px-2 rounded shadow">
             <BiSearch size="2rem" />
             <input

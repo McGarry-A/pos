@@ -22,8 +22,8 @@ const WorkflowTab: React.FC<Props> = ({ tab, activeTab, setState, Icon }) => {
 
   return (
     <button
-      className={`flex items-center py-2 border px-4 rounded-lg shadow-md transition duration-150 ${
-        isActive ? "bg-blue-800" : "bg-white"
+      className={`flex items-center py-2 border px-6 rounded-lg shadow transition duration-150 ${
+        isActive ? "bg-blue-700" : "bg-white"
       }`}
       onClick={() => setState(tab)}
     >
@@ -31,7 +31,7 @@ const WorkflowTab: React.FC<Props> = ({ tab, activeTab, setState, Icon }) => {
         <Icon size="2rem" className={`${isActive ? "text-blue-800" : ""}`} />
       </div>
       <div className={`${isActive ? "text-gray-50" : "text-gray-800"}`}>
-        <p className="text-lg text-left">{tab}</p>
+        <p className="text-left">{tab}</p>
         <p className={`text-left text-xs ${isActive ? "text-gray-100" : ""}`}>
           {tab === "Cleaning" && <>{cleaningToDo} items to clean</>}
         </p>

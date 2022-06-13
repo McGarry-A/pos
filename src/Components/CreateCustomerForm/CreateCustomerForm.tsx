@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { MdOutlineCancel } from "react-icons/md";
+import { MdClear, MdOutlineCancel } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import useBasket from "../../Context/BasketProvider";
 import { useAppDispatch } from "../../Store";
@@ -110,9 +110,9 @@ const CreateCustomerForm: React.FC<Props> = ({
   };
 
   return (
-    <div className="bg-white max-w-md shadow-md rounded flex relative">
+    <div className="bg-white max-w-xl shadow-md rounded flex relative">
       <form
-        className="p-4 space-y-4"
+        className="p-12 space-y-4"
         onSubmit={
           allowEdit
             ? (e: React.FormEvent<HTMLFormElement>) => handleEditSubmit(e)
@@ -146,21 +146,21 @@ const CreateCustomerForm: React.FC<Props> = ({
         </div>
         <div className="flex w-full justify-end space-x-4">
           <button
-            className="border px-6 py-2 rounded font-semibold"
+            className="border px-6 py-2 rounded font-semibold text-gray-800"
             onClick={handleExit}
           >
             Exit
           </button>
           <button
-            className="border px-6 py-2 rounded font-semibold bg-green-600 text-white"
+            className="border px-6 py-2 rounded font-semibold bg-blue-800 text-white"
             type="submit"
           >
             {allowEdit ? "Edit" : "Save"}
           </button>
         </div>
       </form>
-      <div className="bg-white absolute -top-3 -left-4 rounded-full cursor-pointer">
-        <MdOutlineCancel size={"2rem"} onClick={handleExit} />
+      <div className="absolute top-4 right-4 cursor-pointer opacity-30">
+        <MdClear size={"2rem"} onClick={handleExit} />
       </div>
     </div>
   );

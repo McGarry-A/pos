@@ -81,7 +81,7 @@ const Basket = () => {
   };
 
   return (
-    <div className="flex flex-col flex-grow bg-gray-100 p-6 w-80">
+    <div className="flex flex-col flex-grow bg-gray-100 p-6 w-full md:w-80">
       {renderOrderSummary()}
       <div className="my-4 sm:flex-2 sm:border bg-white flex-grow">
         {renderItems()}
