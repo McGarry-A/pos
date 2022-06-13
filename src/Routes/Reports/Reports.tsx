@@ -159,9 +159,9 @@ const Reports = () => {
           Sales & Workflow
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 w-full my-5 space-y-4 justify-items-center">
-          {/* <ChartWrapper large chartTitle="Sales in Workflow">
+          <ChartWrapper large chartTitle="Sales in Workflow">
             <Bar data={data} />
-          </ChartWrapper> */}
+          </ChartWrapper>
           <div className="grid grid-cols-2 gap-x-2">
             <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
               <span className="p-5">
