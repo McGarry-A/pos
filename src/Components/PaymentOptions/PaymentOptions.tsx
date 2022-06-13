@@ -5,16 +5,11 @@ import useBasket from "../../Context/BasketProvider";
 import orderSlice from "../../Store/orderSlice";
 import getDateAndTime from "../../utils/getDateAndTime";
 
-import { BsCash, BsCreditCard2Back } from "react-icons/bs";
-import { FaRegHandshake } from "react-icons/fa";
-
-import { SiExpress } from "react-icons/si";
-import { HiOutlineTruck } from "react-icons/hi";
-
 import { OrderInterface } from "../OrderInterface";
 
 import { PaymentType, DeliveryType } from "../OrderInterface";
 import PaymentOption from "../PaymentOption/PaymentOption";
+import data from "./PaymentOptionData";
 
 const PaymentOptions = () => {
   const [payment, setPayment] = useState<PaymentType>("cash");
@@ -94,50 +89,67 @@ const PaymentOptions = () => {
     );
   };
 
-  return (
-    <div className="mt-2 max-w-xl p-4 md:p-0">
-      <p className="block text-gray-900">Delivery Options</p>
-      <div className="flex space-x-3 my-2 w-full">
-        <PaymentOption
-          state={delivery}
-          setState={setDelivery}
-          Icon={HiOutlineTruck}
-          current="standard"
-          title="Standard"
-        />
-        <PaymentOption
-          state={delivery}
-          setState={setDelivery}
-          Icon={SiExpress}
-          current="premium"
-          title="Premium"
-        />
-      </div>
+  const renderDeliveryOptions = () => {
+    return (
+      <>
+        <p className="block text-gray-900">Delivery Options</p>
+        <div className="flex space-x-3 my-2 w-full">
+          {data.delivery.map((el, index) => {
+            return (
+              <PaymentOption
+                {...el}
+                key={index}
+                state={delivery}
+                setState={setDelivery}
+              />
+            );
+          })}
+        </div>
+      </>
+    );
+  };
 
-      <p className="block text-gray-900">Payment Method</p>
-      <div className="flex space-x-3 my-2 w-full">
-        <PaymentOption
-          state={payment}
-          setState={setPayment}
-          current={"cash"}
-          Icon={BsCash}
-          title="Cash"
-        />
-        <PaymentOption
-          state={payment}
-          setState={setPayment}
-          current={"card"}
-          Icon={BsCreditCard2Back}
-          title="Card"
-        />
-        <PaymentOption
-          state={payment}
-          setState={setPayment}
-          current={"credit"}
-          Icon={FaRegHandshake}
-          title="Credit"
-        />
-      </div>
+  const renderPaymentOptions = () => {
+    return (
+      <>
+        <p className="block text-gray-900">Payment Method</p>
+        <div className="flex space-x-3 my-2 w-full">
+          {data.payments.map((el, index) => {
+            return (
+              <PaymentOption
+                {...el}
+                key={index}
+                state={payment}
+                setState={setPayment}
+              />
+            );
+          })}
+        </div>
+      </>
+    );
+  };
+
+  const renderButtons = () => {
+    return (
+      <>
+        <button
+          className="w-full py-3 rounded-lg mt-2 border text-gray-900 text-sm shadow"
+          onClick={() => clearBasket()}
+        >
+          Clear Basket
+        </button>
+        <button
+          className="w-full bg-blue-600 py-3 text-gray-100 rounded-lg my-2 shadow-md font-semibold hover:bg-blue-500"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+      </>
+    );
+  };
+
+  const renderError = () => {
+    return (
       <p
         className={`${
           error ? "block" : "hidden"
@@ -145,19 +157,16 @@ const PaymentOptions = () => {
       >
         *{error}
       </p>
+    );
+  };
+
+  return (
+    <div className="mt-2 max-w-xl p-4 md:p-0">
+      {renderDeliveryOptions()}
+      {renderPaymentOptions()}
+      {renderError()}
       {renderNote()}
-      <button
-        className="w-full py-3 rounded-lg mt-2 border text-gray-900 text-sm shadow"
-        onClick={() => clearBasket()}
-      >
-        Clear Basket
-      </button>
-      <button
-        className="w-full bg-blue-600 py-3 text-gray-100 rounded-lg my-2 shadow-md font-semibold hover:bg-blue-500"
-        onClick={handleSubmit}
-      >
-        Submit
-      </button>
+      {renderButtons()}
     </div>
   );
 };
