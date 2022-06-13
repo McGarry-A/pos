@@ -2,7 +2,7 @@ import Portal from "../Portal/Portal";
 import { useAppDispatch } from "../../Store";
 import orderSlice from "../../Store/orderSlice";
 import { Dispatch, useState, SetStateAction } from "react";
-import { MdOutlineCancel } from "react-icons/md";
+import { MdClear } from "react-icons/md";
 
 interface props {
   current: "cleaning" | "delivery" | "done";
@@ -21,7 +21,7 @@ const MarkAsPaidForm: React.FC<props> = ({
   const [error, setError] = useState<string>("");
 
   const dispatch = useAppDispatch();
-  const activeClass = "bg-slate-800 text-gray-100";
+  const activeClass = "bg-blue-600 text-gray-50 border-blue-600";
 
   const { markAsPaid } = orderSlice.actions;
 
@@ -43,12 +43,12 @@ const MarkAsPaidForm: React.FC<props> = ({
 
   return (
     <Portal isHidden={portalIsHidden}>
-      <div className="bg-white flex flex-col p-4 relative shadow-md">
-        <h2 className="col-span-2">Please select a Payment Type</h2>
+      <div className="bg-white flex flex-col relative shadow-md">
+        <h2 className="col-span-2 mt-12 mx-10">Please select a Payment Type</h2>
         <p className="text-red-500 text-xs">{error}</p>
-        <div className="flex space-x-4 my-4 justify-center">
+        <div className="flex space-x-4 my-10 justify-center">
           <button
-            className={`border-gray-800 border px-4 py-2 ${
+            className={`border-gray-800 border px-4 py-2 transition duration-150 ${
               paymentType === "cash" ? activeClass : "text-gray-800"
             }`}
             onClick={() => setPaymentType("cash")}
@@ -56,7 +56,7 @@ const MarkAsPaidForm: React.FC<props> = ({
             Cash
           </button>
           <button
-            className={`border-gray-800 border px-4 py-2 ${
+            className={`border-gray-800 border px-4 py-2 transition duration-150 ${
               paymentType === "card" ? activeClass : "text-gray-800"
             }`}
             onClick={() => setPaymentType("card")}
@@ -64,7 +64,7 @@ const MarkAsPaidForm: React.FC<props> = ({
             Card
           </button>
         </div>
-        <div className="flex justify-end space-x-3 p-2">
+        <div className="flex justify-end space-x-3 p-2 mb-4 mx-4">
           <button
             className="text-red-700 border border-red-600 px-3 py-1 text-sm"
             onClick={() => setPortalIsHidden(false)}
@@ -75,11 +75,8 @@ const MarkAsPaidForm: React.FC<props> = ({
             Confirm
           </button>
         </div>
-        <div className="bg-white absolute -top-3 -left-4 rounded-full cursor-pointer">
-          <MdOutlineCancel
-            size={"2rem"}
-            onClick={() => setPortalIsHidden(false)}
-          />
+        <div className="absolute top-4 right-4 cursor-pointer opacity-30">
+          <MdClear size={"2rem"} onClick={() => setPortalIsHidden(false)} />
         </div>
       </div>
     </Portal>

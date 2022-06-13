@@ -75,7 +75,7 @@ const ChartWrapper: React.FC<props> = ({ children, chartTitle, large }) => {
   return (
     <div
       className={`w-full grid justify-center ${
-        large ? "" : "max-w-xs md:max-w-sm"
+        large ? "col-span-2" : "max-w-xs md:max-w-sm"
       }`}
     >
       <h3 className="text-center text-gray-700 opacity-60 mb-2 text-sm">
@@ -158,11 +158,8 @@ const Reports = () => {
         <h2 className="text-gray-700 text-2xl text-center sm:text-left sm:ml-4">
           Sales & Workflow
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 w-full my-5 space-y-4 justify-items-center">
-          <ChartWrapper large chartTitle="Sales in Workflow">
-            <Bar data={data} />
-          </ChartWrapper>
-          <div className="grid grid-cols-2 gap-x-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 w-full justify-items-center">
+          <div className="grid grid-cols-2 gap-2">
             <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
               <span className="p-5">
                 <h2 className="text-3xl font-bold">{ordersInCleaning}</h2>
@@ -175,6 +172,7 @@ const Reports = () => {
               </span>
               <h3 className="text-center tracking-tight">Orders in Delivery</h3>
             </div>
+
             <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
               <span className="p-5">
                 <h2 className="text-3xl font-bold">{ordersInDone}</h2>
@@ -188,6 +186,7 @@ const Reports = () => {
               <h3 className="text-center tracking-tight">Total orders</h3>
             </div>
           </div>
+
           <div className="grid grid-cols-2 grid-rows-2 w-full gap-2 px-2">
             <div className="flex flex-col items-center justify-center space-y-2 bg-gray-700 p-2">
               <span className="p-5 rounded">
@@ -232,6 +231,10 @@ const Reports = () => {
           </div>
         </div>
       </div>
+
+      <ChartWrapper large chartTitle="Sales in Workflow">
+        <Bar data={data} />
+      </ChartWrapper>
 
       {/* DONUGHT CHARTS */}
       <div className="space-y-4 mt-6">

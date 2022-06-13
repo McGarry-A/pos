@@ -88,7 +88,7 @@ const Workflow = () => {
             <BiSearch size="2rem" />
             <input
               placeholder="This input does not do anything.."
-              className="w-72 outline-none border-none"
+              className="w-72 outline-none border-none text-sm"
             />
           </div>
         </div>

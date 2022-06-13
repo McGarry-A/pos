@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { MdClear, MdOutlineCancel } from "react-icons/md";
+import { MdClear } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import useBasket from "../../Context/BasketProvider";
 import { useAppDispatch } from "../../Store";
