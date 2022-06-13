@@ -1,6 +1,6 @@
 import { AddItemParams } from "../../Context";
 import { useBasket } from "../../Context/BasketProvider";
-import { BsXLg } from "react-icons/bs";
+import { AiOutlineMinus } from "react-icons/ai";
 import { useState } from "react";
 
 interface Props {
@@ -51,7 +51,7 @@ const ProductCard = ({ id, title, price, icon }: Props) => {
           onMouseEnter={() => setAddIsDisabled(true)}
           onMouseLeave={() => setAddIsDisabled(false)}
         >
-          <BsXLg size="0.8rem" />
+          <AiOutlineMinus size="0.8rem" />
         </div>
       )}
     </button>

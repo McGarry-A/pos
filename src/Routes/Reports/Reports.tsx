@@ -151,13 +151,8 @@ const Reports = () => {
   const totalOrders = ordersInCleaning + ordersInDeliver + ordersInDone;
 
   return (
-    <div className="w-screen max-w-[1620px]">
+    <div className="">
       <h1 className="mx-8 my-8 text-4xl text-center md:text-left">Reports</h1>
-
-      {/* WORKFLOW COUNT */}
-      <div className="grid grid-cols-2">
-        <div></div>
-      </div>
 
       <div className="space-y-4 mt-6">
         <h2 className="text-gray-700 text-2xl text-center sm:text-left sm:ml-4">

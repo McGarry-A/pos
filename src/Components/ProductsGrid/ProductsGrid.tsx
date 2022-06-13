@@ -14,8 +14,10 @@ const ProductGrid = () => {
           <button key={index} className="">
             <h3
               onClick={() => setActiveCat(el)}
-              className={`text-sm tracking-tighter transition duration-150 ${
-                activeCat === el ? `opacity-1 shadow` : `opacity-70`
+              className={`text-sm tracking-tighter transition duration-150 px-4 py-2 border rounded-2xl ${
+                activeCat === el
+                  ? `bg-blue-800 text-gray-50`
+                  : `opacity-50 bg-white text-blue-800 border-blue-800`
               }`}
             >
               {el}

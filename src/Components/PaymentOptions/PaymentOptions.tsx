@@ -14,6 +14,7 @@ import { HiOutlineTruck } from "react-icons/hi";
 import { OrderInterface } from "../OrderInterface";
 
 import { PaymentType, DeliveryType } from "../OrderInterface";
+import PaymentOption from "../PaymentOption/PaymentOption";
 
 const PaymentOptions = () => {
   const [payment, setPayment] = useState<PaymentType>("cash");
@@ -95,115 +96,47 @@ const PaymentOptions = () => {
 
   return (
     <div className="mt-2 max-w-xl">
-      <div className="">
-        <p className="block text-gray-900">Delivery Options</p>
-        <div className="flex space-x-3 my-2 w-full">
-          <div
-            className={`${
-              delivery === "standard" ? "border-blue-900 border-2" : ""
-            } bg-blue-600 bg-opacity-10 p-4 rounded-2xl text-blue-900 text-xs flex justify-center items-center flex-col w-24 cursor-pointer`}
-            onClick={() => setDelivery("standard")}
-          >
-            <HiOutlineTruck
-              size={"2rem"}
-              className={`${
-                delivery === "standard" ? "opacity-1" : "opacity-40"
-              } text-blue-900 mb-1`}
-            />
-            <p
-              className={` ${
-                delivery === "standard" ? "opacity-1" : "opacity-40"
-              } tracking-tighter font-bold}`}
-            >
-              Standard
-            </p>
-          </div>
-          <div
-            className={`${
-              delivery === "premium" ? "border-blue-900 border-2" : ""
-            } bg-blue-600 bg-opacity-10 p-4 rounded-2xl text-blue-900 text-xs flex justify-center items-center flex-col w-24 cursor-pointer`}
-            onClick={() => setDelivery("premium")}
-          >
-            <SiExpress
-              size={"2rem"}
-              className={`${
-                delivery === "premium" ? "opacity-1" : "opacity-40"
-              } text-blue-900 mb-1`}
-            />
-            <p
-              className={` ${
-                delivery === "premium" ? "opacity-1" : "opacity-40"
-              } tracking-tighter font-bold}`}
-            >
-              Premium
-            </p>
-          </div>
-        </div>
+      <p className="block text-gray-900">Delivery Options</p>
+      <div className="flex space-x-3 my-2 w-full">
+        <PaymentOption
+          state={delivery}
+          setState={setDelivery}
+          Icon={HiOutlineTruck}
+          current="standard"
+          title="Standard"
+        />
+        <PaymentOption
+          state={delivery}
+          setState={setDelivery}
+          Icon={SiExpress}
+          current="premium"
+          title="Premium"
+        />
       </div>
-      <div className="">
-        <p className="block text-gray-900">Payment Method</p>
-        <div className="flex space-x-3 my-2 w-full">
-          <div
-            className={`${
-              payment === "cash" ? "border-blue-900 border-2" : ""
-            } bg-blue-600 bg-opacity-10 p-4 rounded-2xl text-blue-900 text-xs flex justify-center items-center flex-col w-24 cursor-pointer`}
-            onClick={() => setPayment("cash")}
-          >
-            <BsCash
-              size={"2rem"}
-              className={`${
-                payment === "cash" ? "opacity-1" : "opacity-40"
-              } text-blue-900 mb-1`}
-            />
-            <p
-              className={` ${
-                payment === "cash" ? "opacity-1" : "opacity-40"
-              } tracking-tighter font-bold}`}
-            >
-              Cash
-            </p>
-          </div>
-          <div
-            className={`${
-              payment === "card" ? "border-blue-900 border-2" : ""
-            } bg-blue-600 bg-opacity-10 p-4 rounded-2xl text-blue-900 text-xs flex justify-center items-center flex-col w-24 cursor-pointer`}
-            onClick={() => setPayment("card")}
-          >
-            <BsCreditCard2Back
-              size={"2rem"}
-              className={`${
-                payment === "card" ? "opacity-1" : "opacity-40"
-              } text-blue-900 mb-1`}
-            />
-            <p
-              className={` ${
-                payment === "card" ? "opacity-1" : "opacity-40"
-              } tracking-tighter font-bold}`}
-            >
-              Debit Card
-            </p>
-          </div>
-          <div
-            className={`${
-              payment === "credit" ? "border-blue-900 border-2" : ""
-            } bg-blue-600 bg-opacity-10 p-4 rounded-2xl text-blue-900 text-xs flex justify-center items-center flex-col w-24 cursor-pointer`}
-            onClick={() => setPayment("credit")}
-          >
-            <FaRegHandshake
-              size={"2rem"}
-              className={`${
-                payment === "credit" ? "opacity-1" : "opacity-40"
-              } text-blue-900 mb-1`}
-            />
-            <p
-              className={` ${
-                payment === "credit" ? "opacity-1" : "opacity-40"
-              } tracking-tighter font-bold}`}
-            >
-              Cash
-            </p>
-          </div>
-        </div>
+
+      <p className="block text-gray-900">Payment Method</p>
+      <div className="flex space-x-3 my-2 w-full">
+        <PaymentOption
+          state={payment}
+          setState={setPayment}
+          current={"cash"}
+          Icon={BsCash}
+          title="Cash"
+        />
+        <PaymentOption
+          state={payment}
+          setState={setPayment}
+          current={"card"}
+          Icon={BsCreditCard2Back}
+          title="Card"
+        />
+        <PaymentOption
+          state={payment}
+          setState={setPayment}
+          current={"credit"}
+          Icon={FaRegHandshake}
+          title="Credit"
+        />
       </div>
       <p
         className={`${

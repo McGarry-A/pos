@@ -3,19 +3,15 @@ import { useAppSelector } from "../../Store";
 
 import { MdDeliveryDining, MdOutlineCleaningServices } from "react-icons/md";
 import { HiOutlinePencilAlt } from "react-icons/hi";
+import { BiSearch } from "react-icons/bi";
 
 import NewOrder from "../../Components/NewOrder/NewOrder";
 
 import WorkflowOrders from "../../Components/WorkflowOrders/WorkflowOrders";
+import WorkflowTab from "../../Components/WorkflowTab/WorkflowTab";
 
 const Workflow = () => {
   type Workflow = "NewOrder" | "Cleaning" | "Delivery";
-
-  const orders = useAppSelector((state) => state.orders);
-  const { cleaning, deliver } = orders;
-
-  const cleaningToDo = Object.keys(cleaning).length;
-  const deliverToDo = Object.keys(deliver).length;
 
   const [activeTab, setActiveTab] = useState<Workflow>("NewOrder");
 
@@ -39,81 +35,48 @@ const Workflow = () => {
     }
   };
 
-  const newOrderActive = activeTab === "NewOrder" ? true : false;
-  const cleaningActive = activeTab === "Cleaning" ? true : false;
-  const deliveryActive = activeTab === "Delivery" ? true : false;
-
   const renderNav = () => {
     return (
-      <nav className="flex space-x-4 mt-12">
-        <p className="text-black">{deliveryActive}</p>
-        <button
-          className={`flex items-center py-2 border px-4 rounded-lg shadow-md transition duration-150 ${
-            newOrderActive ? "bg-blue-800" : "bg-white"
-          }`}
-          onClick={() => setActiveTab("NewOrder")}
-        >
-          <div className="p-2 mr-2 bg-gray-100 rounded-xl shadow-sm">
-            <HiOutlinePencilAlt
-              size="2rem"
-              className={`${newOrderActive ? "text-blue-800" : ""}`}
-            />
-          </div>
-          <div
-            className={`${newOrderActive ? "text-gray-50" : "text-gray-800"}`}
-          >
-            <p className="text-lg">New Order</p>
-          </div>
-        </button>
-
-        <button
-          className={`flex items-center py-2 border px-4 rounded-lg shadow-md transition duration-150 ${
-            cleaningActive ? "bg-blue-800" : "bg-gray-50"
-          }`}
-          onClick={() => setActiveTab("Cleaning")}
-        >
-          <div className="p-2 mr-2 bg-gray-100 rounded-xl shadow-sm">
-            <MdOutlineCleaningServices
-              size="2rem"
-              className={`${cleaningActive ? "text-blue-800" : "bg-white"}`}
-            />
-          </div>
-          <div
-            className={`${cleaningActive ? "text-gray-50" : "text-gray-900"}`}
-          >
-            <p className="text-left text-lg">Cleaning</p>
-            {cleaningToDo > 0 && (
-              <p className="text-xs text-left opacity-70">
-                {cleaningToDo} items in cleaning
-              </p>
-            )}
-          </div>
-        </button>
-
-        <button
-          className={`flex items-center py-2 border px-4 rounded-lg shadow-md transition duration-150 ${
-            deliveryActive ? "bg-blue-800" : "bg-gray-50"
-          }`}
-          onClick={() => setActiveTab("Delivery")}
-        >
-          <div className="p-2 mr-2 bg-gray-100 rounded-xl shadow-sm">
-            <MdDeliveryDining
-              size="2rem"
-              className={`${deliveryActive ? "text-blue-800" : "bg-white"}`}
-            />
-          </div>
-          <div
-            className={`${deliveryActive ? "text-gray-50" : "text-gray-900"}`}
-          >
-            <p className="text-left text-lg">Delivery</p>
-            {deliverToDo > 0 && (
-              <p className="text-xs text-left opacity-70">
-                {deliverToDo} items in delivery
-              </p>
-            )}
-          </div>
-        </button>
+      <nav className="flex space-x-4 mt-12 pl-4">
+        <WorkflowTab
+          tab={"NewOrder"}
+          activeTab={activeTab}
+          setState={setActiveTab}
+          Icon={HiOutlinePencilAlt}
+        />
+        <WorkflowTab
+          tab="Cleaning"
+          activeTab={activeTab}
+          setState={setActiveTab}
+          Icon={MdOutlineCleaningServices}
+        />
+        <WorkflowTab
+          tab="Delivery"
+          activeTab={activeTab}
+          setState={setActiveTab}
+          Icon={MdDeliveryDining}
+        />
       </nav>
+    );
+  };
+
+  const renderHeader = () => {
+    return (
+      <div className="ml-4 mt-8 flex">
+        <div className="w-3/5">
+          <h1 className="text-2xl">The Cleanerz</h1>
+          <h3 className="opacity-50 italic ">Take em to the Cleanerz!</h3>
+        </div>
+        <div className="w-full">
+          <div className="flex items-center bg-white w-80 px-2 rounded shadow">
+            <BiSearch size="2rem" />
+            <input
+              placeholder="This input does not do anything.."
+              className="w-72 outline-none border-none"
+            />
+          </div>
+        </div>
+      </div>
     );
   };
 
@@ -129,6 +92,7 @@ const Workflow = () => {
 
   return (
     <div>
+      {renderHeader()}
       {renderNav()}
       {renderMain()}
     </div>

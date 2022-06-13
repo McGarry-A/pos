@@ -1,42 +1,19 @@
-import { Routes, Route, Outlet, NavLink } from "react-router-dom";
-
-import { GiHamburgerMenu } from "react-icons/gi";
+import { Routes, Route, Outlet } from "react-router-dom";
 
 import Customers from "./Routes/Customers/Customers";
 import Orders from "./Routes/Orders/Orders";
 import Workflow from "./Routes/Workflow/Workflow";
 
 import "./App.css";
-import { useState } from "react";
+
 import Reports from "./Routes/Reports/Reports";
+import Sidebar from "./Components/Sidebar/Sidebar";
 
 function App() {
-  const [navIsOpen, setNavIsOpen] = useState<boolean>(false);
-
-  const handleToggleNav = () => {
-    setNavIsOpen(!navIsOpen);
-    console.log(navIsOpen);
-  };
-
   return (
-    <div className="App relative max-w-[1420px] mx-auto bg-gray-50 min-h-screen">
-      <header className="py-6 px-2 flex items-center justify-between sm:space-x-16">
-        <div className="flex items-center">
-          <h2 className="sm:block text-2xl">BusinessLogo</h2>
-        </div>
-        <div className="hidden list-none sm:flex space-x-12 sm:items-center">
-          <NavLink to="/">Workflow</NavLink>
-          <NavLink to="/customers">Customers</NavLink>
-          <NavLink to="/orders">Orders</NavLink>
-          <NavLink to="/reports">Reports</NavLink>
-        </div>
-        <nav className="flex items-center sm:flex-1">
-          <button className="sm:hidden" onClick={handleToggleNav}>
-            <GiHamburgerMenu size={"1.8rem"} color={""} />
-          </button>
-        </nav>
-      </header>
-      <div className="">
+    <div className="App relative max-w-[1420px] mx-auto bg-gray-50 min-h-screen overflow-hidden">
+      <Sidebar />
+      <div className="ml-36">
         <Outlet />
         <Routes>
           <Route path="/" element={<Workflow />} />

@@ -55,6 +55,7 @@ export const BasketProvider = ({ children }: Props) => {
       const total = Number(
         totalPriceArray.reduce((prev, cur) => prev + cur).toFixed(2)
       );
+
       setTotalPrice(total);
     };
 

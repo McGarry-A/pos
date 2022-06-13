@@ -1,5 +1,5 @@
 import useBasket from "../../Context/BasketProvider";
-import { BsTrash } from "react-icons/bs";
+import { MdClear } from "react-icons/md";
 
 interface itemInterface {
   id: string;
@@ -22,55 +22,19 @@ const Basket = () => {
       <h3 className="flex items-center justify-between text-gray-900">
         Order Summary{" "}
       </h3>
-      <span className="block text-xs opacity-30 tracking-tighter">
+      <span className="block text-xs text-gray-400 tracking-tighter mt-1">
         You have {totalQuantity} item(s) in your basket
       </span>
     </>
   );
-
-  const renderTableHeader = () => (
-    <thead>
-      <tr className="text-left">
-        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">
-          Item
-        </th>
-        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">
-          Quantity
-        </th>
-        <th className="text-sm font-medium text-gray-500 uppercase tracking-wide">
-          Price
-        </th>
-      </tr>
-    </thead>
-  );
-
-  const renderOrderRow = (props: itemInterface) => {
-    const { id, title, quantity, price } = props;
-    const {
-      actions: { clearItem },
-    } = basketContext;
-
-    return (
-      <tr key={id} className="">
-        <td className="text-sm text-gray-900">{title}</td>
-        <td className="text-sm text-gray-900">x{quantity}</td>
-        <td className="text-sm text-gray-900">£{price * quantity}</td>
-        <td className="text-sm text-gray-900">
-          <button onClick={() => clearItem({ id })}>
-            <BsTrash />
-          </button>
-        </td>
-      </tr>
-    );
-  };
 
   const renderTotalForOrder = () => {
     const { totalPrice } = basketContext;
 
     return (
       <div className="grid grid-cols-2">
-        <p className="text-gray-900 text-sm tracking-tight">Subtotal</p>
-        <p className="text-gray-900 text-sm justify-self-end tracking-tight">
+        <p className="text-gray-900 text-sm tracking-tight mb-1">Subtotal</p>
+        <p className="text-gray-900 text-sm justify-self-end tracking-tight mb-1">
           ${totalPrice}
         </p>
         <p className="text-gray-900 text-sm opacity-60 tracking-tight">
@@ -87,24 +51,40 @@ const Basket = () => {
     );
   };
 
-  const renderTable = () => {
-    if (!itemsArray.length) {
-      return;
-    }
+  const renderItem = (props: itemInterface) => {
+    const { id, title, quantity, price } = props;
+    const {
+      actions: { clearItem },
+    } = basketContext;
+
+    if (!itemsArray.length) return;
 
     return (
-      <table className="table-auto w-full">
-        {renderTableHeader()}
-        <tbody className="">{itemsArray.map(renderOrderRow)}</tbody>
-      </table>
+      <div className="flex flex-col space-y-2 w-full p-2" key={id}>
+        <div className="flex justify-between items-center">
+          <p className="font-semibold">{title}</p>
+          <MdClear
+            onClick={() => clearItem({ id })}
+            className="cursor-pointer opacity-50"
+          />
+        </div>
+        <div className="flex justify-between">
+          <p className="text-blue-700 font-bold text-xs">£{price}</p>
+          <p className="opacity-40 text-xs">x{quantity}</p>
+        </div>
+      </div>
     );
   };
 
+  const renderItems = () => {
+    return <div>{itemsArray.map(renderItem)}</div>;
+  };
+
   return (
-    <div className="flex flex-col flex-grow bg-gray-100 p-6 rounded-lg w-96">
+    <div className="flex flex-col flex-grow bg-gray-100 p-6 w-80">
       {renderOrderSummary()}
-      <div className="my-4 sm:flex-2 sm:border -border-3 flex-grow bg-white">
-        {renderTable()}
+      <div className="my-4 sm:flex-2 sm:border bg-white flex-grow">
+        {renderItems()}
       </div>
       {renderTotalForOrder()}
     </div>

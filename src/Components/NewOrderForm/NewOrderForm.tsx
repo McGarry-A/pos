@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import Portal from "../Portal/Portal";
 import useBasket from "../../Context/BasketProvider";
 import { useAppSelector } from "../../Store";
-
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
+import Autocomplete from "react-autocomplete";
+import { HiOutlinePlus } from "react-icons/hi";
 
 const NewOrderForm: React.FC = () => {
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
+  const [customerSearchValue, setCustomerSearchValue] =
+    useState<string>("Add Customer Here");
 
   const basket = useBasket();
   const customers = useAppSelector((state) => state.customers);
@@ -54,29 +55,40 @@ const NewOrderForm: React.FC = () => {
     const { currentCustomer } = basket;
 
     if (currentCustomer) return;
-    const options = customers.map((el) => `${el.name}`);
+    // const options = customers.map((el) => `${el.name}`);
 
     // change input to auto suggest box from mui or something
     // our list of customers is declared at the top of the component and inside "customers"
 
     return (
-      <div className="w-full">
+      <div className="flex mb-2">
         <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={options}
-          onChange={(e: any, newValue: string | null) =>
-            handleSelectCustomer(newValue)
-          }
-          sx={{
-            outline: "none",
-            border: "none",
-            fontSize: "12px",
-          }}
-          renderInput={(params) => (
-            <TextField {...params} label="Start typing a customer..." />
+          wrapperStyle={{ width: "100%", height: "", fontSize: "12px" }}
+          getItemValue={(customer) => customer.name}
+          items={customers}
+          renderItem={(item, isHighlighted) => (
+            <div
+              className={`py-2 px-1 z-10 ${
+                isHighlighted ? "bg-blue-400 text-white" : "bg-white"
+              }`}
+            >
+              <p>{item.name}</p>
+            </div>
           )}
+          value={customerSearchValue}
+          onChange={(event, value) => setCustomerSearchValue(value)}
+          onSelect={(value) => handleSelectCustomer(value)}
+          shouldItemRender={(item, value) => {
+            if (item.name.includes(value)) return true;
+            else return false;
+          }}
         />
+        <div
+          className="border flex justify-center items-center p-2 ml-2 cursor-pointer"
+          onClick={() => setPortalIsHidden(!portalIsHidden)}
+        >
+          <HiOutlinePlus size="1.5rem" />
+        </div>
       </div>
     );
   };
