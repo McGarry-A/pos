@@ -35,17 +35,18 @@ const NewOrderForm: React.FC = () => {
       const { name, phone, address } = currentCustomer;
 
       return (
-        <div className="">
+        <div className="mx-8 my-5 border p-4 bg-blue-600 md:mx-0 md:my-2 text-white shadow-lg">
           <div className="flex justify-between items-center">
-            <h3 className="mb-1 text-gray-700">{name}</h3>
+            <h3 className="mb-1 text-gray-50">{name}</h3>
             <MdClear
               size={"1.3rem"}
-              className="text-gray-700 cursor-pointer"
+              color={"white"}
+              className="cursor-pointer hover:scale-110"
               onClick={() => handleClearCustomer()}
             />
           </div>
-          <p className="text-sm opacity-60 italic">{phone}</p>
-          <p className="text-sm opacity-60 italic">{address}</p>
+          <p className="text-sm opacity-60 italic text-gray-50">{phone}</p>
+          <p className="text-sm opacity-60 italic text-gray-50">{address}</p>
         </div>
       );
     }

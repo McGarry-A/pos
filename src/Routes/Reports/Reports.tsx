@@ -232,7 +232,7 @@ const Reports = () => {
         </div>
       </div>
 
-      <ChartWrapper large chartTitle="Sales in Workflow">
+      <ChartWrapper chartTitle="Sales in Workflow">
         <Bar data={data} />
       </ChartWrapper>
 

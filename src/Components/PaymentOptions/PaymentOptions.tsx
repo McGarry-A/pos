@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import useBasket from "../../Context/BasketProvider";
 import orderSlice from "../../Store/orderSlice";
 import getDateAndTime from "../../utils/getDateAndTime";
+import { MdStickyNote2 } from "react-icons/md";
 
 import { OrderInterface } from "../OrderInterface";
 
@@ -24,7 +25,6 @@ const PaymentOptions = () => {
   const orderId = useId("sku-");
   const basketContext = useBasket();
   const {
-    actions: { clearBasket },
     basket: { items },
     currentCustomer,
   } = basketContext;
@@ -75,16 +75,18 @@ const PaymentOptions = () => {
     } = basketContext;
 
     return (
-      <div className="my-2">
-        <p className="block text-gray-900">Order Notes</p>
-        <input
-          type="text"
-          placeholder="No starch please!"
-          className="my-1 border-2 block w-full rounded-md h-12 text-sm"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setOrderNote(e.target.value)
-          }
-        />
+      <div className="mt-4">
+        <div className="flex items-center border h-10 rounded p-1">
+          <MdStickyNote2 className="opacity-50" size="2rem" />
+          <input
+            type="text"
+            placeholder="Enter order preferences here!"
+            className="border-none block w-full text-sm"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setOrderNote(e.target.value)
+            }
+          />
+        </div>
       </div>
     );
   };
@@ -92,7 +94,7 @@ const PaymentOptions = () => {
   const renderDeliveryOptions = () => {
     return (
       <>
-        <p className="block text-gray-900">Delivery Options</p>
+        <p className="block text-gray-900 text-sm my-1">Delivery</p>
         <div className="flex space-x-3 my-2 w-full">
           {data.delivery.map((el, index) => {
             return (
@@ -112,7 +114,7 @@ const PaymentOptions = () => {
   const renderPaymentOptions = () => {
     return (
       <>
-        <p className="block text-gray-900">Payment Method</p>
+        <p className="block text-gray-900 text-sm my-1">Payment</p>
         <div className="flex space-x-3 my-2 w-full">
           {data.payments.map((el, index) => {
             return (
@@ -133,13 +135,7 @@ const PaymentOptions = () => {
     return (
       <>
         <button
-          className="w-full py-3 rounded-lg mt-2 border text-gray-900 text-sm shadow"
-          onClick={() => clearBasket()}
-        >
-          Clear Basket
-        </button>
-        <button
-          className="w-full bg-blue-600 py-3 text-gray-100 rounded-lg my-2 shadow-md font-semibold hover:bg-blue-500"
+          className="w-full bg-blue-600 py-3 text-gray-100 rounded my-2 shadow hover:bg-blue-500"
           onClick={handleSubmit}
         >
           Submit
@@ -161,7 +157,7 @@ const PaymentOptions = () => {
   };
 
   return (
-    <div className="mt-2 max-w-xl p-4 md:p-0">
+    <div className="max-w-xl p-4 md:p-0">
       {renderDeliveryOptions()}
       {renderPaymentOptions()}
       {renderError()}

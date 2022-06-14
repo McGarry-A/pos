@@ -66,7 +66,7 @@ const WorkflowOrders: React.FC<Props> = ({ data, showCurrent }) => {
   };
 
   return (
-    <section>
+    <section className="w-full">
       {renderNoOrders()}
       {renderOrderCards()}
       {renderTable()}

@@ -12,20 +12,27 @@ const Basket = () => {
   const basketContext = useBasket();
   const {
     basket: { items },
+    actions: { clearBasket },
   } = basketContext;
 
   const itemsArray = Object.values(items);
   const { totalQuantity } = basketContext;
 
   const renderOrderSummary = () => (
-    <>
-      <h3 className="flex items-center justify-between text-gray-900">
-        Order Summary{" "}
-      </h3>
+    <div className="w-full">
+      <div className="flex justify-between items-center">
+        <h3 className="text-gray-900">Order Summary</h3>
+        <button
+          className="text-xs text-red-600 p-2 hover:border border border-gray-100 hover:border-red-500 transition duration-150"
+          onClick={() => clearBasket()}
+        >
+          Clear Basket
+        </button>
+      </div>
       <span className="block text-xs text-gray-400 tracking-tighter mt-1">
         You have {totalQuantity} item(s) in your basket
       </span>
-    </>
+    </div>
   );
 
   const renderTotalForOrder = () => {
@@ -81,7 +88,7 @@ const Basket = () => {
   };
 
   return (
-    <div className="flex flex-col flex-grow bg-gray-100 p-6 w-full md:w-80">
+    <div className="flex flex-col flex-grow bg-gray-100 md:p-6 p-4 m-4 md:m-0 md:w-80">
       {renderOrderSummary()}
       <div className="my-4 sm:flex-2 sm:border bg-white flex-grow">
         {renderItems()}

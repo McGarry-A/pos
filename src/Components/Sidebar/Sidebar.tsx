@@ -1,7 +1,7 @@
 import { IconType } from "react-icons";
-import Logo from "../../icons/Logo.png";
+
 import { AiFillHome } from "react-icons/ai";
-import { BsPersonFill } from "react-icons/bs";
+import { BsFillBadgeWcFill, BsPersonFill } from "react-icons/bs";
 import { HiDocumentReport } from "react-icons/hi";
 import { FiPackage } from "react-icons/fi";
 import { RiLogoutBoxRFill } from "react-icons/ri";
@@ -14,6 +14,7 @@ interface Props {
   link: string;
   activeTab: NavType;
   setActiveTab: Dispatch<SetStateAction<NavType>>;
+  large?: boolean;
 }
 
 type NavType = "Workflow" | "Orders" | "Customers" | "Reports" | "Exit";
@@ -47,11 +48,12 @@ const NavItem: React.FC<Props> = ({
   link,
   activeTab,
   setActiveTab,
+  large,
 }) => {
   return (
     <Link to={link}>
       <button
-        className={`flex flex-col justify-center items-center cursor-pointer  rounded-lg w-fit mx-auto p-3 my-10 hover:scale-105 transition ${
+        className={`flex flex-col justify-center items-center cursor-pointer  rounded-lg w-fit mx-auto p-3 my-4 hover:scale-105 transition ${
           activeTab === title ? "bg-blue-100" : "bg-white"
         }`}
         onClick={() => {
@@ -59,9 +61,9 @@ const NavItem: React.FC<Props> = ({
         }}
       >
         <Icon
-          size={"1.5rem"}
-          className={`${
-            activeTab === title ? "text-blue-900" : "text-gray-400"
+          size={`${large ? "2rem" : "1.5rem"}`}
+          className={`hover:text-blue-600 ${
+            activeTab === title ? "text-blue-600" : "text-gray-400"
           }`}
         />
       </button>
@@ -73,15 +75,13 @@ const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<NavType>("Workflow");
 
   return (
-    <nav className="absolute bg-white border-1 bottom-0 border-gray-50 md:pt-6 md:left-0 md:h-screen md:w-32 w-full">
-      <div className="flex md:flex-col justify-evenly w-full">
-        <div className="hidden md:block">
-          <img src={Logo} alt="random Logo" />
-          <p className="text-xs text-center leading-tighter italic opacity-70">
-            Cleaning Solutions
-          </p>
+    <nav className="md:absolute fixed bg-white border-1 bottom-0 border-gray-50 md:left-0 md:top-0 md:w-28 w-full">
+      <div className="flex md:flex-col w-full h-full">
+        <div className="hidden mx-4 mt-12 md:flex md:justify-center md:items-center md:flex-col">
+          <BsFillBadgeWcFill size={"2rem"} className="text-blue-600" />
+          <p className="text-xs text-center italic tracking-wider">WashClub</p>
         </div>
-        <div className="flex items-center w-full justify-evenly md:flex-col md:space-y-8 md:mt-10">
+        <div className="flex items-center w-full justify-center md:flex-col md:flex-grow">
           {links.map(({ title, link, Icon }, index) => {
             return (
               <NavItem
@@ -95,16 +95,17 @@ const Sidebar = () => {
             );
           })}
         </div>
-      </div>
-      <div className="hidden md:flex md:flex-col md:mt-20 md:h-full md:justify-start">
-        <NavItem
-          key="LOGOUT"
-          title="Exit"
-          link="link"
-          Icon={RiLogoutBoxRFill}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-        />
+        <div className="hidden md:flex md:flex-col mb-2">
+          <NavItem
+            key="LOGOUT"
+            title="Exit"
+            link="link"
+            Icon={RiLogoutBoxRFill}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            large
+          />
+        </div>
       </div>
     </nav>
   );

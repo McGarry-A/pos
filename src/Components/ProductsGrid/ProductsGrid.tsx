@@ -34,7 +34,7 @@ const ProductGrid = () => {
       .map((el) => el.products)[0];
 
     return (
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:p-4 lg:grid-cols-5 mb-4 md:mb-0">
+      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:p-4 lg:grid-cols-5 m-4 md:mb-0 md:ml-0">
         {products.map((el, index) => (
           <ProductCard
             title={el.name}

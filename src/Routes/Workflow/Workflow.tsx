@@ -6,6 +6,8 @@ import { HiOutlinePencilAlt } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import Logo from "../../icons/Logo.png";
 
+import { FiFilter } from "react-icons/fi";
+
 import NewOrder from "../../Components/NewOrder/NewOrder";
 
 import WorkflowOrders from "../../Components/WorkflowOrders/WorkflowOrders";
@@ -27,7 +29,7 @@ const Workflow = () => {
   const renderCleaningTab = () => {
     if (activeTab === "Cleaning") {
       return (
-        <div className="mt-8 flex justify-center">
+        <div className="mt-12 flex justify-center w-full">
           <WorkflowOrders data={cleaningOrders} showCurrent={false} />
         </div>
       );
@@ -37,7 +39,7 @@ const Workflow = () => {
   const renderDeliveryTab = () => {
     if (activeTab === "Delivery") {
       return (
-        <div className="mt-8 flex justify-center">
+        <div className="mt-12 flex justify-center">
           <WorkflowOrders data={deliverOrders} showCurrent={false} />
         </div>
       );
@@ -46,7 +48,7 @@ const Workflow = () => {
 
   const renderNav = () => {
     return (
-      <nav className="flex space-x-4 mt-6 md:mt-12 pl-4 overflow-x-scroll">
+      <nav className="flex space-x-6 mt-6 md:mt-12 pl-4 overflow-x-scroll">
         <WorkflowTab
           tab={"NewOrder"}
           activeTab={activeTab}
@@ -72,8 +74,8 @@ const Workflow = () => {
   const renderHeader = () => {
     return (
       <div className="md:ml-4 md:mt-8 flex items-center justify-between p-4 md:px-0 bg-white md:bg-gray-50">
-        <div className="md:w-3/5 w-full">
-          <h1 className="text-2xl">The Cleanerz</h1>
+        <div className="md:w-2/5 w-full">
+          <h1 className="text-2xl">WashClub</h1>
           <h3 className="opacity-50 italic ">Take em to the Cleanerz!</h3>
         </div>
         <div className="w-full flex justify-end md:hidden">
@@ -83,14 +85,17 @@ const Workflow = () => {
             className="w-1/2 justify-self-end"
           />
         </div>
-        <div className="w-full hidden md:block">
-          <div className="flex items-center bg-white w-80 px-2 rounded shadow">
-            <BiSearch size="2rem" />
+        <div className="w-full hidden md:flex md:ml-12 flex-grow">
+          <div className="flex items-center bg-white w-80 px-2 rounded border">
+            <BiSearch size="1.3rem" />
             <input
               placeholder="This input does not do anything.."
               className="w-72 outline-none border-none text-sm"
             />
           </div>
+          <button className="mx-2 py-1 px-3 rounded bg-white border active:scale-110">
+            <FiFilter className="" />
+          </button>
         </div>
       </div>
     );

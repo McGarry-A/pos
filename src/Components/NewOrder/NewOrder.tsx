@@ -29,17 +29,17 @@ const NewOrder: React.FC = () => {
           <ProductGrid />
         </div>
         <div
-          className={`flex flex-col min-h-full space-y-2 bg-white flex-1 absolute right-0 top-0 h-screen px-10 py-12 shadow-lg transition duration-150 ${
+          className={`flex flex-col min-h-full space-y-2 bg-white flex-1 absolute right-0 top-0 h-screen px-10 shadow-lg transition duration-150 ${
             basketIsOpen ? "" : "translate-x-96"
           }`}
         >
           <div
-            className="p-3 rounded-full shadow-md bg-white w-min -translate-x-16 cursor-pointer"
+            className="p-3 rounded-full shadow-md bg-white w-min -translate-x-16 translate-y-11 cursor-pointer"
             onClick={() => setBasketIsOpen(!basketIsOpen)}
           >
             <BsChevronRight />
           </div>
-          <h2 className="text-xl mt-8 tracking-wide">Your Basket</h2>
+          <h2 className="text-xl tracking-wide">Your Basket</h2>
           <NewOrderForm />
           <Basket />
           <PaymentOptions />
