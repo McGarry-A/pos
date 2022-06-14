@@ -21,7 +21,7 @@ const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
 
   return (
-    <div className="grid grid-cols-2 border p-3 m-3 rounded max-w-lg shadow-sm">
+    <div className="grid grid-cols-2 p-3 m-2 rounded max-w-lg shadow-sm border bg-white">
       <div className="grid grid-cols-2 col-span-2 justify-between gap-y-3">
         <div>
           <span className="text-xs opacity-50">{orderId}</span>

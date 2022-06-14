@@ -22,7 +22,7 @@ const WorkflowTab: React.FC<Props> = ({ tab, activeTab, setState, Icon }) => {
 
   return (
     <button
-      className={`flex items-center py-2 border px-6 rounded-lg shadow transition duration-150 md:w-60 ${
+      className={`flex items-center py-2 border px-6 rounded-lg shadow transition duration-150 md:w-64 ${
         isActive ? "bg-blue-700" : "bg-white"
       }`}
       onClick={() => setState(tab)}

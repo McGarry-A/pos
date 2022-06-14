@@ -32,38 +32,38 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
 
   const renderTableHead = () => {
     return (
-      <thead className=" w-full">
-        <tr className="text-xs">
-          <th className="p-3 text-xs font-semibold tracking-wide text-left">
+      <thead className="w-full">
+        <tr className="text-xs uppercase">
+          <th className="p-3 text-xs tracking-wide font-medium text-gray-400 text-left">
             Order ID
           </th>
-          <th className="p-3 text-xs font-semibold tracking-wide text-left">
+          <th className="p-3 text-xs tracking-wide font-medium text-gray-400 text-left">
             Date
           </th>
-          <th className="p-3 text-xs font-semibold tracking-wide text-left">
+          <th className="p-3 text-xs tracking-wide font-medium text-gray-400 text-left">
             Time
           </th>
           {showCurrent && (
-            <th className="p-3 text-xs font-semibold tracking-wide text-left">
+            <th className="p-3 text-xs tracking-wide font-medium text-gray-400 text-left">
               Section
             </th>
           )}
-          <th className="p-3 text-xs font-semibold tracking-wide text-left">
+          <th className="p-3 text-xs tracking-wide font-medium text-gray-400 text-left">
             Customer
           </th>
-          <th className="p-3 text-xs font-semibold tracking-wide text-left">
+          <th className="p-3 text-xs tracking-wide font-medium text-gray-400 text-left">
             Order Notes
           </th>
-          <th className="p-3 text-xs font-semibold tracking-wide text-left">
+          <th className="p-3 text-xs tracking-wide font-medium text-gray-400 text-left">
             Items
           </th>
-          <th className="p-3 text-xs font-semibold tracking-wide text-left">
+          <th className="p-3 text-xs tracking-wide font-medium text-gray-400 text-left">
             Price
           </th>
-          <th className="p-3 text-xs font-semibold tracking-wide text-left">
+          <th className="p-3 text-xs tracking-wide font-medium text-gray-400 text-left">
             Paid
           </th>
-          <th className="p-3 text-xs font-semibold tracking-wide text-left"></th>
+          <th className="p-3 text-xs tracking-wide font-medium text-gray-400 text-left"></th>
         </tr>
       </thead>
     );
@@ -157,13 +157,13 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
   };
 
   return (
-    <div className="w-full">
-      <table className="hidden md:block bg-gray-50 w-full border">
+    <>
+      <table className="hidden md:table md:bg-gray-50 md:w-full md:max-w-5xl md:ml-4">
         {renderTableHead()}
         {renderTableBody()}
       </table>
       {renderMarkAsPaidForm()}
-    </div>
+    </>
   );
 };
 

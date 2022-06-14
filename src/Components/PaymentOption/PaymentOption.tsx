@@ -27,7 +27,7 @@ const PaymentOption = <T,>({
         size={"2rem"}
         className={`${
           state === current ? "opacity-1" : "opacity-40"
-        } text-blue-900 mb-1`}
+        } text-blue-900 mb-1 hover:opacity-100`}
       />
       <p
         className={` ${

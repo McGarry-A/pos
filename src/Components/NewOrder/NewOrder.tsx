@@ -25,7 +25,7 @@ const NewOrder: React.FC = () => {
   return (
     <BasketProvider>
       <div className="sm:flex sm:flex-row">
-        <div>
+        <div className="max-w-[880px] w-full">
           <ProductGrid />
         </div>
         <div
@@ -34,7 +34,7 @@ const NewOrder: React.FC = () => {
           }`}
         >
           <div
-            className="p-3 rounded-full shadow-md bg-white w-min -translate-x-16 translate-y-11 cursor-pointer"
+            className="p-3 rounded-full shadow-md bg-white w-min -translate-x-16 translate-y-64 cursor-pointer"
             onClick={() => setBasketIsOpen(!basketIsOpen)}
           >
             <BsChevronRight />

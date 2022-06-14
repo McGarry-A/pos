@@ -34,7 +34,7 @@ const ProductGrid = () => {
       .map((el) => el.products)[0];
 
     return (
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:p-4 lg:grid-cols-5 m-4 md:mb-0 md:ml-0">
+      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:p-4 lg:grid-cols-5 m-4 md:mb-0 md:ml-0 w-full">
         {products.map((el, index) => (
           <ProductCard
             title={el.name}
@@ -49,7 +49,7 @@ const ProductGrid = () => {
   };
 
   return (
-    <div className="md:mt-4">
+    <div className="md:mt-4 w-full">
       {renderCategories()}
       {renderGrid()}
     </div>

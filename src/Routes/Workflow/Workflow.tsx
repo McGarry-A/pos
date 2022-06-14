@@ -12,6 +12,7 @@ import NewOrder from "../../Components/NewOrder/NewOrder";
 
 import WorkflowOrders from "../../Components/WorkflowOrders/WorkflowOrders";
 import WorkflowTab from "../../Components/WorkflowTab/WorkflowTab";
+import { BsFillBadgeWcFill } from "react-icons/bs";
 
 const Workflow = () => {
   type Workflow = "NewOrder" | "Cleaning" | "Delivery";
@@ -48,7 +49,7 @@ const Workflow = () => {
 
   const renderNav = () => {
     return (
-      <nav className="flex space-x-6 mt-6 md:mt-12 pl-4 overflow-x-scroll">
+      <nav className="flex space-x-4 mt-6 md:mt-12 pl-4 overflow-x-scroll md:space-x-10">
         <WorkflowTab
           tab={"NewOrder"}
           activeTab={activeTab}
@@ -74,18 +75,16 @@ const Workflow = () => {
   const renderHeader = () => {
     return (
       <div className="md:ml-4 md:mt-8 flex items-center justify-between p-4 md:px-0 bg-white md:bg-gray-50">
-        <div className="md:w-2/5 w-full">
-          <h1 className="text-2xl">WashClub</h1>
-          <h3 className="opacity-50 italic ">Take em to the Cleanerz!</h3>
+        <div className="md:w-3/5 w-full">
+          <h1 className="text-2xl leading-relaxed">WashClub</h1>
+          <h3 className="text-sm opacity-50 italic ">
+            Take em to the Cleanerz!
+          </h3>
         </div>
         <div className="w-full flex justify-end md:hidden">
-          <img
-            src={Logo}
-            alt="Cleaners Logo"
-            className="w-1/2 justify-self-end"
-          />
+          <BsFillBadgeWcFill size={"4rem"} className="text-blue-600" />
         </div>
-        <div className="w-full hidden md:flex md:ml-12 flex-grow">
+        <div className="w-full hidden md:flex md:ml-3 flex-grow">
           <div className="flex items-center bg-white w-80 px-2 rounded border">
             <BiSearch size="1.3rem" />
             <input
