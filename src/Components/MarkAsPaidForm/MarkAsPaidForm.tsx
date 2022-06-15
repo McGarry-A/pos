@@ -21,7 +21,7 @@ const MarkAsPaidForm: React.FC<props> = ({
   const [error, setError] = useState<string>("");
 
   const dispatch = useAppDispatch();
-  const activeClass = "bg-blue-600 text-gray-50 border-blue-600";
+  const activeClass = "border-b-4 border-blue-500";
 
   const { markAsPaid } = orderSlice.actions;
 
@@ -43,12 +43,13 @@ const MarkAsPaidForm: React.FC<props> = ({
 
   return (
     <Portal isHidden={portalIsHidden}>
-      <div className="bg-white flex flex-col relative shadow-md">
-        <h2 className="col-span-2 mt-12 mx-10">Please select a Payment Type</h2>
+      <div className="bg-white relative shadow-md rounded max-w-xs w-full pl-12">
+        <h2 className="mt-12 font-semibold text-lg">Payment Type</h2>
+        <p className="text-sm opacity-50 italic">How did this customer pay?</p>
         <p className="text-red-500 text-xs">{error}</p>
-        <div className="flex space-x-4 my-10 justify-center">
+        <div className="flex space-x-4 my-5">
           <button
-            className={`border-gray-800 border px-4 py-2 transition duration-150 ${
+            className={`transition duration-300 ease-in-out text-sm h-min ${
               paymentType === "cash" ? activeClass : "text-gray-800"
             }`}
             onClick={() => setPaymentType("cash")}
@@ -56,7 +57,7 @@ const MarkAsPaidForm: React.FC<props> = ({
             Cash
           </button>
           <button
-            className={`border-gray-800 border px-4 py-2 transition duration-150 ${
+            className={`transition duration-300 ease-in-out text-sm h-min ${
               paymentType === "card" ? activeClass : "text-gray-800"
             }`}
             onClick={() => setPaymentType("card")}
@@ -66,12 +67,9 @@ const MarkAsPaidForm: React.FC<props> = ({
         </div>
         <div className="flex justify-end space-x-3 p-2 mb-4 mx-4">
           <button
-            className="text-red-700 border border-red-600 px-3 py-1 text-sm"
-            onClick={() => setPortalIsHidden(false)}
+            onClick={() => handleSubmit({ current, orderId })}
+            className="px-3 py-2 bg-blue-600 text-gray-50 hover:bg-blue-500 text-sm"
           >
-            Exit
-          </button>
-          <button onClick={() => handleSubmit({ current, orderId })}>
             Confirm
           </button>
         </div>

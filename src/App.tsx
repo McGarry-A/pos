@@ -7,7 +7,7 @@ import Workflow from "./Routes/Workflow/Workflow";
 import "./App.css";
 
 import Reports from "./Routes/Reports/Reports";
-import Sidebar from "./Components/Sidebar/Sidebar";
+import Navbar from "./Components/Navbar/Navbar";
 import useIsMobile from "./Hooks/useIsMobile";
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
         isMobile && "pb-20"
       }`}
     >
-      <Sidebar />
+      <Navbar />
       <div className="md:ml-36">
         <Outlet />
         <Routes>

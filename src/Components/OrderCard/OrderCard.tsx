@@ -1,5 +1,5 @@
 import { OrderBody } from "../OrderInterface";
-import { TiTick } from "react-icons/ti";
+import { GrFormNext } from "react-icons/gr";
 import PaymentBadge from "../PaymentBadge/PaymentBadge";
 import MarkAsPaidForm from "../MarkAsPaidForm/MarkAsPaidForm";
 import { useState } from "react";
@@ -20,8 +20,14 @@ const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
 
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
 
+  const handleProcess = (orderId: string) => {
+    handleClick(orderId);
+  };
+
   return (
-    <div className="grid grid-cols-2 p-3 m-2 rounded max-w-lg shadow-sm border bg-white">
+    <div
+      className={`grid grid-cols-2 p-3 my-4 mx-auto w-full rounded max-w-md shadow-sm border bg-white`}
+    >
       <div className="grid grid-cols-2 col-span-2 justify-between gap-y-3">
         <div>
           <span className="text-xs opacity-50">{orderId}</span>
@@ -51,9 +57,12 @@ const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
         </div>
         <div
           className="justify-end cursor-pointer"
-          onClick={() => handleClick(orderId)}
+          onClick={() => handleProcess(orderId)}
         >
-          <TiTick className="ml-auto" size={"1.3rem"} />
+          <GrFormNext
+            className="ml-auto hover:scale-125 transition"
+            size={"2rem"}
+          />
         </div>
       </div>
     </div>

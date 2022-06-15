@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TiTick } from "react-icons/ti";
+import { GrFormNext } from "react-icons/gr";
 import { BasketItemInterface } from "../../Context";
 import MarkAsPaidForm from "../MarkAsPaidForm/MarkAsPaidForm";
 import { OrderBody, OrderInterface } from "../OrderInterface";
@@ -129,7 +129,7 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
             className="px-4 py-1"
             onClick={() => handleClick(orderId, current)}
           >
-            <TiTick size={"1.3rem"} />
+            <GrFormNext size={"1.3rem"} />
           </button>
         </td>
       </tr>
@@ -157,13 +157,18 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
   };
 
   const renderTable = () => (
-    <table className="hidden md:table md:bg-gray-50 md:w-full md:max-w-5xl md:ml-4">
+    <table className="md:table md:bg-gray-50 md:w-full md:max-w-5xl md:ml-4">
       {renderTableHead()}
       {renderTableBody()}
     </table>
   );
 
-  return <>{renderMarkAsPaidForm()}</>;
+  return (
+    <>
+      {renderTable()}
+      {renderMarkAsPaidForm()}
+    </>
+  );
 };
 
 export default OrderTable;

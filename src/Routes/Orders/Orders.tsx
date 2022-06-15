@@ -106,7 +106,7 @@ const Orders = () => {
   };
   return (
     <div>
-      <div className="space-y-2 px-4 py-2">
+      <div className="space-y-2 px-4 py-2 mt-8">
         <h2 className="text-2xl text-gray-800 mt-4">Order Search</h2>
       </div>
       <form onSubmit={(e) => handleFormSubmit(e)} className="my-6 px-4 mx-auto">
@@ -159,8 +159,7 @@ const Orders = () => {
               </select>
             </div>
           </div>
-          <div></div>
-          <div className="flex justify-end space-x-3">
+          <div className="flex justify-end space-x-3 col-span-2">
             <button
               className="border-gray-300 border p-3 text-gray-500 text-xs font-semibold uppercase rounded"
               type="button"
@@ -184,7 +183,7 @@ const Orders = () => {
           </div>
         </div>
       </form>
-      <div className="flex justify-end max-w-5xl px-2 md:px-0">
+      <div className="flex justify-end max-w-5xl mx-4 md:mx-0">
         <p className="flex items-center opacity-60 text-sm">
           Create a new order{" "}
           <Link

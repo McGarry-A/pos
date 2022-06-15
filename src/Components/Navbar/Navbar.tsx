@@ -72,7 +72,7 @@ const NavItem: React.FC<Props> = ({
   );
 };
 
-const Sidebar = () => {
+const Navbar = () => {
   const [activeTab, setActiveTab] = useState<NavType>("Workflow");
   const isMobile = useIsMobile();
 
@@ -125,4 +125,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Navbar;

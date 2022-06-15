@@ -25,7 +25,7 @@ const PaymentBadge: React.FC<props> = ({
 }) => {
   if (payment === "card" || payment === "cash") {
     return (
-      <span className="px-3 w-full py-1 rounded text-white bg-green-600 uppercase text-xs">
+      <span className="px-3 w-full py-1 rounded text-white bg-green-600 uppercase text-xs hover:bg-green-500">
         {payment}
       </span>
     );
@@ -34,7 +34,7 @@ const PaymentBadge: React.FC<props> = ({
   return (
     <>
       <span
-        className={`px-3 w-full py-1 rounded text-white bg-red-600 text-xs uppercase cursor-pointer`}
+        className={`px-3 w-full py-1 rounded text-white bg-red-600 text-xs uppercase cursor-pointer hover:bg-red-500`}
         onClick={() => {
           setPortalIsHidden && setPortalIsHidden(true);
           setPortalProps &&

@@ -74,13 +74,11 @@ interface props {
 const ChartWrapper: React.FC<props> = ({ children, chartTitle, large }) => {
   return (
     <div
-      className={`w-full grid justify-center ${
-        large ? "col-span-2" : "max-w-xs md:max-w-sm"
+      className={`w-full justify-center ${
+        large ? "col-span-2 max-w-2xl" : "max-w-xs"
       }`}
     >
-      <h3 className="text-center text-gray-700 opacity-60 mb-2 text-sm">
-        {chartTitle}
-      </h3>
+      <h3 className="text-center opacity-60 mb-2 text-sm">{chartTitle}</h3>
       {children}
     </div>
   );
@@ -150,95 +148,61 @@ const Reports = () => {
 
   const totalOrders = ordersInCleaning + ordersInDeliver + ordersInDone;
 
+  interface ReportBlockInterface {
+    title: string;
+    figure: number;
+  }
+
+  const ReportBlock: React.FC<ReportBlockInterface> = ({ title, figure }) => {
+    return (
+      <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
+        <span className="p-5">
+          <h2 className="text-3xl font-bold">{figure}</h2>
+        </span>
+        <h3 className="text-center tracking-tight">{title}</h3>
+      </div>
+    );
+  };
+
   return (
     <div className="">
-      <h1 className="mx-8 my-8 text-4xl text-center md:text-left">Reports</h1>
+      <h1 className="mx-2 my-8 text-3xl text-left md:text-left">Reports</h1>
 
-      <div className="space-y-4 mt-6">
-        <h2 className="text-gray-700 text-2xl text-center sm:text-left sm:ml-4">
+      <div className="space-y-4">
+        <h2 className="text-gray-700 text-xl mx-2 sm:text-left sm:ml-4">
           Sales & Workflow
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 w-full justify-items-center">
-          <div className="grid grid-cols-2 gap-2">
-            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
-              <span className="p-5">
-                <h2 className="text-3xl font-bold">{ordersInCleaning}</h2>
-              </span>
-              <h3 className="text-center tracking-tight">Orders in Cleaning</h3>
-            </div>
-            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
-              <span className="p-5">
-                <h2 className="text-3xl font-bold">{ordersInDeliver}</h2>
-              </span>
-              <h3 className="text-center tracking-tight">Orders in Delivery</h3>
-            </div>
-
-            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
-              <span className="p-5">
-                <h2 className="text-3xl font-bold">{ordersInDone}</h2>
-              </span>
-              <h3 className="text-center tracking-tight">Orders Complete</h3>
-            </div>
-            <div className="flex flex-col items-center justify-center min-w-42 min-h-42 space-y-2 bg-gray-700 text-gray-50 p-4">
-              <span className="p-5 ">
-                <h2 className="text-3xl font-bold">{totalOrders}</h2>
-              </span>
-              <h3 className="text-center tracking-tight">Total orders</h3>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="mx-4">
+            <ChartWrapper chartTitle="Sales in Workflow" large>
+              <Bar data={data} />
+            </ChartWrapper>
           </div>
-
-          <div className="grid grid-cols-2 grid-rows-2 w-full gap-2 px-2">
-            <div className="flex flex-col items-center justify-center space-y-2 bg-gray-700 p-2">
-              <span className="p-5 rounded">
-                <h2 className="text-xl font-bold text-gray-50">
-                  £{totalSales}
-                </h2>
-              </span>
-              <h3 className="text-gray-50 text-center tracking-tight">
-                Total Sales
-              </h3>
-            </div>
-            <div className="flex flex-col items-center justify-center space-y-2 bg-gray-700 p-2">
-              <span className="bg-gray-700 p-5 rounded">
-                <h2 className="text-xl font-bold text-gray-50">
-                  £{totalPriceOfItemsInCleaning}
-                </h2>
-              </span>
-              <h3 className="text-gray-50 text-center tracking-tight">
-                Value in Cleaning
-              </h3>
-            </div>
-            <div className="flex flex-col items-center justify-center space-y-2 bg-gray-700 p-2">
-              <span className="bg-gray-700 p-5 rounded">
-                <h2 className="text-xl font-bold text-gray-50">
-                  £{totalPriceOfItemsInDeliver}
-                </h2>
-              </span>
-              <h3 className="text-gray-50 text-center tracking-tight">
-                Value in Delivery
-              </h3>
-            </div>
-            <div className="flex flex-col items-center justify-center space-y-2 bg-gray-700 p-2">
-              <span className="bg-gray-700 p-5 rounded">
-                <h2 className="text-xl font-bold text-gray-50">
-                  £{totalPriceOfItemsInDone}
-                </h2>
-              </span>
-              <h3 className="text-gray-50 text-center tracking-tight">
-                Value of Done
-              </h3>
-            </div>
+          <div className="grid grid-cols-2 gap-2 p-6">
+            <ReportBlock title="Orders in Cleaning" figure={ordersInCleaning} />
+            <ReportBlock title="Orders in Delivery" figure={ordersInDeliver} />
+            <ReportBlock title="Orders Complete" figure={ordersInDone} />
+            <ReportBlock title="Total Orders" figure={totalOrders} />
           </div>
+        </div>
+
+        <div className="grid grid-cols-4 gap-2 px-2">
+          <ReportBlock title="Total Sales" figure={totalSales} />
+          <ReportBlock
+            title="Value in Cleaning"
+            figure={totalPriceOfItemsInCleaning}
+          />
+          <ReportBlock
+            title="Value in Delivery"
+            figure={totalPriceOfItemsInDeliver}
+          />
+          <ReportBlock title="Value in Done" figure={totalPriceOfItemsInDone} />
         </div>
       </div>
 
-      <ChartWrapper chartTitle="Sales in Workflow">
-        <Bar data={data} />
-      </ChartWrapper>
-
       {/* DONUGHT CHARTS */}
       <div className="space-y-4 mt-6">
-        <h2 className="text-gray-700 text-2xl text-center sm:text-left sm:ml-4">
+        <h2 className="text-gray-700 text-xl mx-2 sm:text-left sm:ml-4">
           Customers & Products
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full my-5 space-y-4 justify-items-center">
@@ -253,7 +217,6 @@ const Reports = () => {
           </ChartWrapper>
         </div>
       </div>
-      {/* BARCHARTS */}
     </div>
   );
 };

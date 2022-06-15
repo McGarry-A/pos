@@ -130,7 +130,7 @@ const Customers = () => {
 
   return (
     <div>
-      <div className="space-y-2 p-2">
+      <div className="space-y-2 p-2 mt-8">
         <h2 className="text-2xl text-gray-800 mt-4 px-2">Customer Search</h2>
       </div>
       <form onSubmit={(e) => handleFormSubmit(e)} className="my-6 px-4">
@@ -172,7 +172,7 @@ const Customers = () => {
           </div>
         </div>
       </form>
-      <div className="flex max-w-lg justify-end">
+      <div className="flex max-w-lg justify-end mx-4 md:mx-0">
         <p className="flex items-center text-sm text-gray-600 opacity-70">
           Add a new customer{" "}
           <span className="ml-2 border p-1 border-gray-500">
