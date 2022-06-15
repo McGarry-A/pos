@@ -99,7 +99,7 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
     return (
       <tr
         key={index}
-        className={`h-fit min-h-12 hover:bg-gray-100 my-1 bg-white border ${
+        className={`h-fit min-h-12 hover:bg-gray-50 my-1 bg-white border ${
           index % 2 !== 0 && `bg-white`
         }`}
       >
@@ -156,15 +156,14 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
     }
   };
 
-  return (
-    <>
-      <table className="hidden md:table md:bg-gray-50 md:w-full md:max-w-5xl md:ml-4">
-        {renderTableHead()}
-        {renderTableBody()}
-      </table>
-      {renderMarkAsPaidForm()}
-    </>
+  const renderTable = () => (
+    <table className="hidden md:table md:bg-gray-50 md:w-full md:max-w-5xl md:ml-4">
+      {renderTableHead()}
+      {renderTableBody()}
+    </table>
   );
+
+  return <>{renderMarkAsPaidForm()}</>;
 };
 
 export default OrderTable;

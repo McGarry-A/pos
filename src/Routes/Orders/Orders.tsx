@@ -106,10 +106,10 @@ const Orders = () => {
   };
   return (
     <div>
-      <div className="space-y-2 p-2">
+      <div className="space-y-2 px-4 py-2">
         <h2 className="text-2xl text-gray-800 mt-4">Order Search</h2>
       </div>
-      <form onSubmit={(e) => handleFormSubmit(e)} className="my-6 px-2 mx-auto">
+      <form onSubmit={(e) => handleFormSubmit(e)} className="my-6 px-4 mx-auto">
         <div className="grid grid-cols-3 gap-5 max-w-lg">
           <div className="col-span-1">
             <label className="text-xs text-gray-700 font-light">Order ID</label>
@@ -184,8 +184,8 @@ const Orders = () => {
           </div>
         </div>
       </form>
-      <div className="flex justify-end">
-        <p className="flex items-center opacity-60 text-sm mr-2">
+      <div className="flex justify-end max-w-5xl px-2 md:px-0">
+        <p className="flex items-center opacity-60 text-sm">
           Create a new order{" "}
           <Link
             to="/"

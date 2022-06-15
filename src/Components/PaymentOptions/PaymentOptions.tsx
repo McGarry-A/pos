@@ -157,7 +157,7 @@ const PaymentOptions = () => {
   };
 
   return (
-    <div className="max-w-xl p-4 md:p-0">
+    <div className="max-w-xl px-5 md:p-0">
       {renderDeliveryOptions()}
       {renderPaymentOptions()}
       {renderError()}

@@ -16,8 +16,8 @@ const ProductGrid = () => {
               onClick={() => setActiveCat(el)}
               className={`text-xs tracking-tighter transition duration-150 px-6 py-2 border rounded-2xl ${
                 activeCat === el
-                  ? `bg-blue-700 text-gray-50`
-                  : `opacity-50 bg-white text-blue-700 border-blue-700`
+                  ? `bg-blue-600 text-gray-50`
+                  : `text-blue-600 bg-white border-blue-600`
               }`}
             >
               {el}
@@ -34,7 +34,7 @@ const ProductGrid = () => {
       .map((el) => el.products)[0];
 
     return (
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:p-4 lg:grid-cols-5 m-4 md:mb-0 md:ml-0 w-full">
+      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:p-4 lg:grid-cols-5 m-4 md:mb-0 md:ml-0 sm:w-full">
         {products.map((el, index) => (
           <ProductCard
             title={el.name}

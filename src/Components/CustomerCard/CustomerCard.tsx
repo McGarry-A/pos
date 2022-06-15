@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
-import { RiDeleteBack2Line } from "react-icons/ri";
+import { MdClear } from "react-icons/md";
 import { useAppDispatch } from "../../Store";
 import customerSlice from "../../Store/customerSlice";
 import CreateCustomerForm from "../CreateCustomerForm/CreateCustomerForm";
@@ -36,13 +36,13 @@ const CustomerCard: React.FC<Props> = ({ customer }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 border p-3 m-3 rounded max-w-lg shadow-sm">
+    <div className="grid grid-cols-2 border p-3 mx-auto my-2 rounded max-w-xs shadow-sm bg-white">
       <div className="grid grid-cols-2 col-span-2 justify-between gap-y-3">
-        <div className="text-gray-700 text-lg">{name}</div>
+        <div className="text-gray-900 text-lg">{name}</div>
         <button className="py-1 col-span-1 justify-self-end">
-          <RiDeleteBack2Line
+          <MdClear
             size={"1.3rem"}
-            className="cursor-pointer"
+            className="cursor-pointer opacity-50"
             onClick={() => handleDeleteCustomer(customer)}
           />
         </button>

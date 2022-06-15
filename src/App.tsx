@@ -8,10 +8,17 @@ import "./App.css";
 
 import Reports from "./Routes/Reports/Reports";
 import Sidebar from "./Components/Sidebar/Sidebar";
+import useIsMobile from "./Hooks/useIsMobile";
 
 function App() {
+  const isMobile = useIsMobile();
+
   return (
-    <div className="App relative max-w-[1420px] mx-auto bg-gray-50 min-h-screen overflow-hidden">
+    <div
+      className={`App relative max-w-[1420px] mx-auto bg-gray-50 min-h-screen overflow-hidden ${
+        isMobile && "pb-20"
+      }`}
+    >
       <Sidebar />
       <div className="md:ml-36">
         <Outlet />

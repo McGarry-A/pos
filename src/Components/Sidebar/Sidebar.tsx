@@ -7,6 +7,7 @@ import { FiPackage } from "react-icons/fi";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Link } from "react-router-dom";
+import useIsMobile from "../../Hooks/useIsMobile";
 
 interface Props {
   Icon: IconType;
@@ -73,27 +74,40 @@ const NavItem: React.FC<Props> = ({
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState<NavType>("Workflow");
+  const isMobile = useIsMobile();
+
+  const renderNavItems = () =>
+    links.map(({ title, link, Icon }, index) => {
+      return (
+        <NavItem
+          key={index}
+          title={title as NavType}
+          link={link}
+          Icon={Icon}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+      );
+    });
 
   return (
-    <nav className="md:absolute fixed bg-white border-1 bottom-0 border-gray-50 md:left-0 md:top-0 md:w-28 w-full">
+    <nav className="md:absolute fixed bg-white border-1 bottom-0 border-gray-50 md:left-0 md:top-0 md:w-28 w-full mt-32 md:mt-0 z-50">
       <div className="flex md:flex-col w-full h-full">
         <div className="hidden mx-4 mt-12 md:flex md:justify-center md:items-center md:flex-col">
           <BsFillBadgeWcFill size={"2rem"} className="text-blue-600" />
           <p className="text-xs text-center italic tracking-wider">WashClub</p>
         </div>
         <div className="flex items-center w-full justify-center md:flex-col md:flex-grow">
-          {links.map(({ title, link, Icon }, index) => {
-            return (
-              <NavItem
-                key={index}
-                title={title as NavType}
-                link={link}
-                Icon={Icon}
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-              />
-            );
-          })}
+          {renderNavItems()}
+          {isMobile && (
+            <NavItem
+              title="Exit"
+              link="link"
+              Icon={RiLogoutBoxRFill}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
+          )}
         </div>
         <div className="hidden md:flex md:flex-col mb-2">
           <NavItem

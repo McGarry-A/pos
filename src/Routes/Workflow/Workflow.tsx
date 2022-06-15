@@ -75,7 +75,7 @@ const Workflow = () => {
   const renderHeader = () => {
     return (
       <div className="md:ml-4 md:mt-8 flex items-center justify-between p-4 md:px-0 bg-white md:bg-gray-50">
-        <div className="md:w-3/5 w-full">
+        <div className="md:min-w-3/5 w-3/5">
           <h1 className="text-2xl leading-relaxed">WashClub</h1>
           <h3 className="text-sm opacity-50 italic ">
             Take em to the Cleanerz!

@@ -69,11 +69,16 @@ const NewOrderForm: React.FC = () => {
           items={customers}
           renderItem={(item, isHighlighted) => (
             <div
-              className={`py-2 px-1 z-10 ${
-                isHighlighted ? "bg-blue-400 text-white" : "bg-white"
+              className={`py-2 px-1 z-50 opacity-1 ${
+                isHighlighted
+                  ? "bg-blue-600 text-white"
+                  : "bg-white opacity-100 relative z-50"
               }`}
             >
-              <p>{item.name}</p>
+              <div className="flex justify-between px-2">
+                <p>{item.name}</p>
+                <p className="opacity-60">{item.phone}</p>
+              </div>
             </div>
           )}
           value={customerSearchValue}

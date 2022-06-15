@@ -4,12 +4,12 @@ import PaymentOptions from "../PaymentOptions/PaymentOptions";
 import ProductGrid from "../ProductsGrid/ProductsGrid";
 import { BasketProvider } from "../../Context/BasketProvider";
 import useIsMobile from "../../Hooks/useIsMobile";
-import { BsChevronRight } from "react-icons/bs";
 import { useState } from "react";
+import ExpandablePanel from "../ExpandablePanel/ExpandablePanel";
 
 const NewOrder: React.FC = () => {
   const isMobile = useIsMobile();
-  const [basketIsOpen, setBasketIsOpen] = useState<boolean>(true);
+  const [basketIsOpen, setBasketIsOpen] = useState<boolean>(false);
 
   if (isMobile) {
     return (
@@ -28,22 +28,15 @@ const NewOrder: React.FC = () => {
         <div className="max-w-[880px] w-full">
           <ProductGrid />
         </div>
-        <div
-          className={`flex flex-col min-h-full space-y-2 bg-white flex-1 absolute right-0 top-0 h-screen px-10 shadow-lg transition duration-150 ${
-            basketIsOpen ? "" : "translate-x-96"
-          }`}
+        <ExpandablePanel
+          panelIsOpen={basketIsOpen}
+          setPanelIsOpen={setBasketIsOpen}
         >
-          <div
-            className="p-3 rounded-full shadow-md bg-white w-min -translate-x-16 translate-y-64 cursor-pointer"
-            onClick={() => setBasketIsOpen(!basketIsOpen)}
-          >
-            <BsChevronRight />
-          </div>
           <h2 className="text-xl tracking-wide">Your Basket</h2>
           <NewOrderForm />
           <Basket />
           <PaymentOptions />
-        </div>
+        </ExpandablePanel>
       </div>
     </BasketProvider>
   );

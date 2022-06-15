@@ -2,10 +2,10 @@ import { FiEdit2 } from "react-icons/fi";
 import { useAppDispatch } from "../../Store";
 import customerSlice from "../../Store/customerSlice";
 import { CustomerInterface } from "../CustomerInterface";
-import { RiDeleteBack2Line } from "react-icons/ri";
 import { useState } from "react";
 import Portal from "../Portal/Portal";
 import CreateCustomerForm from "../CreateCustomerForm/CreateCustomerForm";
+import { MdClear } from "react-icons/md";
 
 interface Props {
   data: CustomerInterface[];
@@ -45,26 +45,22 @@ const CustomerTable: React.FC<Props> = ({ data }) => {
 
   const renderTableHead = () => {
     return (
-      <thead className="bg-gray-100 border-b-2 border-gray-200">
-        <tr className="">
-          <th className="p-3 text-sm font-semibold tracking-wide text-left">
+      <thead className="w-full">
+        <tr className="text-xs uppercase">
+          <th className="p-3 text-xs font-medium text-gray-400 tracking-wide text-left">
             Name
           </th>
-          <th className="p-3 text-sm font-semibold tracking-wide text-left">
+          <th className="p-3 text-xs font-medium text-gray-400 tracking-wide text-left">
             Phone
           </th>
-          <th className="p-3 text-sm font-semibold tracking-wide text-left">
+          <th className="p-3 text-xs font-medium text-gray-400 tracking-wide text-left">
             E-mail
           </th>
-          <th className="p-3 text-sm font-semibold tracking-wide text-left">
+          <th className="p-3 text-xs font-medium text-gray-400 tracking-wide text-left">
             Address
           </th>
-          <th className="p-3 text-sm font-semibold tracking-wide text-left">
-            Edit
-          </th>
-          <th className="p-3 text-sm font-semibold tracking-wide text-left">
-            Delete
-          </th>
+          <th className="p-3 text-xs font-medium text-gray-400 tracking-wide text-left"></th>
+          <th className="p-3 text-xs font-medium text-gray-400 tracking-wide text-left"></th>
         </tr>
       </thead>
     );
@@ -78,8 +74,8 @@ const CustomerTable: React.FC<Props> = ({ data }) => {
           return (
             <tr
               key={index}
-              className={`h-fit min-h-12 hover:bg-gray-100 ${
-                index % 2 !== 0 && `bg-gray-100 hover:bg-gray-200`
+              className={`h-fit min-h-12 hover:bg-gray-50 my-1 bg-white border ${
+                index % 2 !== 0 && `bg-white`
               }`}
             >
               <td className="p-3 text-sm text-gray-700">{name}</td>
@@ -103,7 +99,7 @@ const CustomerTable: React.FC<Props> = ({ data }) => {
               </td>
               <td className="p-3 text-sm text-gray-700">
                 <button className="px-4 py-1">
-                  <RiDeleteBack2Line
+                  <MdClear
                     size={"1.3rem"}
                     onClick={() => {
                       handleDeleteCustomer(customer);
@@ -119,7 +115,7 @@ const CustomerTable: React.FC<Props> = ({ data }) => {
   };
   return (
     <>
-      <table className="hidden md:block">
+      <table className="hidden md:table">
         {renderTableHead()}
         {renderTableBody()}
       </table>

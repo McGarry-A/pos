@@ -40,15 +40,17 @@ const Basket = () => {
 
     return (
       <div className="grid grid-cols-2">
-        <p className="text-gray-900 text-sm tracking-tight mb-1">Subtotal</p>
-        <p className="text-gray-900 text-sm justify-self-end tracking-tight mb-1">
-          ${totalPrice}
+        <p className="text-gray-900 text-sm opacity-60 tracking-tight mb-1">
+          Subtotal
+        </p>
+        <p className="text-gray-900 text-sm opacity-60 justify-self-end tracking-tight mb-1">
+          £{totalPrice}
         </p>
         <p className="text-gray-900 text-sm opacity-60 tracking-tight">
           Delivery
         </p>
         <p className="text-gray-900 text-sm opacity-60 justify-self-end tracking-tight">
-          ${totalPrice}
+          £{totalPrice}
         </p>
         <div className="col-span-2 grid grid-cols-2 mt-4 pt-4 border-dashed border-t-4 border-gray-300">
           <p className="text-gray-900">Total Price</p>
@@ -84,15 +86,17 @@ const Basket = () => {
   };
 
   const renderItems = () => {
-    return <div>{itemsArray.map(renderItem)}</div>;
+    return (
+      <div className="my-4 sm:flex-2 sm:border bg-white">
+        {itemsArray.map(renderItem)}
+      </div>
+    );
   };
 
   return (
-    <div className="flex flex-col flex-grow bg-gray-100 md:p-6 p-4 m-4 md:m-0 md:w-80">
+    <div className="flex flex-col justify-center bg-gray-100 md:px-6 p-4 m-4 md:m-0 md:w-80">
       {renderOrderSummary()}
-      <div className="my-4 sm:flex-2 sm:border bg-white flex-grow">
-        {renderItems()}
-      </div>
+      {renderItems()}
       {renderTotalForOrder()}
     </div>
   );
