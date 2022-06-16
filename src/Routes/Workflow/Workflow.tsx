@@ -4,8 +4,6 @@ import { useAppSelector } from "../../Store";
 import { MdDeliveryDining, MdOutlineCleaningServices } from "react-icons/md";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
-import Logo from "../../icons/Logo.png";
-
 import { FiFilter } from "react-icons/fi";
 
 import NewOrder from "../../Components/NewOrder/NewOrder";

@@ -21,13 +21,23 @@ export const useBasket = () => useContext(BasketContext);
 export const BasketProvider = ({ children }: Props) => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [totalQuantity, setTotalQuantity] = useState<number>(0);
-  const [currentCustomer, setCurrentCustomer] =
-    useState<CustomerInterface | null>(null);
 
-  const [basket, setBasket] = useState<BasketInterface>({
-    items: {},
-    orderNotes: "",
-  });
+  const localStorageBasket = localStorage.getItem("POS_BASKET_KEY");
+  const initialBasketState = localStorageBasket
+    ? JSON.parse(localStorageBasket)
+    : {
+        items: {},
+        orderNotes: "",
+      };
+
+  const [basket, setBasket] = useState<BasketInterface>(initialBasketState);
+
+  const localStorageCustomer = localStorage.getItem("POS_CUSTOMER_KEY");
+  const initialCustomerState = localStorageCustomer
+    ? JSON.parse(localStorageCustomer)
+    : null;
+  const [currentCustomer, setCurrentCustomer] =
+    useState<CustomerInterface | null>(initialCustomerState);
 
   useEffect(() => {
     const { items } = basket;
@@ -59,9 +69,19 @@ export const BasketProvider = ({ children }: Props) => {
       setTotalPrice(total);
     };
 
+    const handleCustomerLocalStorage = (data: CustomerInterface) => {
+      localStorage.setItem("POS_CUSTOMER_KEY", JSON.stringify(data));
+    };
+    const handleBasketLocalStorage = (data: BasketInterface) => {
+      localStorage.setItem("POS_BASKET_KEY", JSON.stringify(data));
+    };
+
     returnTotalPrice();
     returnTotalQuantity();
-  }, [basket]);
+
+    if (basket) handleBasketLocalStorage(basket);
+    if (currentCustomer) handleCustomerLocalStorage(currentCustomer);
+  }, [basket, currentCustomer]);
 
   const addItem = ({ item }: AddItemParams) => {
     const { items } = basket;
