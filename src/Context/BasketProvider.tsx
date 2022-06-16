@@ -68,7 +68,7 @@ export const BasketProvider = ({ children }: Props) => {
         totalPriceArray.reduce((prev, cur) => prev + cur).toFixed(2)
       );
 
-      const deliveryPrice = setTotalPrice(totalItemPrice);
+      setTotalPrice(totalItemPrice);
     };
 
     const handleCustomerLocalStorage = (data: CustomerInterface) => {

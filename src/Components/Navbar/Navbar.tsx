@@ -8,6 +8,7 @@ import { RiLogoutBoxRFill } from "react-icons/ri";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Link } from "react-router-dom";
 import useIsMobile from "../../Hooks/useIsMobile";
+import Portal from "../Portal/Portal";
 
 interface Props {
   Icon: IconType;
@@ -74,6 +75,7 @@ const NavItem: React.FC<Props> = ({
 
 const Navbar = () => {
   const [activeTab, setActiveTab] = useState<NavType>("Workflow");
+  const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
   const isMobile = useIsMobile();
 
   const renderNavItems = () =>
@@ -90,38 +92,57 @@ const Navbar = () => {
       );
     });
 
-  return (
-    <nav className="md:absolute fixed bg-white border-1 bottom-0 border-gray-50 md:left-0 md:top-0 md:w-28 w-full mt-32 md:mt-0 z-50">
-      <div className="flex md:flex-col w-full h-full">
-        <div className="hidden mx-4 mt-12 md:flex md:justify-center md:items-center md:flex-col">
-          <BsFillBadgeWcFill size={"2rem"} className="text-blue-600" />
-          <p className="text-xs text-center italic tracking-wider">WashClub</p>
+  const renderLogOutPortal = () => {
+    return (
+      <Portal isHidden={portalIsHidden}>
+        <div className="max-w-xl w-full bg-white rounded p-8">
+          <h2>Are you sure you want to leave? :(</h2>
+          <div>
+            <button>Leave</button>
+            <button>Stay</button>
+          </div>
         </div>
-        <div className="flex items-center w-full justify-center md:flex-col md:flex-grow">
-          {renderNavItems()}
-          {isMobile && (
+      </Portal>
+    );
+  };
+
+  return (
+    <>
+      <nav className="md:absolute fixed bg-white border-1 bottom-0 border-gray-50 md:left-0 md:top-0 md:w-28 w-full mt-32 md:mt-0 z-50">
+        <div className="flex md:flex-col w-full h-full">
+          <div className="hidden mx-4 mt-12 md:flex md:justify-center md:items-center md:flex-col">
+            <BsFillBadgeWcFill size={"2rem"} className="text-blue-600" />
+            <p className="text-xs text-center italic tracking-wider">
+              WashClub
+            </p>
+          </div>
+          <div className="flex items-center w-full justify-center md:flex-col md:flex-grow">
+            {renderNavItems()}
+            {isMobile && (
+              <NavItem
+                title="Exit"
+                link="link"
+                Icon={RiLogoutBoxRFill}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
+            )}
+          </div>
+          <div className="hidden md:flex md:flex-col mb-2">
             <NavItem
+              key="LOGOUT"
               title="Exit"
               link="link"
               Icon={RiLogoutBoxRFill}
               activeTab={activeTab}
               setActiveTab={setActiveTab}
+              large
             />
-          )}
+          </div>
         </div>
-        <div className="hidden md:flex md:flex-col mb-2">
-          <NavItem
-            key="LOGOUT"
-            title="Exit"
-            link="link"
-            Icon={RiLogoutBoxRFill}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            large
-          />
-        </div>
-      </div>
-    </nav>
+      </nav>
+      {renderLogOutPortal()}
+    </>
   );
 };
 

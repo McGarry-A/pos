@@ -60,7 +60,7 @@ const Basket = () => {
         </p>
         <div className="col-span-2 grid grid-cols-2 mt-4 pt-4 border-dashed border-t-4 border-gray-300">
           <p className="text-gray-900">Total Price</p>
-          <p className="text-gray-900 justify-self-end">£{final}</p>
+          <p className="text-gray-900 justify-self-end">£{final.toFixed(2)}</p>
         </div>
       </div>
     );

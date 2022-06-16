@@ -32,7 +32,7 @@ const NewOrderForm: React.FC = () => {
   };
 
   const renderPanelTitle = () => (
-    <h2 className="text-xl tracking-wide">Your Basket</h2>
+    <h2 className="text-xl tracking-wide hidden md:block">Your Basket</h2>
   );
 
   const renderCustomerDetails = () => {
@@ -42,7 +42,7 @@ const NewOrderForm: React.FC = () => {
       const { name, phone, address } = currentCustomer;
 
       return (
-        <div className="mx-8 my-5 border p-4 bg-blue-600 md:mx-0 md:my-2 text-white shadow-lg">
+        <div className="m-5 border p-4 bg-blue-600 md:mx-0 md:my-2 text-white shadow-lg">
           <div className="flex justify-between items-center">
             <h3 className="mb-1 text-gray-50">{name}</h3>
             <MdClear
@@ -109,7 +109,7 @@ const NewOrderForm: React.FC = () => {
   );
 
   return (
-    <div className="space-y-2 max-w-xl">
+    <div className="space-y-2 max-w-xl my-3">
       {renderPanelTitle()}
       {renderCustomerDetails()}
       {renderCustomerField()}

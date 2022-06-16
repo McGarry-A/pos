@@ -22,7 +22,7 @@ const PaymentOptions = () => {
     actions: { create },
   } = orderSlice;
 
-  const orderId = useId("sku-");
+  const orderId: string = useId("sku-");
   const basketContext = useBasket();
   const {
     basket: { items },
@@ -33,19 +33,15 @@ const PaymentOptions = () => {
     setError("");
   }, [currentCustomer, items]);
 
-  useEffect(() => {
-    const handleChangeDelivery = () => {
-      const {
-        actions: { changeDelivery },
-      } = basketContext;
+  const handleChangeDelivery = <T,>(current: T): void => {
+    const {
+      actions: { changeDelivery },
+    } = basketContext;
 
-      changeDelivery(delivery);
-    };
+    changeDelivery(current as unknown as DeliveryType);
+  };
 
-    handleChangeDelivery();
-  }, [delivery, basketContext]);
-
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     const { date, time } = getDateAndTime();
     const { basket, actions, currentCustomer, setCurrentCustomer, totalPrice } =
       basketContext;
@@ -104,70 +100,63 @@ const PaymentOptions = () => {
     );
   };
 
-  const renderDeliveryOptions = () => {
-    return (
-      <>
-        <p className="block text-gray-900 text-sm my-1">Delivery</p>
-        <div className="flex space-x-3 my-2 w-full">
-          {data.delivery.map((el, index) => {
-            return (
-              <PaymentOption
-                {...el}
-                key={index}
-                state={delivery}
-                setState={setDelivery}
-              />
-            );
-          })}
-        </div>
-      </>
-    );
-  };
+  const renderDeliveryOptions = () => (
+    <>
+      <p className="block text-gray-900 text-sm my-1">Delivery</p>
+      <div className="flex space-x-3 my-2 w-full">
+        {data.delivery.map((el, index) => {
+          return (
+            <PaymentOption
+              {...el}
+              key={index}
+              state={delivery}
+              setState={setDelivery}
+              clickHandler={handleChangeDelivery}
+            />
+          );
+        })}
+      </div>
+    </>
+  );
 
-  const renderPaymentOptions = () => {
-    return (
-      <>
-        <p className="block text-gray-900 text-sm my-1">Payment</p>
-        <div className="flex space-x-3 my-2 w-full">
-          {data.payments.map((el, index) => {
-            return (
-              <PaymentOption
-                {...el}
-                key={index}
-                state={payment}
-                setState={setPayment}
-              />
-            );
-          })}
-        </div>
-      </>
-    );
-  };
+  const renderPaymentOptions = () => (
+    <>
+      <p className="block text-gray-900 text-sm my-1">Payment</p>
+      <div className="flex space-x-3 my-2 w-full">
+        {data.payments.map((el, index) => {
+          return (
+            <PaymentOption
+              {...el}
+              key={index}
+              state={payment}
+              setState={setPayment}
+            />
+          );
+        })}
+      </div>
+    </>
+  );
 
-  const renderButtons = () => {
-    return (
-      <>
-        <button
-          className="w-full bg-blue-600 py-3 text-gray-100 rounded my-2 shadow hover:bg-blue-500"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
-      </>
-    );
-  };
-
-  const renderError = () => {
-    return (
-      <p
-        className={`${
-          error ? "block" : "hidden"
-        } text-xs text-red-500 font-bold text-center my-2`}
+  const renderButtons = () => (
+    <>
+      <button
+        className="w-full bg-blue-600 py-3 text-gray-100 rounded my-2 shadow hover:bg-blue-500"
+        onClick={handleSubmit}
       >
-        *{error}
-      </p>
-    );
-  };
+        Submit
+      </button>
+    </>
+  );
+
+  const renderError = () => (
+    <p
+      className={`${
+        error ? "block" : "hidden"
+      } text-xs text-red-500 font-bold text-center my-2`}
+    >
+      *{error}
+    </p>
+  );
 
   return (
     <div className="max-w-xl px-5 md:p-0">

@@ -26,14 +26,19 @@ const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
 
   return (
     <div
-      className={`grid grid-cols-2 p-3 my-4 mx-auto w-full rounded max-w-md shadow-sm border bg-white`}
+      className={`grid grid-cols-2 p-3 my-4 mx-auto w-full rounded max-w-sm shadow-sm border bg-white`}
     >
       <div className="grid grid-cols-2 col-span-2 justify-between gap-y-3">
-        <div>
+        <div className="flex items-center">
           <span className="text-xs opacity-50">{orderId}</span>
-          <span className="text-xs uppercare px-2 py-1 text-gray-400 uppercase">
+          <span className="text-xs uppercare ml-4 opacity-50 uppercase">
             {current}
           </span>
+          <span
+            className={`rounded-full ${
+              current === "cleaning" ? `bg-green-600` : `bg-blue-600`
+            } w-2 h-2 ml-1 animate-pulse`}
+          ></span>
         </div>
         <div className="text-right">
           <PaymentBadge
@@ -47,12 +52,14 @@ const OrderCard: React.FC<Props> = ({ handleClick, data }) => {
             setPortalIsHidden={setPortalIsHidden}
           />
         </div>
-        <div className="text-gray-700 text-lg col-span-2">{name}</div>
+        <div className="text-gray-700 text-lg col-span-2 border-b-4 border-blue-500 w-max">
+          {name}
+        </div>
         <div className="text-gray-500 col-span-2">
           <p className="text-sm">{orderNotes}</p>
         </div>
-        <div className="flex space-x-2">
-          <div className="text-gray-600 text-xs font-light">{date}</div>
+        <div className="flex space-x-1 items-end">
+          <div className="text-gray-600 text-xs font-light">{date} at</div>
           <div className="text-gray-600 text-xs font-light">{time}</div>
         </div>
         <div

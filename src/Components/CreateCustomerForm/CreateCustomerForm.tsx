@@ -87,7 +87,7 @@ const CreateCustomerForm: React.FC<Props> = ({
     if (customer) {
       return (
         <div>
-          <h3 className="text-xl font-semibold uppercase">
+          <h3 className="text-xl font-semibold uppercase border-b-2 border-blue-600">
             Update customer information
           </h3>
           <p className="opacity-40 text-xs mb-2 italic">
@@ -99,7 +99,7 @@ const CreateCustomerForm: React.FC<Props> = ({
 
     return (
       <div>
-        <h3 className="text-xl font-semibold uppercase">
+        <h3 className="text-xl font-semibold uppercase border-b-4 border-blue-600 w-max mb-2">
           Create a New Customer
         </h3>
         <p className="opacity-40 text-xs mb-2 italic">
@@ -110,7 +110,7 @@ const CreateCustomerForm: React.FC<Props> = ({
   };
 
   return (
-    <div className="bg-white max-w-xl shadow-md rounded flex relative">
+    <div className="bg-white max-w-md md:max-w-xl shadow-md rounded flex relative">
       <form
         className="p-12 space-y-4"
         onSubmit={
@@ -159,7 +159,7 @@ const CreateCustomerForm: React.FC<Props> = ({
           </button>
         </div>
       </form>
-      <div className="absolute top-4 right-4 cursor-pointer opacity-30">
+      <div className="absolute top-4 right-4 cursor-pointer opacity-30 hover:opacity-100 transition duration-150">
         <MdClear size={"2rem"} onClick={handleExit} />
       </div>
     </div>
