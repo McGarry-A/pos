@@ -6,6 +6,7 @@ import {
   ClearItemParams,
   RemoveItemParams,
   BasketItemInterface,
+  ChangeDeliveryParams,
 } from ".";
 import { CustomerInterface } from "../Components/CustomerInterface";
 
@@ -28,6 +29,7 @@ export const BasketProvider = ({ children }: Props) => {
     : {
         items: {},
         orderNotes: "",
+        delivery: "standard",
       };
 
   const [basket, setBasket] = useState<BasketInterface>(initialBasketState);
@@ -62,11 +64,11 @@ export const BasketProvider = ({ children }: Props) => {
       const totalPriceArray: Array<number> = objectValuesArray.map(
         ({ price, quantity }) => price * quantity
       );
-      const total = Number(
+      const totalItemPrice = Number(
         totalPriceArray.reduce((prev, cur) => prev + cur).toFixed(2)
       );
 
-      setTotalPrice(total);
+      const deliveryPrice = setTotalPrice(totalItemPrice);
     };
 
     const handleCustomerLocalStorage = (data: CustomerInterface) => {
@@ -112,6 +114,12 @@ export const BasketProvider = ({ children }: Props) => {
     setBasket(newBasket);
   };
 
+  const changeDelivery = (delivery: ChangeDeliveryParams) => {
+    const newBasket = { ...basket };
+    newBasket.delivery = delivery;
+    setBasket(newBasket);
+  };
+
   const removeItem = (removeItem: RemoveItemParams) => {
     const { items } = basket;
     const newBasket = { ...basket };
@@ -146,11 +154,10 @@ export const BasketProvider = ({ children }: Props) => {
   };
 
   const clearBasket = () => {
-    const newBasket = {
+    const newBasket: BasketInterface = {
       items: {},
       orderNotes: "",
-      totalPrice: 0,
-      totalQuantity: 0,
+      delivery: "standard",
     };
 
     setBasket(newBasket);
@@ -162,12 +169,14 @@ export const BasketProvider = ({ children }: Props) => {
 
     setBasket(newBasket);
   };
+
   const actions = {
     addItem,
     removeItem,
     clearBasket,
     clearItem,
     setOrderNote,
+    changeDelivery,
   };
 
   return (

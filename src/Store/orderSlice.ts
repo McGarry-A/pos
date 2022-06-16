@@ -29,9 +29,9 @@ const initialState: OrderSliceInterface = {
       orderNotes: "Please dont be late!",
       totalPrice: 19.98,
       current: "cleaning",
+      delivery: "premium",
       paymentInfo: {
         date: "Today",
-        delivery: "premium",
         payment: "credit",
         time: "11:59:59",
       },
@@ -55,9 +55,9 @@ const initialState: OrderSliceInterface = {
       orderNotes: "Please dont be late!",
       totalPrice: 19.98,
       current: "cleaning",
+      delivery: "standard",
       paymentInfo: {
         date: "Today",
-        delivery: "premium",
         payment: "credit",
         time: "11:59:59",
       },
@@ -81,9 +81,9 @@ const initialState: OrderSliceInterface = {
       orderNotes: "Please dont be late!",
       totalPrice: 19.98,
       current: "cleaning",
+      delivery: "premium",
       paymentInfo: {
         date: "Today",
-        delivery: "premium",
         payment: "card",
         time: "11:59:59",
       },

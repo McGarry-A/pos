@@ -17,7 +17,9 @@ const MarkAsPaidForm: React.FC<props> = ({
   setPortalIsHidden,
   portalIsHidden,
 }) => {
-  const [paymentType, setPaymentType] = useState<"cash" | "card" | null>();
+  const [paymentType, setPaymentType] = useState<"cash" | "card" | null>(
+    "cash"
+  );
   const [error, setError] = useState<string>("");
 
   const dispatch = useAppDispatch();
@@ -44,10 +46,12 @@ const MarkAsPaidForm: React.FC<props> = ({
   return (
     <Portal isHidden={portalIsHidden}>
       <div className="bg-white relative shadow-md rounded max-w-xs w-full pl-12">
-        <h2 className="mt-12 font-semibold text-lg">Payment Type</h2>
+        <h2 className="mt-12 font-semibold text-lg border-b-4 border-blue-600 w-max mb-2">
+          Payment Type
+        </h2>
         <p className="text-sm opacity-50 italic">How did this customer pay?</p>
         <p className="text-red-500 text-xs">{error}</p>
-        <div className="flex space-x-4 my-5">
+        <div className="flex space-x-4 my-3">
           <button
             className={`transition duration-300 ease-in-out text-sm h-min ${
               paymentType === "cash" ? activeClass : "text-gray-800"

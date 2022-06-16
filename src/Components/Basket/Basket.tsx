@@ -36,7 +36,13 @@ const Basket = () => {
   );
 
   const renderTotalForOrder = () => {
-    const { totalPrice } = basketContext;
+    const {
+      totalPrice,
+      basket: { delivery },
+    } = basketContext;
+
+    const deliveryFee = delivery === "standard" ? 3.99 : 5.99;
+    const final = totalPrice + deliveryFee;
 
     return (
       <div className="grid grid-cols-2">
@@ -50,11 +56,11 @@ const Basket = () => {
           Delivery
         </p>
         <p className="text-gray-900 text-sm opacity-60 justify-self-end tracking-tight">
-          £{totalPrice}
+          £{deliveryFee}
         </p>
         <div className="col-span-2 grid grid-cols-2 mt-4 pt-4 border-dashed border-t-4 border-gray-300">
           <p className="text-gray-900">Total Price</p>
-          <p className="text-gray-900 justify-self-end">£{totalPrice}</p>
+          <p className="text-gray-900 justify-self-end">£{final}</p>
         </div>
       </div>
     );

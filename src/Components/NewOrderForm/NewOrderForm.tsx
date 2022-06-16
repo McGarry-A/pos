@@ -1,11 +1,14 @@
-import { MdClear } from "react-icons/md";
-import CreateCustomerForm from "../CreateCustomerForm/CreateCustomerForm";
 import React, { useState } from "react";
-import Portal from "../Portal/Portal";
-import useBasket from "../../Context/BasketProvider";
+
 import { useAppSelector } from "../../Store";
-import Autocomplete from "react-autocomplete";
+import useBasket from "../../Context/BasketProvider";
+
+import { MdClear } from "react-icons/md";
 import { HiPlusSm } from "react-icons/hi";
+
+import CreateCustomerForm from "../CreateCustomerForm/CreateCustomerForm";
+import Portal from "../Portal/Portal";
+import Autocomplete from "react-autocomplete";
 
 const NewOrderForm: React.FC = () => {
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
@@ -27,6 +30,10 @@ const NewOrderForm: React.FC = () => {
     const customer = filteredArray[0];
     setCurrentCustomer(customer);
   };
+
+  const renderPanelTitle = () => (
+    <h2 className="text-xl tracking-wide">Your Basket</h2>
+  );
 
   const renderCustomerDetails = () => {
     const { currentCustomer } = basket;
@@ -56,10 +63,6 @@ const NewOrderForm: React.FC = () => {
     const { currentCustomer } = basket;
 
     if (currentCustomer) return;
-    // const options = customers.map((el) => `${el.name}`);
-
-    // change input to auto suggest box from mui or something
-    // our list of customers is declared at the top of the component and inside "customers"
 
     return (
       <div className="flex p-4 md:p-0">
@@ -107,6 +110,7 @@ const NewOrderForm: React.FC = () => {
 
   return (
     <div className="space-y-2 max-w-xl">
+      {renderPanelTitle()}
       {renderCustomerDetails()}
       {renderCustomerField()}
       {renderAddCustomerPopUp()}

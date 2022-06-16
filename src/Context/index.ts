@@ -4,6 +4,9 @@ export type productID = string;
 export type AddItemParams = { item: ItemInterface };
 export type RemoveItemParams = { id: string };
 export type ClearItemParams = { id: string };
+export type ChangeDeliveryParams = DeliveryType
+
+export type DeliveryType = "standard" | "premium"
 
 export interface BasketContextInterface {
   basket: BasketInterface;
@@ -13,6 +16,7 @@ export interface BasketContextInterface {
     clearItem: (params: ClearItemParams) => void;
     clearBasket: () => void;
     setOrderNote: (params: string) => void;
+    changeDelivery: (params: ChangeDeliveryParams) => void;
   };
   totalPrice: number;
   totalQuantity: number;
@@ -40,4 +44,5 @@ export interface BasketItemInterface extends ItemInterface {
 export interface BasketInterface {
   items: BasketItemInterface;
   orderNotes: string;
+  delivery: DeliveryType
 }

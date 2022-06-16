@@ -186,7 +186,7 @@ const Reports = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-4 gap-2 px-2">
+        <div className="grid grid-cols-4 gap-2 px-6">
           <ReportBlock title="Total Sales" figure={totalSales} />
           <ReportBlock
             title="Value in Cleaning"

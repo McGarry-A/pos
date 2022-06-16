@@ -1,11 +1,20 @@
+import { ReactNode, useState } from "react";
+import { BasketProvider } from "../../Context/BasketProvider";
+
 import Basket from "../Basket/Basket";
 import NewOrderForm from "../NewOrderForm/NewOrderForm";
 import PaymentOptions from "../PaymentOptions/PaymentOptions";
 import ProductGrid from "../ProductsGrid/ProductsGrid";
-import { BasketProvider } from "../../Context/BasketProvider";
 import useIsMobile from "../../Hooks/useIsMobile";
-import { useState } from "react";
 import ExpandablePanel from "../ExpandablePanel/ExpandablePanel";
+
+interface ContainerProps {
+  children: ReactNode;
+}
+
+const NewOrderBody: React.FC<ContainerProps> = ({ children }) => (
+  <div className="sm:flex sm:flex-row">{children}</div>
+);
 
 const NewOrder: React.FC = () => {
   const isMobile = useIsMobile();
@@ -24,20 +33,17 @@ const NewOrder: React.FC = () => {
 
   return (
     <BasketProvider>
-      <div className="sm:flex sm:flex-row">
-        <div className="max-w-[880px] w-full">
-          <ProductGrid />
-        </div>
+      <NewOrderBody>
+        <ProductGrid />
         <ExpandablePanel
           panelIsOpen={basketIsOpen}
           setPanelIsOpen={setBasketIsOpen}
         >
-          <h2 className="text-xl tracking-wide">Your Basket</h2>
           <NewOrderForm />
           <Basket />
           <PaymentOptions />
         </ExpandablePanel>
-      </div>
+      </NewOrderBody>
     </BasketProvider>
   );
 };

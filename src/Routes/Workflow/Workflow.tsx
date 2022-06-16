@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAppSelector } from "../../Store";
 
 import { MdDeliveryDining, MdOutlineCleaningServices } from "react-icons/md";
@@ -7,7 +7,6 @@ import { BiSearch } from "react-icons/bi";
 import { FiFilter } from "react-icons/fi";
 
 import NewOrder from "../../Components/NewOrder/NewOrder";
-
 import WorkflowOrders from "../../Components/WorkflowOrders/WorkflowOrders";
 import WorkflowTab from "../../Components/WorkflowTab/WorkflowTab";
 import { BsFillBadgeWcFill } from "react-icons/bs";
@@ -86,8 +85,8 @@ const Workflow = () => {
           <div className="flex items-center bg-white w-80 px-2 rounded border">
             <BiSearch size="1.3rem" />
             <input
-              placeholder="This input does not do anything.."
-              className="w-72 outline-none border-none text-sm"
+              placeholder="Quickly Find Products"
+              className="w-72 outline-none border-none text-sm italic"
             />
           </div>
           <button className="mx-2 py-1 px-3 rounded bg-white border active:scale-110">
@@ -110,9 +109,11 @@ const Workflow = () => {
 
   return (
     <div>
-      {renderHeader()}
-      {renderNav()}
-      {renderMain()}
+      <>
+        {renderHeader()}
+        {renderNav()}
+        {renderMain()}
+      </>
     </div>
   );
 };

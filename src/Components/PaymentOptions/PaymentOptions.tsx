@@ -33,6 +33,18 @@ const PaymentOptions = () => {
     setError("");
   }, [currentCustomer, items]);
 
+  useEffect(() => {
+    const handleChangeDelivery = () => {
+      const {
+        actions: { changeDelivery },
+      } = basketContext;
+
+      changeDelivery(delivery);
+    };
+
+    handleChangeDelivery();
+  }, [delivery, basketContext]);
+
   const handleSubmit = () => {
     const { date, time } = getDateAndTime();
     const { basket, actions, currentCustomer, setCurrentCustomer, totalPrice } =
@@ -53,10 +65,11 @@ const PaymentOptions = () => {
       [orderId]: {
         orderId,
         items,
+        delivery,
         totalPrice,
         orderNotes,
         current: "cleaning",
-        paymentInfo: { payment, delivery, date, time },
+        paymentInfo: { payment, date, time },
         customer: {
           ...currentCustomer,
         },

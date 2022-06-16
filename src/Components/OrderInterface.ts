@@ -13,9 +13,9 @@ export interface OrderBody extends BasketInterface {
   customer: CustomerInterface;
   current: "cleaning" | "delivery" | "done";
   totalPrice: number;
+  delivery: DeliveryType;
   paymentInfo: {
     payment: PaymentType;
-    delivery: DeliveryType;
     date: dateType;
     time: timeType;
   };

@@ -49,7 +49,7 @@ const ProductGrid = () => {
   };
 
   return (
-    <div className="md:mt-4 w-full">
+    <div className="md:mt-4 w-full max-w-[880px]">
       {renderCategories()}
       {renderGrid()}
     </div>
