@@ -5,19 +5,33 @@ import { BsFillBadgeWcFill, BsPersonFill } from "react-icons/bs";
 import { HiDocumentReport } from "react-icons/hi";
 import { FiPackage } from "react-icons/fi";
 import { RiLogoutBoxRFill } from "react-icons/ri";
-import { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Link } from "react-router-dom";
 import useIsMobile from "../../Hooks/useIsMobile";
 import Portal from "../Portal/Portal";
+import { MdClear } from "react-icons/md";
 
 interface Props {
   Icon: IconType;
   title: NavType;
-  link: string;
+  link?: string;
   activeTab: NavType;
   setActiveTab: Dispatch<SetStateAction<NavType>>;
   large?: boolean;
+  setLogOut?: Dispatch<SetStateAction<boolean>>;
 }
+
+interface WrapperInterface {
+  children: React.ReactNode;
+  href?: string;
+}
+
+const Wrapper: React.FC<WrapperInterface> = ({ children, href }) => {
+  if (href) {
+    return <Link to={href}>{children}</Link>;
+  }
+  return <div>{children}</div>;
+};
 
 type NavType = "Workflow" | "Orders" | "Customers" | "Reports" | "Exit";
 
@@ -51,15 +65,17 @@ const NavItem: React.FC<Props> = ({
   activeTab,
   setActiveTab,
   large,
+  setLogOut,
 }) => {
   return (
-    <Link to={link}>
+    <Wrapper href={link ? link : undefined}>
       <button
         className={`flex flex-col justify-center items-center cursor-pointer  rounded-lg w-fit mx-auto p-3 my-4 hover:scale-105 transition ${
           activeTab === title ? "bg-blue-100" : "bg-white"
         }`}
         onClick={() => {
           setActiveTab(title);
+          setLogOut && setLogOut(true);
         }}
       >
         <Icon
@@ -69,14 +85,46 @@ const NavItem: React.FC<Props> = ({
           }`}
         />
       </button>
-    </Link>
+    </Wrapper>
   );
 };
 
 const Navbar = () => {
   const [activeTab, setActiveTab] = useState<NavType>("Workflow");
-  const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
+  const [logOutIsHidden, setLogOutIsHidden] = useState<boolean>(true);
+
   const isMobile = useIsMobile();
+
+  const renderLogOutPortal = () => {
+    return (
+      <Portal isHidden={logOutIsHidden}>
+        <div className="bg-white max-w-sm w-full p-6 space-y-4 relative rounded">
+          <div>
+            <h2 className="text-lg border-b-4 border-blue-600 w-max">
+              Employee Log Out
+            </h2>
+          </div>
+          <div>
+            <p className="opacity-50">Are you sure you want to log out?</p>
+          </div>
+          <div className="flex">
+            <button
+              className="bg-blue-600 text-white py-2 px-3 text-sm hover:bg-blue-500"
+              onClick={() => setLogOutIsHidden(!logOutIsHidden)}
+            >
+              Log Out
+            </button>
+          </div>
+          <div
+            className="absolute top-1 right-3 opacity-50 hover:cursor-pointer hover:opacity-100 transition duration-150"
+            onClick={() => setLogOutIsHidden(!logOutIsHidden)}
+          >
+            <MdClear size={"1.3rem"} />
+          </div>
+        </div>
+      </Portal>
+    );
+  };
 
   const renderNavItems = () =>
     links.map(({ title, link, Icon }, index) => {
@@ -91,20 +139,6 @@ const Navbar = () => {
         />
       );
     });
-
-  const renderLogOutPortal = () => {
-    return (
-      <Portal isHidden={portalIsHidden}>
-        <div className="max-w-xl w-full bg-white rounded p-8">
-          <h2>Are you sure you want to leave? :(</h2>
-          <div>
-            <button>Leave</button>
-            <button>Stay</button>
-          </div>
-        </div>
-      </Portal>
-    );
-  };
 
   return (
     <>
@@ -121,10 +155,10 @@ const Navbar = () => {
             {isMobile && (
               <NavItem
                 title="Exit"
-                link="link"
                 Icon={RiLogoutBoxRFill}
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
+                setLogOut={setLogOutIsHidden}
               />
             )}
           </div>
@@ -132,7 +166,6 @@ const Navbar = () => {
             <NavItem
               key="LOGOUT"
               title="Exit"
-              link="link"
               Icon={RiLogoutBoxRFill}
               activeTab={activeTab}
               setActiveTab={setActiveTab}

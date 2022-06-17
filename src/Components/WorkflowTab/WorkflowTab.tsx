@@ -32,10 +32,10 @@ const WorkflowTab: React.FC<Props> = ({ tab, activeTab, setState, Icon }) => {
       </div>
       <div className={`${isActive ? "text-gray-50" : "text-gray-800"}`}>
         <p className="text-left">{tab}</p>
-        <p className={`text-left text-xs ${isActive ? "text-gray-100" : ""}`}>
+        <p className={`text-left text-xs ${isActive ? "text-gray-400" : ""}`}>
           {tab === "Cleaning" && <>{cleaningToDo} items to clean</>}
         </p>
-        <p className={`text-left text-xs ${isActive ? "text-gray-100" : ""}`}>
+        <p className={`text-left text-xs ${isActive ? "text-gray-400" : ""}`}>
           {tab === "Delivery" && <>{deliverToDo} items to deliver</>}
         </p>
       </div>

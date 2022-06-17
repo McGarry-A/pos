@@ -109,11 +109,9 @@ const Workflow = () => {
 
   return (
     <div>
-      <>
-        {renderHeader()}
-        {renderNav()}
-        {renderMain()}
-      </>
+      {renderHeader()}
+      {renderNav()}
+      {renderMain()}
     </div>
   );
 };

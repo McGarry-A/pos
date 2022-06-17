@@ -9,6 +9,11 @@ import { Link } from "react-router-dom";
 type sectionType = "cleaning" | "delivery" | "done" | null;
 
 const Orders = () => {
+  const ordersWithSections = useAppSelector((state) => state.orders);
+  const { cleaning, deliver, done } = ordersWithSections;
+  const orders = { ...cleaning, ...deliver, ...done };
+
+  const [allOrdersState, setAllOrdersState] = useState<OrderInterface>(orders);
   const [filteredOrders, setFilteredOrders] = useState<OrderInterface | null>(
     null
   );
@@ -17,14 +22,6 @@ const Orders = () => {
   const orderIdField = useFormField();
   const [paymentFilter, setPaymentFilter] = useState<PaymentType | null>(null);
   const [sectionFilter, setSectionFilter] = useState<sectionType | null>(null);
-
-  const ordersWithSections = useAppSelector((state) => state.orders);
-
-  useEffect(() => {
-    const { cleaning, deliver, done } = ordersWithSections;
-    const orders = { ...cleaning, ...deliver, ...done };
-    setFilteredOrders(orders);
-  }, [ordersWithSections]);
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,7 +38,9 @@ const Orders = () => {
       .filter((el) => el.query!.length > 2);
 
     const filterOrders = () => {
-      if (!filteredOrders) return;
+      console.log(queries.length);
+      if (!allOrdersState) return;
+      if (queries.length === 0) return setFilteredOrders(null);
       let allOrders = {};
 
       queries.forEach((el) => {
@@ -50,7 +49,7 @@ const Orders = () => {
         switch (action) {
           case "FILTER_NAME":
             const matchingNames = Object.values(
-              Object.keys(allOrders).length === 0 ? filteredOrders : allOrders
+              Object.keys(allOrders).length === 0 ? allOrdersState : allOrders
             ).filter((el) => el.customer.name.includes(query!));
             const matchingNamesArray = matchingNames.map((el) => {
               return [[el.orderId], el];
@@ -62,7 +61,7 @@ const Orders = () => {
             break;
           case "FILTER_ORDERID":
             const matchingOrderIds = Object.values(
-              Object.keys(allOrders).length === 0 ? filteredOrders : allOrders
+              Object.keys(allOrders).length === 0 ? allOrdersState : allOrders
             ).filter((el) => el.orderId.includes(query!));
             const matchingOrderIdsArray = matchingOrderIds.map((el) => {
               return [[el.orderId], el];
@@ -73,7 +72,7 @@ const Orders = () => {
             break;
           case "FILTER_PAID":
             const matchingPaid = Object.values(
-              Object.keys(allOrders).length === 0 ? filteredOrders : allOrders
+              Object.keys(allOrders).length === 0 ? allOrdersState : allOrders
             ).filter((el) => el.paymentInfo.payment === query);
             const matchingPaidArray = matchingPaid.map((el) => {
               return [[el.orderId], el];
@@ -84,7 +83,7 @@ const Orders = () => {
             break;
           case "FILTER_SECTION":
             const matchingSections = Object.values(
-              Object.keys(allOrders).length === 0 ? filteredOrders : allOrders
+              Object.keys(allOrders).length === 0 ? allOrdersState : allOrders
             ).filter((el) => el.current === query);
             const matchingSectionsArray = matchingSections.map((el) => [
               [el.orderId],
@@ -195,9 +194,10 @@ const Orders = () => {
         </p>
       </div>
       <div className="mt-4">
-        {filteredOrders && (
-          <WorkflowOrders data={filteredOrders} showCurrent={true} />
-        )}
+        <WorkflowOrders
+          data={filteredOrders === null ? allOrdersState : filteredOrders}
+          showCurrent={true}
+        />
       </div>
     </div>
   );
