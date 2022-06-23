@@ -24,6 +24,7 @@ const initialState: OrderSliceInterface = {
         email: "ahmedmcgarry@hotmail.com",
         phone: "07907733824",
         address: "357 Leyland Road",
+        orders: []
       },
       orderId: "sku-01",
       orderNotes: "Please dont be late!",
@@ -38,7 +39,7 @@ const initialState: OrderSliceInterface = {
       items: {
         "order-01": {
           id: "order-01",
-          title: "Based",
+          title: "T-Shirt",
           price: 9.99,
           quantity: 2,
         },
@@ -50,6 +51,7 @@ const initialState: OrderSliceInterface = {
         email: "ahmedmcgarry@hotmail.com",
         phone: "07907733824",
         address: "357 Leyland Road",
+        orders: []
       },
       orderId: "sku-02",
       orderNotes: "I have no requirements for this order!",
@@ -76,6 +78,7 @@ const initialState: OrderSliceInterface = {
         email: "ahmedmcgarry@hotmail.com",
         phone: "07907733824",
         address: "357 Leyland Road",
+        orders: []
       },
       orderId: "sku-03",
       orderNotes: "Ahmed is the best brother that I could ever know!",

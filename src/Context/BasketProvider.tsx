@@ -160,6 +160,8 @@ export const BasketProvider = ({ children }: Props) => {
       delivery: "standard",
     };
 
+    localStorage.removeItem("POS_BASKET_KEY");
+    localStorage.removeItem("POS_CUSTOMER_KEY");
     setBasket(newBasket);
   };
 

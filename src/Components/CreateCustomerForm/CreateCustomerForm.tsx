@@ -53,6 +53,7 @@ const CreateCustomerForm: React.FC<Props> = ({
       phone: phoneRef.current!.value,
       email: emailRef.current!.value,
       address: addressRef.current!.value,
+      orders: [],
     };
 
     if (setCurrentCustomer) {
@@ -75,6 +76,7 @@ const CreateCustomerForm: React.FC<Props> = ({
       phone: phoneRef.current!.value,
       email: emailRef.current!.value,
       address: addressRef.current!.value,
+      orders: [],
     };
 
     dispatchRedux(editCustomer({ newCustomer, customer }));

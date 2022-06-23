@@ -11,6 +11,7 @@ import { OrderInterface } from "../OrderInterface";
 import { PaymentType, DeliveryType } from "../OrderInterface";
 import PaymentOption from "../PaymentOption/PaymentOption";
 import data from "./PaymentOptionData";
+import customerSlice from "../../Store/customerSlice";
 
 const PaymentOptions = () => {
   const [payment, setPayment] = useState<PaymentType>("cash");
@@ -21,6 +22,9 @@ const PaymentOptions = () => {
   const {
     actions: { create },
   } = orderSlice;
+  const {
+    actions: { addToOrderHistory },
+  } = customerSlice;
 
   const orderId: string = useId("sku-");
   const basketContext = useBasket();
@@ -72,6 +76,12 @@ const PaymentOptions = () => {
       },
     };
 
+    const orderHistory = {
+      customerPhone: currentCustomer.phone,
+      orderId: Object.keys(order)[0],
+    };
+
+    dispatch(addToOrderHistory({ ...orderHistory }));
     dispatch(create(order));
 
     actions.clearBasket();

@@ -91,7 +91,7 @@ const NavItem: React.FC<Props> = ({
 
 const Navbar = () => {
   const [activeTab, setActiveTab] = useState<NavType>("Workflow");
-  const [logOutIsHidden, setLogOutIsHidden] = useState<boolean>(true);
+  const [logOutIsHidden, setLogOutIsHidden] = useState<boolean>(false);
 
   const isMobile = useIsMobile();
 

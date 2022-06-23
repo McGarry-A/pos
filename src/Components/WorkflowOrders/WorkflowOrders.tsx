@@ -13,7 +13,7 @@ interface Props {
   showCurrent: boolean;
 }
 
-const WorkflowOrders: React.FC<Props> = ({ data, showCurrent }) => {
+const WorkflowOrders: React.FC<Props> = ({ data, showCurrent = false }) => {
   const dispatch = useAppDispatch();
   const {
     actions: { process },
@@ -23,6 +23,7 @@ const WorkflowOrders: React.FC<Props> = ({ data, showCurrent }) => {
   const isOrders: boolean = Object.keys(data).length < 1 ? false : true;
 
   const handleProcess = (orderId: string) => {
+    console.log("handling process");
     dispatch(process({ orderId }));
   };
 

@@ -3,4 +3,5 @@ export interface CustomerInterface {
     email: string;
     phone: string;
     address: string;
+    orders: Array<string>;
 }

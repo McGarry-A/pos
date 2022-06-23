@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../Store";
 import customerSlice from "../../Store/customerSlice";
 import CreateCustomerForm from "../CreateCustomerForm/CreateCustomerForm";
 import { CustomerInterface } from "../CustomerInterface";
+import OrderHistory from "../OrderHistory/OrderHistory";
 import Portal from "../Portal/Portal";
 
 interface Props {
@@ -13,6 +14,8 @@ interface Props {
 
 const CustomerCard: React.FC<Props> = ({ customer }) => {
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
+  const [historyIsHidden, setHistoryIsHidden] = useState<boolean>(false);
+
   const { name, phone, email, address } = customer;
   const dispatch = useAppDispatch();
   const {
@@ -30,6 +33,17 @@ const CustomerCard: React.FC<Props> = ({ customer }) => {
           allowEdit
           customer={customer}
           setPortalIsHidden={setPortalIsHidden}
+        />
+      </Portal>
+    );
+  };
+
+  const renderOrderHistory = (customer: CustomerInterface) => {
+    return (
+      <Portal isHidden={historyIsHidden}>
+        <OrderHistory
+          customer={customer}
+          setPortalIsHidden={setHistoryIsHidden}
         />
       </Portal>
     );
@@ -54,12 +68,22 @@ const CustomerCard: React.FC<Props> = ({ customer }) => {
         <div className="flex space-x-2">
           <div className="text-gray-600 text-xs font-light">{address}</div>
         </div>
-        <div className="cursor-pointer justify-self-end">
-          <FiEdit2
-            size={"1.1rem"}
-            onClick={() => setPortalIsHidden(!portalIsHidden)}
-          />
-          {renderEditCustomer()}
+
+        <div className="col-span-2 flex justify-between items-center">
+          <button
+            className="border-blue-600 text-xs opacity-90 col-span-1 p-2 w-max bg-blue-600 text-white hover:bg-blue-500"
+            onClick={() => setHistoryIsHidden(true)}
+          >
+            SHOW ORDERS
+            {renderOrderHistory(customer)}
+          </button>
+          <div className="cursor-pointer justify-self-end">
+            <FiEdit2
+              size={"1.1rem"}
+              onClick={() => setPortalIsHidden(!portalIsHidden)}
+            />
+            {renderEditCustomer()}
+          </div>
         </div>
       </div>
     </div>

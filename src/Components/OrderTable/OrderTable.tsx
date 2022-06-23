@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { GrFormNext } from "react-icons/gr";
 import { BasketItemInterface } from "../../Context";
+import CurrentBadge from "../CurrentBadge/CurrentBadge";
 import MarkAsPaidForm from "../MarkAsPaidForm/MarkAsPaidForm";
 import { OrderBody, OrderInterface } from "../OrderInterface";
 import PaymentBadge from "../PaymentBadge/PaymentBadge";
 
 interface Props {
-  handleClick: (
-    orderId: string,
-    current: "cleaning" | "delivery" | "done"
-  ) => void;
+  handleClick: (orderId: string) => void;
   data: OrderInterface;
   showCurrent: boolean;
 }
@@ -108,14 +106,7 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
         <td className="p-3 text-sm text-gray-700">{time}</td>
         {showCurrent && (
           <td className="p-3">
-            <div className="flex items-center">
-              <span
-                className={`border rounded-full w-2 h-2 mx-1 animate-pulse duration-150 ${
-                  current === "cleaning" ? "bg-green-600" : "bg-blue-600"
-                }`}
-              ></span>
-              <p className="uppercase text-xs opacity-60">{current}</p>
-            </div>
+            <CurrentBadge current={current} />
           </td>
         )}
         <td className="p-3 text-sm text-gray-700">{name}</td>
@@ -134,10 +125,7 @@ const OrderTable: React.FC<Props> = ({ handleClick, data, showCurrent }) => {
           />
         </td>
         <td className="p-3 text-sm text-gray-700">
-          <button
-            className="px-4 py-1"
-            onClick={() => handleClick(orderId, current)}
-          >
+          <button className="px-4 py-1" onClick={() => handleClick(orderId)}>
             <GrFormNext size={"1.3rem"} />
           </button>
         </td>

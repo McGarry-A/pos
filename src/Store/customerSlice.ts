@@ -6,19 +6,22 @@ const initialCustomerState: CustomerInterface[] = [
         address:"357 Leyland Road",
         name:"Ahmed McGarry",
         phone:"07907733824",
-        email:"123"
+        email:"123",
+        orders: []
     },
     {
         address:"357 Leyland Road",
         name:"Adam McGarry",
         phone:"0500564304",
-        email:"123"
+        email:"123",
+        orders: []
     },
     {
         address:"357 Leyland Road",
         name:"Alicia McGarry",
         phone:"123456789",
-        email:"123"
+        email:"123",
+        orders: []
     },
 
 ]
@@ -26,6 +29,11 @@ const initialCustomerState: CustomerInterface[] = [
 interface editInterface {
     newCustomer: CustomerInterface;
     customer: CustomerInterface;
+}
+
+interface addToHistoryInterface {
+    orderId: string;
+    customerPhone: string;
 }
 
 const customerSlice = createSlice({
@@ -55,6 +63,14 @@ const customerSlice = createSlice({
                     return el
                 }
 
+                return el
+            })
+        },
+        addToOrderHistory: (state: CustomerInterface[], action: PayloadAction<addToHistoryInterface>) => {
+            state.map(el => {
+                if (el.phone === action.payload.customerPhone) {
+                    return el.orders.push(action.payload.orderId)
+                }
                 return el
             })
         }

@@ -23,6 +23,10 @@ const Orders = () => {
   const [paymentFilter, setPaymentFilter] = useState<PaymentType | null>(null);
   const [sectionFilter, setSectionFilter] = useState<sectionType | null>(null);
 
+  useEffect(() => {
+    setAllOrdersState(orders);
+  }, []);
+
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const name = nameField.value;
@@ -109,56 +113,42 @@ const Orders = () => {
         <h2 className="text-2xl text-gray-800 mt-4">Order Search</h2>
       </div>
       <form onSubmit={(e) => handleFormSubmit(e)} className="my-6 px-4 mx-auto">
-        <div className="grid grid-cols-3 gap-5 max-w-lg">
+        <div className="grid grid-cols-4 gap-5 max-w-2xl">
           <div className="col-span-1">
             <label className="text-xs text-gray-700 font-light">Order ID</label>
-            <input type="text" className="h-8" {...orderIdField} />
-          </div>
-          <div className="col-span-2">
-            <label className="text-xs text-gray-700 font-light">
-              Full Name
-            </label>
-            <input type="text" className="h-8" {...nameField} />
+            <input type="text" className="" {...orderIdField} />
           </div>
           <div className="col-span-3">
             <label className="text-xs text-gray-700 font-light">
-              E-mail Address
+              Full Name
             </label>
-            <input type="text" className="h-8" />
+            <input type="text" className="" {...nameField} />
           </div>
-          <div className="flex">
-            <div className="w-full">
-              <label className="text-xs text-gray-700 font-light">Paid</label>
-              <select
-                className="border px-2 py-1 text-sm"
-                onChange={(e) =>
-                  setPaymentFilter(e.target.value as PaymentType)
-                }
-              >
-                <option value="none"></option>
-                <option value="cash">Cash</option>
-                <option value="card">Card</option>
-                <option value="credit">Credit</option>
-              </select>
-            </div>
-            <div className="w-full ml-2">
-              <label className="text-xs text-gray-700 font-light">
-                Section
-              </label>
-              <select
-                className="border px-2 py-1 text-sm"
-                onChange={(e) =>
-                  setSectionFilter(e.target.value as sectionType)
-                }
-              >
-                <option></option>
-                <option value="cleaning">Cleaning</option>
-                <option value="delivery">Delivery</option>
-                <option value="done">Done</option>
-              </select>
-            </div>
+          <div className="col-span-1">
+            <label className="text-xs text-gray-700 font-light">Paid</label>
+            <select
+              className="border px-2 py-1"
+              onChange={(e) => setPaymentFilter(e.target.value as PaymentType)}
+            >
+              <option value="none"></option>
+              <option value="cash">Cash</option>
+              <option value="card">Card</option>
+              <option value="credit">Credit</option>
+            </select>
           </div>
-          <div className="flex justify-end space-x-3 col-span-2">
+          <div className="w-full col-span-1">
+            <label className="text-xs text-gray-700 font-light">Section</label>
+            <select
+              className="border px-2 py-1"
+              onChange={(e) => setSectionFilter(e.target.value as sectionType)}
+            >
+              <option></option>
+              <option value="cleaning">Cleaning</option>
+              <option value="delivery">Delivery</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+          <div className="flex justify-end space-x-3 col-span-2 justify-self-end">
             <button
               className="border-gray-300 border p-3 text-gray-500 text-xs font-semibold uppercase rounded"
               type="button"
@@ -175,7 +165,7 @@ const Orders = () => {
             </button>
             <button
               type="submit"
-              className="bg-gray-600 border p-3 text-gray-50 text-xs font-semibold uppercase rounded"
+              className="bg-blue-600 border p-3 text-gray-50 text-xs font-semibold uppercase rounded hover:bg-blue-500"
             >
               Find Results
             </button>

@@ -11,8 +11,12 @@ import CustomerCard from "../../Components/CustomerCard/CustomerCard";
 
 const Customers = () => {
   const customers = useAppSelector((state) => state.customers);
-  const [filteredCustomers, setFilteredCustomers] =
+
+  const [allCustomerState, setAllCustomerState] =
     useState<CustomerInterface[]>(customers);
+  const [filteredCustomers, setFilteredCustomers] = useState<
+    CustomerInterface[] | null
+  >(null);
 
   useEffect(() => {
     setFilteredCustomers(customers);
@@ -72,7 +76,7 @@ const Customers = () => {
         switch (action) {
           case "FILTER_NAME":
             const matchingNames = (
-              allCustomers.length === 0 ? filteredCustomers : allCustomers
+              allCustomers.length === 0 ? allCustomerState : allCustomers
             ).filter((el) => {
               return el.name.includes(query) ? el : null;
             });
@@ -80,7 +84,7 @@ const Customers = () => {
             break;
           case "FILTER_EMAIL":
             const matchingEmails = (
-              allCustomers.length === 0 ? filteredCustomers : allCustomers
+              allCustomers.length === 0 ? allCustomerState : allCustomers
             ).filter((el) => {
               return el.email.includes(query) ? el : null;
             });
@@ -88,7 +92,7 @@ const Customers = () => {
             break;
           case "FILTER_PHONE":
             const matchingPhone = (
-              allCustomers.length === 0 ? filteredCustomers : allCustomers
+              allCustomers.length === 0 ? allCustomerState : allCustomers
             ).filter((el) => {
               return el.phone.includes(query) ? el : null;
             });
@@ -107,13 +111,17 @@ const Customers = () => {
   };
 
   const renderCustomerTable = () => {
-    if (!isMobile && filteredCustomers.length >= 1) {
-      return <CustomerTable data={filteredCustomers} />;
+    if (!isMobile && filteredCustomers) {
+      return (
+        <div className="mt-4 pl-4">
+          <CustomerTable data={filteredCustomers} />
+        </div>
+      );
     }
   };
 
   const renderCustomerCards = () => {
-    if (isMobile && filteredCustomers.length >= 1) {
+    if (isMobile && filteredCustomers) {
       return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {filteredCustomers.map((customer, index) => {
@@ -134,39 +142,34 @@ const Customers = () => {
         <h2 className="text-2xl text-gray-800 mt-4 px-2">Customer Search</h2>
       </div>
       <form onSubmit={(e) => handleFormSubmit(e)} className="my-6 px-4">
-        <div className="grid grid-cols-2 gap-5 max-w-lg">
+        <div className="grid grid-cols-4 gap-5 max-w-2xl">
           <div className="col-span-2">
             <label className="text-xs text-gray-700 font-light">
               Full Name
             </label>
-            <input type="text" className="h-8" {...nameField} ref={nameRef} />
+            <input type="text" className="" {...nameField} ref={nameRef} />
           </div>
-          <div className="">
+          <div className="col-span-2">
             <label className="text-xs text-gray-700 font-light">
               E-mail Address
             </label>
-            <input type="text" className="h-8" {...emailField} ref={emailRef} />
+            <input type="text" className="" {...emailField} ref={emailRef} />
           </div>
-          <div className="">
+          <div className="col-span-2">
             <label className="text-xs text-gray-700 font-light">
               Phone Number
             </label>
-            <input
-              type="text"
-              className="h-8"
-              {...numberField}
-              ref={numberRef}
-            />
+            <input type="text" className="" {...numberField} ref={numberRef} />
           </div>
-          <div className="flex col-span-2 justify-end space-x-4">
+          <div className="flex col-span-2 justify-end space-x-4 items-end">
             <button
-              className="border-gray-300 border p-3 text-gray-500 text-xs font-semibold uppercase rounded"
+              className="border-gray-300 border p-3 text-gray-500 text-xs font-semibold uppercase rounded h-14"
               type="button"
               onClick={handleClearCustomers}
             >
               CLEAR
             </button>
-            <button className="border-gray-300 bg-gray-600 border p-4 text-gray-50 text-xs font-semibold uppercase rounded">
+            <button className="border-gray-300 bg-blue-600 hover:bg-blue-500 border p-3 text-gray-50 text-xs font-semibold uppercase rounded h-14">
               Find Results
             </button>
           </div>
