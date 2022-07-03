@@ -46,7 +46,7 @@ const Workflow = () => {
 
   const renderNav = () => {
     return (
-      <nav className="flex space-x-4 mt-6 md:mt-12 pl-4 overflow-x-scroll md:space-x-10">
+      <nav className="flex space-x-4 mt-6 pl-4 overflow-x-scroll md:space-x-10">
         <WorkflowTab
           tab={"NewOrder"}
           activeTab={activeTab}
@@ -74,8 +74,8 @@ const Workflow = () => {
       <div className="md:ml-4 md:mt-8 flex items-center justify-between p-4 md:px-0 bg-white md:bg-gray-50">
         <div className="md:min-w-3/5 w-3/5">
           <h1 className="text-2xl leading-relaxed">WashClub</h1>
-          <h3 className="text-sm opacity-50 italic ">
-            Take em to the Cleanerz!
+          <h3 className="text-sm opacity-50">
+            Your friendly neighbourhood cleaners!
           </h3>
         </div>
         <div className="w-full flex justify-end md:hidden">
@@ -85,8 +85,8 @@ const Workflow = () => {
           <div className="flex items-center bg-white w-80 px-2 rounded border">
             <BiSearch size="1.3rem" />
             <input
-              placeholder="Quickly Find Products"
-              className="w-72 outline-none border-none text-sm italic"
+              placeholder="This input does not do anything..."
+              className="w-72 outline-none border-none text-sm"
             />
           </div>
           <button className="mx-2 py-1 px-3 rounded bg-white border active:scale-110">

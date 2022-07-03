@@ -75,7 +75,7 @@ const ChartWrapper: React.FC<props> = ({ children, chartTitle, large }) => {
   return (
     <div
       className={`w-full justify-center ${
-        large ? "col-span-2 max-w-2xl" : "max-w-xs"
+        large ? "col-span-1" : "max-w-xs"
       }`}
     >
       <h3 className="text-center opacity-60 mb-2 text-sm">{chartTitle}</h3>
@@ -172,21 +172,12 @@ const Reports = () => {
         <h2 className="text-gray-700 text-xl mx-2 sm:text-left sm:ml-4">
           Sales & Workflow
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="mx-4">
-            <ChartWrapper chartTitle="Sales in Workflow" large>
-              <Bar data={data} />
-            </ChartWrapper>
-          </div>
-          <div className="grid grid-cols-2 gap-2 p-6">
-            <ReportBlock title="Orders in Cleaning" figure={ordersInCleaning} />
-            <ReportBlock title="Orders in Delivery" figure={ordersInDeliver} />
-            <ReportBlock title="Orders Complete" figure={ordersInDone} />
-            <ReportBlock title="Total Orders" figure={totalOrders} />
-          </div>
-        </div>
 
-        <div className="grid grid-cols-4 gap-2 px-6">
+        <div className="grid grid-cols-4 gap-2 p-6">
+          <ReportBlock title="Orders in Cleaning" figure={ordersInCleaning} />
+          <ReportBlock title="Orders in Delivery" figure={ordersInDeliver} />
+          <ReportBlock title="Orders Complete" figure={ordersInDone} />
+          <ReportBlock title="Total Orders" figure={totalOrders} />
           <ReportBlock title="Total Sales" figure={totalSales} />
           <ReportBlock
             title="Value in Cleaning"
@@ -200,22 +191,10 @@ const Reports = () => {
         </div>
       </div>
 
-      {/* DONUGHT CHARTS */}
-      <div className="space-y-4 mt-6">
-        <h2 className="text-gray-700 text-xl mx-2 sm:text-left sm:ml-4">
-          Customers & Products
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full my-5 space-y-4 justify-items-center">
-          <ChartWrapper chartTitle="Popular Products">
-            <Doughnut data={donughtData} />
-          </ChartWrapper>
-          <ChartWrapper chartTitle="Active Customers">
-            <Doughnut data={donughtData} />
-          </ChartWrapper>
-          <ChartWrapper chartTitle="Popular Categories">
-            <Doughnut data={donughtData} />
-          </ChartWrapper>
-        </div>
+      <div className="mx-4">
+        <ChartWrapper chartTitle="Sales in Workflow" large>
+          <Bar data={data} />
+        </ChartWrapper>
       </div>
     </div>
   );

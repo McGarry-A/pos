@@ -9,7 +9,7 @@ const ProductGrid = () => {
 
   const renderCategories = () => {
     return (
-      <div className="md:mt-10 space-x-6 pl-4 mb-4">
+      <div className="md:mt-4 space-x-6 pl-4 mb-4">
         {categoryTitles.map((el, index) => (
           <button key={index} className="">
             <h3
@@ -49,7 +49,7 @@ const ProductGrid = () => {
   };
 
   return (
-    <div className="md:mt-4 w-full max-w-[880px]">
+    <div className="md:mt-2 w-full max-w-[880px]">
       {renderCategories()}
       {renderGrid()}
     </div>

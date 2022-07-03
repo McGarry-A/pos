@@ -13,7 +13,7 @@ import Autocomplete from "react-autocomplete";
 const NewOrderForm: React.FC = () => {
   const [portalIsHidden, setPortalIsHidden] = useState<boolean>(false);
   const [customerSearchValue, setCustomerSearchValue] =
-    useState<string>("Add Customer Here");
+    useState<string>("Type A to see autocomplete suggestions");
 
   const basket = useBasket();
   const customers = useAppSelector((state) => state.customers);
